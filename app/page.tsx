@@ -111,7 +111,7 @@ export default function Home() {
 
   function handleToggle(type: UserType) {
     setUserType(type);
-    setForm({ name: "", email: "", college: "", role: "" });
+    setForm({ name: "", email: "", college: "", role: "", location: "" });
     setSubmitted(false);
     setError("");
   }

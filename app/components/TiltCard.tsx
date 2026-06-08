@@ -1,6 +1,6 @@
 "use client";
 
-import { useMotionValue, useSpring, motion, type Variants } from "framer-motion";
+import { useMotionValue, useSpring, motion, type Variants, type TargetAndTransition } from "framer-motion";
 
 export default function TiltCard({
   children,
@@ -13,7 +13,7 @@ export default function TiltCard({
   className?: string;
   style?: React.CSSProperties;
   variants?: Variants;
-  whileHover?: Record<string, unknown>;
+  whileHover?: TargetAndTransition;
 }) {
   const rotX = useMotionValue(0);
   const rotY = useMotionValue(0);
