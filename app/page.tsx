@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useInView, AnimatePresence, type Variants } from "framer-motion";
 import Logo from "./components/Logo";
@@ -115,6 +115,15 @@ export default function Home() {
     setSubmitted(false);
     setError("");
   }
+
+  // Deep-link: theconnek.com/?role=give-back opens the give-back view and scrolls to the form.
+  useEffect(() => {
+    const role = new URLSearchParams(window.location.search).get("role");
+    if (role === "give-back" || role === "professional" || window.location.hash === "#give-back") {
+      handleToggle("professional");
+      setTimeout(() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" }), 500);
+    }
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
