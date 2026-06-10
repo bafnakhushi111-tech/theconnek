@@ -103,7 +103,7 @@ const content = {
 export default function Home() {
   const router = useRouter();
   const [userType, setUserType] = useState<UserType>("candidate");
-  const [form, setForm] = useState({ name: "", email: "", college: "", role: "", location: "" });
+  const [form, setForm] = useState({ name: "", email: "", college: "", role: "", location: "", experience: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -111,7 +111,7 @@ export default function Home() {
 
   function handleToggle(type: UserType) {
     setUserType(type);
-    setForm({ name: "", email: "", college: "", role: "", location: "" });
+    setForm({ name: "", email: "", college: "", role: "", location: "", experience: "" });
     setSubmitted(false);
     setError("");
   }
@@ -183,16 +183,16 @@ export default function Home() {
       {/* ── Hero ── */}
       <section className="relative overflow-hidden pt-24 pb-20 md:pt-32 md:pb-28" style={{ background: heroBg }}>
         <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.28, 0.2], background: accent }}
+          animate={{ opacity: [0.18, 0.26, 0.18] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-3xl -translate-y-1/2"
-          style={{ background: accent }}
+          className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-2xl -translate-y-1/2"
+          style={{ background: accent, willChange: "opacity" }}
         />
         <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.12, 0.18, 0.12] }}
+          animate={{ opacity: [0.1, 0.16, 0.1] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-0 right-1/4 w-72 h-72 rounded-full blur-3xl translate-y-1/3"
-          style={{ background: accentLight }}
+          className="absolute bottom-0 right-1/4 w-72 h-72 rounded-full blur-2xl translate-y-1/3"
+          style={{ background: accentLight, willChange: "opacity" }}
         />
 
         <div className="relative max-w-4xl mx-auto px-5 text-center">
@@ -234,9 +234,9 @@ export default function Home() {
                 className="flex flex-col items-center"
               >
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight mb-6">
-                  <TextReveal text={c.headline} once={false} />
+                  <TextReveal text={c.headline} once={true} />
                   <br />
-                  <TextReveal text={c.headlineGradient} style={{ color: accentLight }} once={false} delay={0.18} />
+                  <TextReveal text={c.headlineGradient} style={{ color: accentLight }} once={true} delay={0.18} />
                 </h1>
 
                 <p className="text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: "#6B7FA3" }}>
@@ -283,11 +283,11 @@ export default function Home() {
         {userType === "candidate" && (
           <motion.section
             key="peer-community"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden py-20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="py-20"
             style={{ background: heroBg }}
           >
             <div className="max-w-4xl mx-auto px-5">
@@ -306,7 +306,7 @@ export default function Home() {
                 variants={stagger}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: false, margin: "-80px" }}
+                viewport={{ once: true, margin: "-80px" }}
                 className="grid sm:grid-cols-3 gap-6"
               >
                 {[
@@ -374,7 +374,7 @@ export default function Home() {
                 variants={stagger}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: false, margin: "-80px" }}
+                viewport={{ once: true, margin: "-80px" }}
                 className={`grid gap-5 ${userType === "candidate" ? "sm:grid-cols-2" : "sm:grid-cols-3"}`}
               >
                 {c.valueProps.map(({ icon, title, body }) => (
@@ -406,7 +406,7 @@ export default function Home() {
               variants={stagger}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, margin: "-80px" }}
+              viewport={{ once: true, margin: "-80px" }}
               className="grid sm:grid-cols-3 gap-6 sm:gap-8"
             >
               {c.steps.map(({ step, title, body }, i) => (
@@ -500,6 +500,21 @@ export default function Home() {
                           ))}
                         </select>
                       )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1" style={{ color: accentLight }}>Years of experience</label>
+                      <select
+                        required
+                        value={form.experience}
+                        onChange={(e) => setForm({ ...form, experience: e.target.value })}
+                        className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none appearance-none"
+                        style={{ background: ab(0.1), border: `1px solid ${ab(0.25)}` }}
+                      >
+                        <option value="" style={{ background: heroBg }}>Select experience</option>
+                        {["0–2 years", "2–5 years", "5–10 years", "10+ years"].map((opt) => (
+                          <option key={opt} value={opt} style={{ background: heroBg }}>{opt}</option>
+                        ))}
+                      </select>
                     </div>
                     {error && <p className="text-red-400 text-sm text-center">{error}</p>}
                     <motion.button
