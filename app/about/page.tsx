@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import NavWithPanel from "../components/NavWithPanel";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "About — Connek",
-  description: "Why we built Connek — and the networking gap we couldn't find a solution for.",
+  title: "About Connek | Why We Built This MBA Networking Community",
+  description: "Connek was built because real career conversations — the ones that actually change direction — were happening in rooms most MBA students never get access to. Here's the story.",
+  alternates: { canonical: "https://theconnek.com/about" },
 };
 
 export default function AboutPage() {
@@ -44,6 +46,23 @@ export default function AboutPage() {
               We&apos;re just getting started. But if you&apos;ve ever felt locked out of the
               conversation, this is for you.
             </p>
+          </div>
+
+          <div className="mt-14 flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/#waitlist"
+              className="inline-block font-bold px-8 py-4 rounded-full text-sm text-center text-white"
+              style={{ background: "#4B6FA5", boxShadow: "0 16px 32px rgba(75,111,165,0.3)" }}
+            >
+              Join the community — it&apos;s free →
+            </Link>
+            <Link
+              href="/"
+              className="inline-block font-bold px-8 py-4 rounded-full text-sm text-center"
+              style={{ border: "1px solid rgba(75,111,165,0.3)", color: "#7B9EC8" }}
+            >
+              Back to home
+            </Link>
           </div>
         </div>
       </section>

@@ -263,9 +263,9 @@ export default function Home() {
       <section style={{ borderBottom: "1px solid #1a2a45", background: "#08090E" }}>
         <div className="max-w-4xl mx-auto px-5 py-8 grid grid-cols-3 gap-4 text-center">
           {[
-            { stat: "Real conversations", sub: "Not cold DMs" },
+            { stat: "100% Free", sub: "No paywalls, ever" },
             { stat: "No algorithm", sub: "You choose who you talk to" },
-            { stat: "Free, always", sub: "No catch" },
+            { stat: "Built for India", sub: "MBA students & professionals" },
           ].map(({ stat, sub }) => (
             <div key={stat} className="flex flex-col items-center">
               <div className="text-lg sm:text-xl font-bold text-white">{stat}</div>
@@ -418,6 +418,41 @@ export default function Home() {
             </motion.div>
           </motion.div>
         </AnimatePresence>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="py-20" style={{ background: "#08090E" }}>
+        <div className="max-w-2xl mx-auto px-5">
+          <FadeSection>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-12">Common questions.</h2>
+          </FadeSection>
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            className="flex flex-col gap-4"
+          >
+            {[
+              { q: "Is Connek free?", a: "Yes, completely. No subscription, no premium tier, no catch. Connek is free for both students and professionals." },
+              { q: "Who is this for?", a: "MBA students and early professionals in India targeting careers in consulting, finance, marketing, operations, and other fields. And professionals who are open to having real conversations about their journey." },
+              { q: "How does matching work?", a: "We match based on your background, target role, and what you're looking for — then make the introduction. You're always in control of who you talk to." },
+              { q: "Do I need to be from a top college?", a: "No. There's no pedigree filter. If you're serious about your career and willing to have real conversations, you belong here." },
+              { q: "How soon will I hear back after joining?", a: "We review every signup personally and onboard in small batches. You'll get an email the moment a conversation is ready for you." },
+              { q: "I'm a professional — how much time does this take?", a: "As much or as little as you want. No quota, no schedule. One conversation a month is enough to make a real difference for someone." },
+            ].map(({ q, a }) => (
+              <motion.div
+                key={q}
+                variants={fadeUp}
+                className="rounded-2xl p-6"
+                style={{ background: "rgba(75,111,165,0.06)", border: "1px solid rgba(75,111,165,0.15)" }}
+              >
+                <p className="font-semibold text-white text-sm sm:text-base mb-2">{q}</p>
+                <p className="text-sm leading-relaxed" style={{ color: "#6B7FA3" }}>{a}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </section>
 
       {/* ── Join form ── */}
