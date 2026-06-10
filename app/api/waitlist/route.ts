@@ -2,9 +2,8 @@ import { neon } from "@neondatabase/serverless";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const sql = neon(process.env.DATABASE_URL!);
-
 export async function POST(req: NextRequest) {
+  const sql = neon(process.env.DATABASE_URL!);
   const { name, email, college, role, user_type, location } = await req.json();
 
   if (!name || !email || !college || !role) {
