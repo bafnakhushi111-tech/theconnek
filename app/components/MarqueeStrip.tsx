@@ -29,7 +29,7 @@ export default function MarqueeStrip({ accent = "#4B6FA5" }: { accent?: string }
       }}
     >
       <motion.div
-        style={{ display: "flex", width: "max-content" }}
+        style={{ display: "flex", width: "max-content", willChange: "transform" }}
         animate={{ x: ["0%", "-50%"] }}
         transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
       >
