@@ -495,10 +495,28 @@ export default function Home() {
                 >
                   <div className="text-4xl mb-4">🎉</div>
                   <h3 className="text-xl font-bold mb-2 text-white">You&apos;re in.</h3>
-                  <p className="text-sm" style={{ color: "#6B7FA3" }}>
+                  <p className="text-sm mb-6" style={{ color: "#6B7FA3" }}>
                     We&apos;ll be in touch at <span className="text-white font-medium">{form.email}</span>.
-                    <br className="hidden sm:block" />Share this with someone who should be in the room.
                   </p>
+                  <p className="text-sm font-semibold text-white mb-3">Know someone who should be here?</p>
+                  <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                    <a
+                      href={`https://wa.me/?text=${encodeURIComponent("I just joined Connek — real career conversations with people who've been there. No cold DMs, no algorithm. Join me: https://theconnek.com/?ref=share")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-bold px-5 py-2.5 rounded-full text-xs text-white"
+                      style={{ background: accent }}
+                    >
+                      Share on WhatsApp
+                    </a>
+                    <button
+                      onClick={() => navigator.clipboard.writeText("https://theconnek.com/?ref=share")}
+                      className="font-bold px-5 py-2.5 rounded-full text-xs"
+                      style={{ border: `1px solid ${ab(0.3)}`, color: accentLight }}
+                    >
+                      Copy link
+                    </button>
+                  </div>
                 </motion.div>
               ) : (
                 <>

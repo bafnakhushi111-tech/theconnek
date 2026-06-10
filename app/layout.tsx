@@ -21,12 +21,14 @@ export const metadata: Metadata = {
     siteName: "Connek",
     type: "website",
     locale: "en_IN",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Connek — Real conversations. Real careers." }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Connek | MBA Networking & Career Mentorship Community India",
     description: "Real career conversations with professionals who've been there. No cold DMs. No algorithm. Free to join.",
-    site: "@theconnek",
+    site: "@_the_connek",
+    images: ["/opengraph-image"],
   },
   alternates: {
     canonical: "https://theconnek.com",
