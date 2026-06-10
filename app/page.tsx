@@ -15,7 +15,7 @@ import ScrollProgress from "./components/ScrollProgress";
 
 type UserType = "candidate" | "professional";
 
-const CANDIDATE_ROLES = ["Consulting", "Strategy", "Finance", "Investment Banking", "Private Equity", "High-Growth Startups", "Other"];
+const CANDIDATE_ROLES = ["Consulting", "Strategy", "Finance", "Investment Banking", "Private Equity", "Venture Capital", "Marketing", "Brand Management", "Sales & Business Development", "Operations & Supply Chain", "Human Resources", "Product Management", "General Management", "Entrepreneurship / Startups", "Data & Analytics", "Other"];
 const PROFESSIONAL_ROLES = ["Consulting", "Strategy", "Finance", "Investment Banking", "Private Equity", "Startups / VC", "Product & Technology", "Other"];
 
 const fadeUp: Variants = {
