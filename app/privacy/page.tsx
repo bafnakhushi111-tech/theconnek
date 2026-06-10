@@ -34,6 +34,8 @@ export default function PrivacyPage() {
           <li>Your email address</li>
           <li>Your college / university (or, for professionals, your company / organisation)</li>
           <li>Your target role or current role / industry</li>
+          <li>Your location (city)</li>
+          <li>Your years of experience</li>
           <li>Whether you joined as someone looking to grow or someone looking to give back</li>
         </ul>
         <p>
@@ -62,7 +64,7 @@ export default function PrivacyPage() {
         </p>
         <ul className="list-disc pl-5 flex flex-col gap-1">
           <li>
-            <strong style={{ color: "#B8C6DC" }}>Supabase</strong> — securely stores the waitlist database.
+            <strong style={{ color: "#B8C6DC" }}>Neon</strong> — securely stores the waitlist database.
           </li>
           <li>
             <strong style={{ color: "#B8C6DC" }}>Resend</strong> — sends us a notification when you sign up,
@@ -70,6 +72,10 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong style={{ color: "#B8C6DC" }}>Vercel</strong> — hosts the website.
+          </li>
+          <li>
+            <strong style={{ color: "#B8C6DC" }}>Google Analytics & Microsoft Clarity</strong> — used for
+            anonymous website analytics, only if you accept cookies.
           </li>
         </ul>
         <p>
