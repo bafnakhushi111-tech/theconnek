@@ -1,11 +1,8 @@
-import { createClient } from "@supabase/supabase-js";
+import { neon } from "@neondatabase/serverless";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+const sql = neon(process.env.DATABASE_URL!);
 
 export async function POST(req: NextRequest) {
   const { name, email, college, role, user_type, location } = await req.json();
@@ -14,13 +11,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "All fields are required." }, { status: 400 });
   }
 
-  const { error } = await supabase.from("waitlist").insert({ name, email, college, role, user_type: user_type || "candidate", location: location || null });
-
-  if (error) {
-    if (error.code === "23505") {
+  try {
+    await sql`
+      INSERT INTO waitlist (name, email, college, role, user_type, location)
+      VALUES (${name}, ${email}, ${college}, ${role}, ${user_type || "candidate"}, ${location || null})
+    `;
+  } catch (err: unknown) {
+    const e = err as { code?: string; message?: string };
+    if (e.code === "23505") {
       return NextResponse.json({ error: "This email is already on the waitlist." }, { status: 409 });
     }
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: e.message || "Database error" }, { status: 500 });
   }
 
   // Notify owner of new signup
@@ -45,7 +46,7 @@ export async function POST(req: NextRequest) {
               </tr>
             `).join("")}
           </table>
-          <p style="margin:24px 0 0;font-size:12px;color:#9ca3af;">View all signups at your Supabase dashboard.</p>
+          <p style="margin:24px 0 0;font-size:12px;color:#9ca3af;">View all signups at your Neon dashboard.</p>
         </div>
       `,
     });
