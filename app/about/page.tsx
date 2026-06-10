@@ -4,8 +4,8 @@ import NavWithPanel from "../components/NavWithPanel";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "About Connek | Why We Built This MBA Networking Community",
-  description: "Connek was built because real career conversations — the ones that actually change direction — were happening in rooms most MBA students never get access to. Here's the story.",
+  title: "About theconnek | Why We Built This MBA Networking Community",
+  description: "theconnek was built because real career conversations, the ones that actually change direction, were happening in rooms most MBA students never get access to. Here's the story.",
   alternates: { canonical: "https://theconnek.com/about" },
 };
 
@@ -20,7 +20,7 @@ export default function AboutPage() {
             OUR STORY
           </p>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-12 leading-tight">
-            Why we built Connek.
+            Why we built theconnek.
           </h1>
           <div className="flex flex-col gap-6 text-base sm:text-lg leading-relaxed" style={{ color: "#8093AE" }}>
             <p>
@@ -38,8 +38,8 @@ export default function AboutPage() {
               through luck and proximity, not effort. That felt wrong.
             </p>
             <p>
-              Connek is built around the conversations I couldn&apos;t find. A community for real case
-              prep, guesstimate practice, and mentor-mentee relationships built through proper matching —
+              theconnek is built around the conversations I couldn&apos;t find. A community for real case
+              prep, guesstimate practice, and mentor-mentee relationships built through proper matching,
               not cold DMs. No pedigree filter. No algorithm deciding who you should know. Just people who want to talk and people who want to listen.
             </p>
             <p style={{ color: "#B8C6DC" }}>
@@ -54,7 +54,7 @@ export default function AboutPage() {
               className="inline-block font-bold px-8 py-4 rounded-full text-sm text-center text-white"
               style={{ background: "#4B6FA5", boxShadow: "0 16px 32px rgba(75,111,165,0.3)" }}
             >
-              Join the community — it&apos;s free →
+              Join the community, it&apos;s free →
             </Link>
             <Link
               href="/"

@@ -3,22 +3,22 @@ import Link from "next/link";
 import LegalPage, { Section } from "../components/LegalPage";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Connek",
-  description: "How Connek collects, uses, and protects your personal information.",
+  title: "Privacy Policy | theconnek",
+  description: "How theconnek collects, uses, and protects your personal information.",
 };
 
 export default function PrivacyPage() {
   return (
     <LegalPage title="Privacy Policy" updated="4 June 2026">
       <p className="text-sm sm:text-base leading-relaxed" style={{ color: "#8093AE" }}>
-        Connek (&ldquo;Connek&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) helps students and professionals
+        theconnek (&ldquo;theconnek&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) helps students and professionals
         have honest career conversations. This policy explains what we collect when you join our waitlist,
         why we collect it, and the choices you have. We&apos;ve written it in plain language on purpose.
       </p>
 
       <Section heading="Who we are">
         <p>
-          Connek is operated from India and is currently in a pre-launch / waitlist stage. For any
+          theconnek is operated from India and is currently in a pre-launch / waitlist stage. For any
           privacy question, or to exercise the rights described below, contact us at{" "}
           <a href="mailto:hello@theconnek.in" style={{ color: "#7B9EC8" }}>
             hello@theconnek.in
@@ -47,9 +47,9 @@ export default function PrivacyPage() {
       <Section heading="How we use it">
         <p>We use your information only to:</p>
         <ul className="list-disc pl-5 flex flex-col gap-1">
-          <li>Add you to the Connek waitlist and let you know when we launch or open early access;</li>
+          <li>Add you to the theconnek waitlist and let you know when we launch or open early access;</li>
           <li>Understand who&apos;s interested so we can build the right thing;</li>
-          <li>Reach out to you about Connek, if and when relevant.</li>
+          <li>Reach out to you about theconnek, if and when relevant.</li>
         </ul>
         <p>
           We do not sell your data, and we do not use it for advertising. Our legal basis for processing
@@ -60,21 +60,21 @@ export default function PrivacyPage() {
       <Section heading="Who we share it with">
         <p>
           We don&apos;t sell or rent your information. We use a small number of trusted service providers
-          purely to run Connek, and they only process your data on our behalf:
+          purely to run theconnek, and they only process your data on our behalf:
         </p>
         <ul className="list-disc pl-5 flex flex-col gap-1">
           <li>
-            <strong style={{ color: "#B8C6DC" }}>Neon</strong> — securely stores the waitlist database.
+            <strong style={{ color: "#B8C6DC" }}>Neon</strong>, securely stores the waitlist database.
           </li>
           <li>
-            <strong style={{ color: "#B8C6DC" }}>Resend</strong> — sends us a notification when you sign up,
+            <strong style={{ color: "#B8C6DC" }}>Resend</strong>, sends us a notification when you sign up,
             and may be used to email you.
           </li>
           <li>
-            <strong style={{ color: "#B8C6DC" }}>Vercel</strong> — hosts the website.
+            <strong style={{ color: "#B8C6DC" }}>Vercel</strong>, hosts the website.
           </li>
           <li>
-            <strong style={{ color: "#B8C6DC" }}>Google Analytics & Microsoft Clarity</strong> — used for
+            <strong style={{ color: "#B8C6DC" }}>Google Analytics & Microsoft Clarity</strong>, used for
             anonymous website analytics, only if you accept cookies.
           </li>
         </ul>
@@ -87,7 +87,7 @@ export default function PrivacyPage() {
       <Section heading="How long we keep it">
         <p>
           We keep your information for as long as you&apos;re on the waitlist and we&apos;re actively building
-          Connek. If you ask us to delete it, or you tell us you&apos;re no longer interested, we&apos;ll remove
+          theconnek. If you ask us to delete it, or you tell us you&apos;re no longer interested, we&apos;ll remove
           it promptly.
         </p>
       </Section>
@@ -115,7 +115,7 @@ export default function PrivacyPage() {
 
       <Section heading="Changes to this policy">
         <p>
-          As Connek grows from a waitlist into a full product, this policy will change. We&apos;ll update the
+          As theconnek grows from a waitlist into a full product, this policy will change. We&apos;ll update the
           date at the top whenever we do. See also our{" "}
           <Link href="/terms" style={{ color: "#7B9EC8" }}>
             Terms of Service

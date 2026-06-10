@@ -126,7 +126,7 @@ export default function SidePanel({ open, onClose }: { open: boolean; onClose: (
                 Join the community →
               </a>
               <p className="text-center text-xs mt-3" style={{ color: "#2A3A50" }}>
-                © {2026} Connek · Real conversations. That&apos;s it.
+                © {2026} theconnek · Real conversations. That&apos;s it.
               </p>
             </div>
           </motion.div>

@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 
 const SHARE_URL = "https://theconnek.com/?ref=share";
 const SHARE_TEXT =
-  "I just joined Connek — real career conversations with people who've been there. No cold DMs, no algorithm. Join me:";
+  "I just joined theconnek, real career conversations with people who've been there. No cold DMs, no algorithm. Join me:";
 
 export default function ThankYou() {
   const [copied, setCopied] = useState(false);
@@ -50,7 +50,7 @@ export default function ThankYou() {
           <div className="text-5xl mb-6">🎉</div>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">You&apos;re in.</h1>
           <p className="text-sm sm:text-base leading-relaxed mb-10" style={{ color: "#8A9CB8" }}>
-            Thanks for joining Connek. We&apos;re building this carefully and in small batches — we&apos;ll
+            Thanks for joining theconnek. We&apos;re building this carefully and in small batches, we&apos;ll
             email you the moment there&apos;s a real conversation waiting for you. Keep an eye on your inbox
             (and your spam folder, just in case).
           </p>
@@ -64,9 +64,9 @@ export default function ThankYou() {
               What happens next
             </p>
             {[
-              "We review every signup personally — no bots, no auto-sorting.",
+              "We review every signup personally, no bots, no auto-sorting.",
               "When your batch opens, you'll get an email with how to start your first conversation.",
-              "Early members help shape what Connek becomes. We'll actually listen.",
+              "Early members help shape what theconnek becomes. We'll actually listen.",
             ].map((line, i) => (
               <div key={i} className="flex gap-3 items-start">
                 <span className="font-bold text-sm" style={{ color: "#7B9EC8" }}>
@@ -82,7 +82,7 @@ export default function ThankYou() {
           {/* Share */}
           <p className="font-semibold text-base mb-2 text-white">Know someone who should be in the room?</p>
           <p className="text-sm mb-6" style={{ color: "#8A9CB8" }}>
-            Connek gets better with the right people. Pass it on.
+            theconnek gets better with the right people. Pass it on.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a

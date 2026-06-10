@@ -25,7 +25,7 @@ export default function LegalPage({
         className="py-8 text-center text-xs"
         style={{ background: "#08090E", borderTop: "1px solid #1a2a45", color: "#2A3A50" }}
       >
-        <span>Connek · Real conversations. That&apos;s it.</span>
+        <span>theconnek · Real conversations. That&apos;s it.</span>
       </footer>
     </main>
   );

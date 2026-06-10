@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Connek — Real conversations. Real careers.";
+export const alt = "theconnek, Real conversations. Real careers.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -24,9 +24,9 @@ async function loadFont(weight: number, text: string): Promise<ArrayBuffer | nul
 }
 
 export default async function Image() {
-  const headline = "Connek";
+  const headline = "theconnek";
   const tagline = "Real conversations. Real careers.";
-  const sub = "Coffee chats with consultants, bankers, and PE professionals — for students, not cold DMs.";
+  const sub = "Coffee chats with consultants, bankers, and PE professionals, for students, not cold DMs.";
 
   const [bold, regular] = await Promise.all([
     loadFont(800, headline + tagline),

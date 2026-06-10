@@ -11,21 +11,21 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://theconnek.com"),
-  title: "Connek | MBA Networking & Career Mentorship Community India",
-  description: "Connek connects MBA students and early professionals with industry mentors for real career conversations. No cold DMs, no algorithm. Free to join. Built for India.",
+  title: "theconnek | MBA Networking & Career Mentorship Community India",
+  description: "theconnek connects MBA students and early professionals with industry mentors for real career conversations. No cold DMs, no algorithm. Free to join. Built for India.",
   keywords: "MBA networking India, career mentorship, MBA community, consulting career advice, IIM networking, case competition prep, guesstimate practice, career conversations, mentorship platform India",
   openGraph: {
-    title: "Connek | MBA Networking & Career Mentorship Community India",
+    title: "theconnek | MBA Networking & Career Mentorship Community India",
     description: "Real career conversations with professionals who've been there. No cold DMs. No algorithm. Free to join.",
     url: "https://theconnek.com",
-    siteName: "Connek",
+    siteName: "theconnek",
     type: "website",
     locale: "en_IN",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Connek — Real conversations. Real careers." }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "theconnek, Real conversations. Real careers." }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Connek | MBA Networking & Career Mentorship Community India",
+    title: "theconnek | MBA Networking & Career Mentorship Community India",
     description: "Real career conversations with professionals who've been there. No cold DMs. No algorithm. Free to join.",
     site: "@_the_connek",
     images: ["/opengraph-image"],
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Connek",
+  name: "theconnek",
   url: "https://theconnek.com",
   logo: "https://theconnek.com/icon.svg",
   description: "A community platform connecting MBA students and early professionals with industry mentors for real career conversations.",

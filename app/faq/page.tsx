@@ -4,19 +4,19 @@ import NavWithPanel from "../components/NavWithPanel";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "FAQ | Connek",
-  description: "Common questions about Connek — the free networking and mentorship community for students and professionals in India.",
+  title: "FAQ | theconnek",
+  description: "Common questions about theconnek, the free networking and mentorship community for students and professionals in India.",
   alternates: { canonical: "https://theconnek.com/faq" },
 };
 
 const FAQS = [
-  { q: "Is Connek free?", a: "Yes, completely. No subscription, no premium tier, no catch. Connek is free for both students and professionals." },
-  { q: "Who is this for?", a: "Any student — undergraduate, postgraduate, MBA, or otherwise — who wants real career conversations. And professionals who are open to sharing their journey. No pedigree filter, no college cutoff." },
-  { q: "How does matching work?", a: "We match based on your background, target role, and what you're looking for — then make the introduction. You're always in control of who you talk to." },
+  { q: "Is theconnek free?", a: "Yes, completely. No subscription, no premium tier, no catch. theconnek is free for both students and professionals." },
+  { q: "Who is this for?", a: "Any student, undergraduate, postgraduate, MBA, or otherwise, who wants real career conversations. And professionals who are open to sharing their journey. No pedigree filter, no college cutoff." },
+  { q: "How does matching work?", a: "We match based on your background, target role, and what you're looking for, then make the introduction. You're always in control of who you talk to." },
   { q: "Do I need to be from a top college?", a: "No. There's no pedigree filter. If you're serious about your career and willing to have real conversations, you belong here." },
   { q: "How soon will I hear back after joining?", a: "We review every signup personally and onboard in small batches. You'll get an email the moment a conversation is ready for you." },
   { q: "I'm a professional — how much time does this take?", a: "As much or as little as you want. No quota, no schedule. One conversation a month is enough to make a real difference for someone." },
-  { q: "What is a study circle?", a: "A small group of students targeting the same roles — think shared resources, honest feedback, and accountability without the LinkedIn performativity." },
+  { q: "What is a study circle?", a: "A small group of students targeting the same roles, think shared resources, honest feedback, and accountability without the LinkedIn performativity." },
   { q: "What's guesstimate practice?", a: "A dedicated group to work through guesstimates together. The kind of repetition that actually builds confidence under pressure, with real people, not just recordings." },
 ];
 
@@ -51,7 +51,7 @@ export default function FAQPage() {
               className="inline-block font-bold px-8 py-4 rounded-full text-sm text-center text-white"
               style={{ background: "#4B6FA5", boxShadow: "0 16px 32px rgba(75,111,165,0.3)" }}
             >
-              Join the community — it&apos;s free →
+              Join the community, it&apos;s free →
             </Link>
             <Link
               href="/contact"

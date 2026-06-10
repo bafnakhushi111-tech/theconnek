@@ -3,22 +3,22 @@ import Link from "next/link";
 import LegalPage, { Section } from "../components/LegalPage";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — Connek",
-  description: "The terms for using the Connek website and joining the waitlist.",
+  title: "Terms of Service | theconnek",
+  description: "The terms for using the theconnek website and joining the waitlist.",
 };
 
 export default function TermsPage() {
   return (
     <LegalPage title="Terms of Service" updated="4 June 2026">
       <p className="text-sm sm:text-base leading-relaxed" style={{ color: "#8093AE" }}>
-        These terms cover your use of the Connek website and waitlist while we&apos;re in our pre-launch
+        These terms cover your use of the theconnek website and waitlist while we&apos;re in our pre-launch
         stage. By using the site or joining the waitlist, you agree to them. They&apos;re short on purpose.
       </p>
 
-      <Section heading="What Connek is right now">
+      <Section heading="What theconnek is right now">
         <p>
-          Connek is a community for honest career conversations between students and professionals. Today
-          the website is a waitlist — joining means you&apos;re expressing interest and asking to be notified.
+          theconnek is a community for honest career conversations between students and professionals. Today
+          the website is a waitlist, joining means you&apos;re expressing interest and asking to be notified.
           It does not guarantee access, a match, a mentor, a referral, or any specific outcome.
         </p>
       </Section>
@@ -34,9 +34,9 @@ export default function TermsPage() {
 
       <Section heading="Conversations and conduct">
         <p>
-          Connek exists to make real, respectful conversations easier. When the community opens, we expect
+          theconnek exists to make real, respectful conversations easier. When the community opens, we expect
           everyone to behave honestly and kindly. We&apos;re not a recruiter, we don&apos;t broker jobs, and we&apos;re
-          not party to any arrangement you make with another person you meet through Connek. Any advice,
+          not party to any arrangement you make with another person you meet through theconnek. Any advice,
           referral, or opportunity that comes from a conversation is between you and that person.
         </p>
       </Section>
@@ -47,7 +47,7 @@ export default function TermsPage() {
           <Link href="/privacy" style={{ color: "#7B9EC8" }}>
             Privacy Policy
           </Link>
-          . Please read it — it&apos;s part of these terms.
+          . Please read it, it&apos;s part of these terms.
         </p>
       </Section>
 
@@ -62,7 +62,7 @@ export default function TermsPage() {
 
       <Section heading="Changes">
         <p>
-          We may update these terms as Connek evolves from a waitlist into a product. We&apos;ll change the
+          We may update these terms as theconnek evolves from a waitlist into a product. We&apos;ll change the
           date at the top when we do. Questions? Email{" "}
           <a href="mailto:hello@theconnek.in" style={{ color: "#7B9EC8" }}>
             hello@theconnek.in

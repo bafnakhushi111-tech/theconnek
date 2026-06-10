@@ -3,8 +3,8 @@ import NavWithPanel from "../components/NavWithPanel";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "Contact — Connek",
-  description: "Get in touch with the Connek team.",
+  title: "Contact | theconnek",
+  description: "Get in touch with the theconnek team.",
 };
 
 export default function ContactPage() {

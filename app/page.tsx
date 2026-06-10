@@ -48,7 +48,7 @@ const content = {
       "Networking has become posting, reacting, and sending connection requests to people you'll never actually speak to. Nobody really talks anymore.",
       "The conversations that actually change careers, honest, specific, human, happen in small rooms, at the right events, or through the right introduction. Most people never get access to those rooms.",
     ],
-    whyClose: "Connek is trying to change that. Not with an algorithm. Just by making it easier for people to actually talk to each other.",
+    whyClose: "theconnek is trying to change that. Not with an algorithm. Just by making it easier for people to actually talk to each other.",
     valuePropHeadline: "What you get.",
     valueProps: [
       { icon: "✦", title: "Talk to people who've been there", body: "Not influencers. People 2-3 steps ahead who remember what it felt like to figure it out, and are willing to talk." },
@@ -72,13 +72,13 @@ const content = {
   professional: {
     headline: "A 30-minute conversation",
     headlineGradient: "can change someone's direction.",
-    sub: "Connek connects you with students and early professionals genuinely trying to figure out their careers. No commitment. Talk when you want.",
+    sub: "theconnek connects you with students and early professionals genuinely trying to figure out their careers. No commitment. Talk when you want.",
     whyHeadline: "Someone helped you once.",
     why: [
       "There was a conversation, maybe a coffee chat, maybe a chance introduction, that gave you clarity when you needed it most. Something someone said that stuck.",
       "Most people don't get that conversation. Not because the people who could help aren't willing, but because there's no easy way to find each other.",
     ],
-    whyClose: "Connek is that easy way.",
+    whyClose: "theconnek is that easy way.",
     valuePropHeadline: "What you get.",
     valueProps: [
       { icon: "✦", title: "Give what you wish you'd had", body: "The honest advice, the insider context, the things that took you years to figure out. Pass it on." },
@@ -314,7 +314,7 @@ export default function Home() {
                   <p className="text-sm font-semibold text-white mb-3">Know someone who should be here?</p>
                   <div className="flex flex-col sm:flex-row gap-2 justify-center">
                     <a
-                      href={`https://wa.me/?text=${encodeURIComponent("I just joined Connek — real career conversations with people who've been there. No cold DMs, no algorithm. Join me: https://theconnek.com/?ref=share")}`}
+                      href={`https://wa.me/?text=${encodeURIComponent("I just joined theconnek, real career conversations with people who've been there. No cold DMs, no algorithm. Join me: https://theconnek.com/?ref=share")}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-bold px-5 py-2.5 rounded-full text-xs text-white"

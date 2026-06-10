@@ -27,7 +27,7 @@ export default function NotFound() {
         className="inline-block font-bold px-8 py-4 rounded-full text-sm md:text-base"
         style={{ background: "#4B6FA5", color: "#ffffff", boxShadow: "0 20px 40px rgba(75,111,165,0.3)" }}
       >
-        Back to Connek →
+        Back to theconnek →
       </Link>
     </main>
   );

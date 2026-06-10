@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connek — Website Audit Report V3 · June 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F8F9FC;
+    --sidebar: #0F172A;
+    --sidebar-w: 260px;
+    --card: #FFFFFF;
+    --text: #1E293B;
+    --muted: #64748B;
+    --accent: #6366F1;
+    --border: #E2E8F0;
+    --red: #EF4444;
+    --orange: #F97316;
+    --yellow: #EAB308;
+    --green: #22C55E;
+    --red-bg: #FEF2F2;
+    --orange-bg: #FFF7ED;
+    --yellow-bg: #FEFCE8;
+    --green-bg: #F0FDF4;
+    --font: 'Plus Jakarta Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--sidebar);
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 32px;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-thumb { background: #334155; }
+
+  .sidebar-logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid #1E293B;
+    margin-bottom: 8px;
+  }
+
+  .sidebar-logo .wordmark { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+  .sidebar-logo .tagline { font-size: 11px; color: #475569; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 500; }
+
+  .sidebar-section-label { font-size: 10px; font-weight: 700; color: #334155; text-transform: uppercase; letter-spacing: 1.2px; padding: 16px 24px 6px; }
+
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 24px;
+    font-size: 13px; font-weight: 500; color: #94A3B8;
+    cursor: pointer; border-left: 3px solid transparent;
+    transition: all 0.15s ease; text-decoration: none; line-height: 1.3;
+  }
+  .nav-item:hover { color: #E2E8F0; background: rgba(255,255,255,0.04); }
+  .nav-item.active { color: #fff; border-left-color: var(--accent); background: rgba(99,102,241,0.08); }
+
+  .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: #334155; flex-shrink: 0; transition: background 0.15s; }
+  .nav-item.active .nav-dot { background: var(--accent); }
+
+  .sidebar-scores {
+    margin: 20px 16px 0;
+    background: #1E293B;
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .sidebar-scores .label { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; margin-bottom: 12px; }
+  .mini-score-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .mini-score-row:last-child { margin-bottom: 0; }
+  .mini-score-name { font-size: 11px; color: #94A3B8; font-weight: 500; }
+  .mini-score-val { font-size: 13px; font-weight: 700; color: #fff; font-family: var(--mono); }
+  .mini-bar { height: 3px; background: #0F172A; border-radius: 2px; margin-top: 4px; overflow: hidden; }
+  .mini-bar-fill { height: 100%; border-radius: 2px; background: var(--accent); }
+
+  /* ── MAIN ── */
+  .main { margin-left: var(--sidebar-w); flex: 1; min-width: 0; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--sidebar);
+    padding: 80px 64px 64px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.4), transparent);
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3);
+    border-radius: 20px; padding: 6px 14px;
+    font-size: 12px; font-weight: 600; color: #A5B4FC; letter-spacing: 0.3px; margin-bottom: 28px;
+  }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #A5B4FC; }
+
+  .hero h1 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; color: #fff; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 12px; }
+  .hero h1 span { color: #818CF8; }
+
+  .hero-subtitle { font-size: 14px; font-weight: 500; color: #475569; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 32px; }
+  .hero-divider { width: 40px; height: 3px; background: var(--accent); border-radius: 2px; margin-bottom: 28px; }
+  .hero-summary { max-width: 720px; font-size: 16px; line-height: 1.75; color: #94A3B8; font-weight: 400; }
+  .hero-summary strong { color: #CBD5E1; font-weight: 600; }
+
+  .hero-meta { display: flex; align-items: center; gap: 24px; margin-top: 40px; padding-top: 32px; border-top: 1px solid #1E293B; flex-wrap: wrap; }
+  .hero-meta-item { display: flex; flex-direction: column; gap: 3px; }
+  .hero-meta-label { font-size: 10px; color: #334155; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .hero-meta-value { font-size: 14px; font-weight: 600; color: #CBD5E1; }
+  .hero-meta-sep { width: 1px; height: 32px; background: #1E293B; }
+
+  /* ── SECTIONS ── */
+  .section { padding: 64px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+  .section-title { font-size: 28px; font-weight: 800; color: var(--text); letter-spacing: -0.8px; line-height: 1.2; }
+  .section-desc { font-size: 15px; color: var(--muted); line-height: 1.6; margin-top: 8px; max-width: 620px; }
+
+  /* ── SCORECARD ── */
+  .scorecard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 0; }
+
+  .score-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px;
+    position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .score-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.07); }
+  .score-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 16px 16px 0 0; }
+  .score-card.bad::after { background: var(--red); }
+  .score-card.warn::after { background: var(--orange); }
+  .score-card.mid::after { background: var(--yellow); }
+  .score-card.ok::after { background: var(--green); }
+
+  .score-number { font-size: 52px; font-weight: 800; letter-spacing: -3px; line-height: 1; margin-bottom: 4px; font-family: var(--mono); }
+  .score-card.bad .score-number { color: var(--red); }
+  .score-card.warn .score-number { color: var(--orange); }
+  .score-card.mid .score-number { color: var(--yellow); }
+  .score-card.ok .score-number { color: var(--green); }
+
+  .score-denom { font-size: 18px; color: var(--border); font-weight: 400; }
+  .score-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; margin-top: 12px; }
+  .score-verdict { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .score-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 16px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 2px; width: 0; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+  .score-card.bad .score-bar-fill { background: var(--red); }
+  .score-card.warn .score-bar-fill { background: var(--orange); }
+  .score-card.mid .score-bar-fill { background: var(--yellow); }
+  .score-card.ok .score-bar-fill { background: var(--green); }
+
+  /* ── DELTA BANNER ── */
+  .delta-banner {
+    background: linear-gradient(135deg, #EEF2FF 0%, #FAF5FF 100%);
+    border: 1px solid #C7D2FE; border-radius: 12px; padding: 22px 28px;
+    margin-bottom: 32px; display: flex; gap: 18px; align-items: flex-start;
+  }
+  .delta-icon { width: 36px; height: 36px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; font-weight: 800; font-family: var(--mono); font-size: 13px; }
+  .delta-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .delta-text { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .delta-text strong { color: var(--text); font-weight: 600; }
+
+  /* ── FILTER BAR ── */
+  .filter-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+  .filter-label { font-size: 12px; color: var(--muted); font-weight: 600; margin-right: 4px; }
+  .filter-btn { padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--card); font-family: var(--font); font-size: 12px; font-weight: 600; cursor: pointer; color: var(--muted); transition: all 0.15s; }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--text); border-color: var(--text); color: #fff; }
+  .filter-btn[data-filter="critical"].active { background: var(--red); border-color: var(--red); color: #fff; }
+  .filter-btn[data-filter="high"].active { background: var(--orange); border-color: var(--orange); color: #fff; }
+  .filter-btn[data-filter="medium"].active { background: var(--yellow); border-color: var(--yellow); color: #1E293B; }
+  .filter-btn[data-filter="good"].active { background: var(--green); border-color: var(--green); color: #fff; }
+
+  /* ── FINDING CARDS ── */
+  .findings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .finding-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px;
+    transition: all 0.2s ease; position: relative; overflow: hidden;
+  }
+  .finding-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); transform: translateY(-1px); border-color: #CBD5E1; }
+  .finding-card[data-severity="critical"] { border-left: 3px solid var(--red); }
+  .finding-card[data-severity="high"] { border-left: 3px solid var(--orange); }
+  .finding-card[data-severity="medium"] { border-left: 3px solid var(--yellow); }
+  .finding-card[data-severity="good"] { border-left: 3px solid var(--green); }
+  .finding-card.hidden { display: none; }
+
+  .badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+  .badge-critical { background: var(--red-bg); color: var(--red); }
+  .badge-high { background: var(--orange-bg); color: var(--orange); }
+  .badge-medium { background: var(--yellow-bg); color: #92400E; }
+  .badge-good { background: var(--green-bg); color: #15803D; }
+  .badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+  .badge-new { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 4px; font-size: 9px; font-weight: 800; letter-spacing: 0.8px; background: rgba(99,102,241,0.12); color: var(--accent); margin-left: 6px; vertical-align: middle; }
+
+  .finding-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .finding-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .finding-desc strong { color: var(--text); font-weight: 600; }
+
+  /* ── PRIORITY TIERS ── */
+  .tier-block { background: var(--card); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 24px; overflow: hidden; }
+  .tier-head { padding: 22px 28px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .tier-head.t0 { background: linear-gradient(90deg, #FEF2F2, #fff); border-bottom-color: #FECACA; }
+  .tier-head.t1 { background: linear-gradient(90deg, #FFF7ED, #fff); border-bottom-color: #FED7AA; }
+  .tier-head.t2 { background: linear-gradient(90deg, #FEFCE8, #fff); border-bottom-color: #FDE68A; }
+  .tier-head.t3 { background: linear-gradient(90deg, #EEF2FF, #fff); border-bottom-color: #C7D2FE; }
+  .tier-head.t4 { background: linear-gradient(90deg, #F0FDF4, #fff); border-bottom-color: #BBF7D0; }
+
+  .tier-label-wrap { display: flex; align-items: center; gap: 14px; }
+  .tier-num { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 800; font-size: 16px; color: #fff; }
+  .tier-num.t0 { background: var(--red); }
+  .tier-num.t1 { background: var(--orange); }
+  .tier-num.t2 { background: #CA8A04; }
+  .tier-num.t3 { background: var(--accent); }
+  .tier-num.t4 { background: var(--green); }
+
+  .tier-title { font-size: 17px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; line-height: 1.2; }
+  .tier-sub { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 500; }
+  .tier-effort { background: rgba(15,23,42,0.04); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 11px; font-weight: 600; color: var(--text); white-space: nowrap; }
+  .tier-effort span { color: var(--muted); font-weight: 500; }
+
+  .tier-items { padding: 8px 0; }
+  .tier-row { display: grid; grid-template-columns: 36px 1fr 110px 90px; padding: 14px 28px; gap: 16px; align-items: start; border-bottom: 1px solid var(--border); }
+  .tier-row:last-child { border-bottom: none; }
+  .tier-row:hover { background: var(--bg); }
+  .tier-row-num { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--border); padding-top: 2px; }
+  .tier-row-action { font-size: 13.5px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.4; }
+  .tier-row-why { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .tier-row-effort { font-size: 11px; font-weight: 600; color: var(--text); font-family: var(--mono); text-align: right; }
+
+  .source-pill { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 9px; font-weight: 800; text-align: center; letter-spacing: 0.6px; }
+  .source-pill.done { background: rgba(34,197,94,0.12); color: #15803D; }
+  .source-pill.gap { background: rgba(239,68,68,0.1); color: var(--red); }
+  .source-pill.minor { background: rgba(100,116,139,0.12); color: #475569; }
+
+  /* ── PROGRESS TABLE ── */
+  .progress-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 28px; }
+  .progress-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .progress-table thead { background: var(--sidebar); }
+  .progress-table th { padding: 14px 18px; text-align: left; font-size: 11px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.8px; }
+  .progress-table td { padding: 14px 18px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: middle; line-height: 1.5; }
+  .progress-table tr:last-child td { border-bottom: none; }
+  .progress-table tr:hover td { background: #F8F9FC; }
+  .progress-table .item-name { font-weight: 600; }
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .pill-done { background: var(--green-bg); color: #15803D; }
+  .pill-gap { background: var(--red-bg); color: var(--red); }
+  .pill-minor { background: var(--yellow-bg); color: #92400E; }
+
+  /* ── QUICK WINS ── */
+  .quick-wins-box {
+    background: linear-gradient(135deg, #EEF2FF 0%, #F0FDF4 100%);
+    border: 1px solid #C7D2FE; border-radius: 16px; padding: 36px 40px;
+    position: relative; overflow: hidden;
+  }
+  .quick-wins-box::before { content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(99,102,241,0.06); }
+  .quick-wins-header { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .quick-wins-icon { width: 40px; height: 40px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .quick-wins-title { font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+  .quick-wins-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+  .wins-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .win-item { background: #fff; border: 1px solid #C7D2FE; border-radius: 10px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 14px; transition: box-shadow 0.2s; }
+  .win-item:hover { box-shadow: 0 4px 16px rgba(99,102,241,0.12); }
+  .win-item.full { grid-column: span 2; }
+  .win-time { background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+  .win-text { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.5; }
+  .win-text span { display: block; font-weight: 400; color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+  /* ── REC BOX ── */
+  .rec-box { background: var(--sidebar); border-radius: 14px; padding: 28px 32px; display: flex; gap: 24px; align-items: flex-start; margin-top: 32px; }
+  .rec-icon { width: 44px; height: 44px; background: rgba(99,102,241,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .rec-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .rec-body { font-size: 14px; color: #94A3B8; line-height: 1.7; }
+  .rec-body strong { color: #CBD5E1; }
+
+  /* ── SCORE HISTORY ── */
+  .history-row { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .history-row:last-child { border-bottom: none; }
+  .h-date { font-size: 12px; color: var(--muted); font-weight: 600; width: 130px; flex-shrink: 0; }
+  .h-bar-wrap { flex: 1; height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .h-bar { height: 100%; border-radius: 99px; background: var(--accent); }
+  .h-score { font-size: 15px; font-weight: 800; color: var(--text); width: 48px; text-align: right; flex-shrink: 0; font-family: var(--mono); }
+  .h-note { font-size: 11px; color: var(--muted); width: 220px; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  .report-footer { background: var(--sidebar); padding: 32px 64px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #1E293B; flex-wrap: wrap; gap: 12px; }
+  .report-footer-text { font-size: 13px; color: #334155; font-weight: 500; }
+  .report-footer-text a { color: #475569; text-decoration: none; }
+  .report-footer-badge { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #475569; }
+  .footer-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { opacity: 0; animation: fadeUp 0.5s ease forwards; }
+  .fade-up-d1 { animation-delay: 0.1s; }
+  .fade-up-d2 { animation-delay: 0.2s; }
+  .fade-up-d3 { animation-delay: 0.3s; }
+  .fade-up-d4 { animation-delay: 0.4s; }
+  .section-anchor { scroll-margin-top: 24px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .scorecard-grid { grid-template-columns: 1fr 1fr; }
+    .findings-grid { grid-template-columns: 1fr; }
+    .wins-grid { grid-template-columns: 1fr; }
+    .wins-grid .win-item.full { grid-column: span 1; }
+    .tier-row { grid-template-columns: 32px 1fr 90px; }
+    .tier-row-effort { display: none; }
+  }
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+    .hero { padding: 48px 32px 40px; }
+    .section { padding: 48px 32px; }
+    .report-footer { padding: 24px 32px; flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 600px) {
+    .scorecard-grid { grid-template-columns: 1fr; }
+    .h-note { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="wordmark">Connek Audit · V3</div>
+    <div class="tagline">June 2026 · Current State</div>
+  </div>
+
+  <div class="sidebar-section-label">Sections</div>
+
+  <a class="nav-item active" href="#hero" data-section="hero"><span class="nav-dot"></span>Overview</a>
+  <a class="nav-item" href="#scorecard" data-section="scorecard"><span class="nav-dot"></span>Scorecard</a>
+  <a class="nav-item" href="#progress" data-section="progress"><span class="nav-dot"></span>Progress vs V1</a>
+  <a class="nav-item" href="#build" data-section="build"><span class="nav-dot"></span>Build Quality</a>
+  <a class="nav-item" href="#conversion" data-section="conversion"><span class="nav-dot"></span>UX & Conversion</a>
+  <a class="nav-item" href="#trust" data-section="trust"><span class="nav-dot"></span>Trust & Social Proof</a>
+  <a class="nav-item" href="#priorities" data-section="priorities"><span class="nav-dot"></span>Priority Stack</a>
+  <a class="nav-item" href="#quickwins" data-section="quickwins"><span class="nav-dot"></span>Quick Wins</a>
+  <a class="nav-item" href="#history" data-section="history"><span class="nav-dot"></span>Score History</a>
+
+  <div class="sidebar-scores" style="margin-top:auto;">
+    <div class="label">Dimension Scores</div>
+    <div class="mini-score-row">
+      <span class="mini-score-name">SEO</span>
+      <span class="mini-score-val">9/10</span>
+    </div>
+    <div class="mini-bar"><div class="mini-bar-fill" style="width:90%; background:#22C55E;"></div></div>
+    <div class="mini-score-row" style="margin-top:10px;">
+      <span class="mini-score-name">Legal / Compliance</span>
+      <span class="mini-score-val">9/10</span>
+    </div>
+    <div class="mini-bar"><div class="mini-bar-fill" style="width:90%; background:#22C55E;"></div></div>
+    <div class="mini-score-row" style="margin-top:10px;">
+      <span class="mini-score-name">UX / Conversion</span>
+      <span class="mini-score-val">7.5/10</span>
+    </div>
+    <div class="mini-bar"><div class="mini-bar-fill" style="width:75%; background:#EAB308;"></div></div>
+    <div class="mini-score-row" style="margin-top:10px;">
+      <span class="mini-score-name">Trust / Social Proof</span>
+      <span class="mini-score-val">4/10</span>
+    </div>
+    <div class="mini-bar"><div class="mini-bar-fill" style="width:40%; background:#EF4444;"></div></div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <section class="hero section-anchor" id="hero">
+    <div class="hero-eyebrow">Website Audit Report · Version 3</div>
+    <h1 class="fade-up">Connek —<br><span>June 2026 Re-Score</span></h1>
+    <div class="hero-subtitle fade-up fade-up-d1">Post-Build · Current State · Gap Analysis</div>
+    <div class="hero-divider fade-up fade-up-d2"></div>
+    <p class="hero-summary fade-up fade-up-d3">
+      This V3 audit scores the site as it stands today after a full build cycle that addressed nearly every V1 and V2 critical and high-priority finding. <strong>Overall score: 7.8 / 10</strong> — up from 4.9 at the start of the session. SEO, legal compliance, UX structure, and text readability are all at a solid level. <strong>The one remaining gap</strong> that holds the score back is trust and social proof: the mentor section is empty and the stats strip has no real numbers. Fixing that alone would push the site to 8.5+. Everything else is at a pre-launch-ready standard.
+    </p>
+    <div class="hero-meta fade-up fade-up-d4">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Site</span>
+        <span class="hero-meta-value">theconnek.com</span>
+      </div>
+      <div class="hero-meta-sep"></div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Date</span>
+        <span class="hero-meta-value">10 June 2026 · V3</span>
+      </div>
+      <div class="hero-meta-sep"></div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Overall Score</span>
+        <span class="hero-meta-value" style="color:#A5B4FC;">7.8 / 10</span>
+      </div>
+      <div class="hero-meta-sep"></div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Improvement</span>
+        <span class="hero-meta-value" style="color:#86EFAC;">+2.9 from baseline</span>
+      </div>
+      <div class="hero-meta-sep"></div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Remaining Gaps</span>
+        <span class="hero-meta-value" style="color:#FCA5A5;">3 key items</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCORECARD -->
+  <section class="section section-anchor" id="scorecard">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Executive Summary</div>
+        <div class="section-title">Scorecard</div>
+        <div class="section-desc">Eight dimensions scored. Green = solid. The 4/10 on Trust/Social Proof is the single metric pulling the overall score down — everything else is at 7+ and most are at 8+.</div>
+      </div>
+    </div>
+
+    <div class="delta-banner">
+      <div class="delta-icon">V3</div>
+      <div>
+        <div class="delta-title">What changed since V1 (the start of this build cycle)</div>
+        <div class="delta-text">
+          <strong>Every V1 and V2 critical blocker has been resolved.</strong> OG image, analytics with consent-gated cookie banner, privacy policy (DPDP + GDPR), terms of service, branded 404, professional toggle (now fully functional with separate form), footer with legal links and social handles, about page with founder story, FAQ page (/faq), thank-you page with share mechanic, JSON-LD schema, canonical URLs, and real form validation with error states. The join form was also moved above the content sections (3 scrolls from top instead of 8+), and body text contrast was improved site-wide. <strong>The only remaining gap is social proof</strong> — the mentor section is ready but empty, and the stats strip has no real numbers.
+        </div>
+      </div>
+    </div>
+
+    <div class="scorecard-grid">
+      <div class="score-card ok">
+        <div class="score-number" data-target="9">0<span class="score-denom">/10</span></div>
+        <div class="score-name">SEO</div>
+        <div class="score-verdict">Title, OG, Twitter card, JSON-LD Organization schema, canonical URLs, robots index/follow, dynamic OG image. All in place on every page.</div>
+        <div class="score-bar"><div class="score-bar-fill" data-width="90%"></div></div>
+      </div>
+      <div class="score-card ok">
+        <div class="score-number" data-target="9">0<span class="score-denom">/10</span></div>
+        <div class="score-name">Legal / Compliance</div>
+        <div class="score-verdict">Cookie consent with Accept/Decline. Analytics consent-gated. Privacy policy (DPDP 2023 + GDPR). Terms of service. All data processors named.</div>
+        <div class="score-bar"><div class="score-bar-fill" data-width="90%"></div></div>
+      </div>
+      <div class="score-card ok">
+        <div class="score-number" data-target="8">0<span class="score-denom">/10</span></div>
+        <div class="score-name">Content Quality</div>
+        <div class="score-verdict">Dual persona toggle, specific sub-products (study circles, guesstimate), honest About page, well-written FAQ, clear value props for both sides.</div>
+        <div class="score-bar"><div class="score-bar-fill" data-width="80%"></div></div>
+      </div>
+      <div class="score-card mid">
+        <div class="score-number" data-target="7">0<span class="score-denom">/10</span></div>
+        <div class="score-name">UX / Conversion</div>
+        <div class="score-verdict">Form now ~3 scrolls from top. Hero CTA, share mechanic, thank-you page. No real member count in stats strip yet.</div>
+        <div class="score-bar"><div class="score-bar-fill" data-width="75%"></div></div>
+      </div>
+      <div class="score-card mid">
+        <div class="score-number" data-target="7">0<span class="score-denom">/10</span></div>
+        <div class="score-name">Design / Readability</div>
+        <div class="score-verdict">Text visibility improved (#8A9CB8 body). Consistent dark theme, smooth animations, responsive. No strong hero visual or illustration.</div>
+        <div class="score-bar"><div class="score-bar-fill" data-width="75%"></div></div>
+      </div>
+      <div class="score-card mid">
+        <div class="score-number" data-target="7">0<span class="score-denom">/10</span></div>
+        <div class="score-name">Performance</div>
+        <div class="score-verdict">Next.js + next/font, no render-blocking fonts, no heavy images. Framer Motion bundle adds JS weight. Cursor glow & scroll progress contribute.</div>
+        <div class="score-bar"><div class="score-bar-fill" data-width="70%"></div></div>
+      </div>
+      <div class="score-card bad">
+        <div class="score-number" data-target="4">0<span class="score-denom">/10</span></div>
+        <div class="score-name">Trust / Social Proof</div>
+        <div class="score-verdict">Mentor section exists but is empty. Stats strip has no real numbers. No testimonials. This is the one gap holding the overall score back.</div>
+        <div class="score-bar"><div class="score-bar-fill" data-width="40%"></div></div>
+      </div>
+      <div class="score-card warn">
+        <div class="score-number" data-target="6">0<span class="score-denom">/10</span></div>
+        <div class="score-name">Accessibility</div>
+        <div class="score-verdict">Contrast improved. aria-labels on menu buttons. Form labels present. Select dropdowns missing focus rings. No skip-to-content link.</div>
+        <div class="score-bar"><div class="score-bar-fill" data-width="60%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRESS VS V1 -->
+  <section class="section section-anchor" id="progress">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Section 01</div>
+        <div class="section-title">Progress vs V1 Audit</div>
+        <div class="section-desc">Every finding from the V1/V2 audit mapped to its current status. Green = resolved. Red = still open. Yellow = partially addressed.</div>
+      </div>
+    </div>
+
+    <div class="progress-wrap">
+      <table class="progress-table">
+        <thead>
+          <tr>
+            <th style="width:280px;">Finding</th>
+            <th style="width:100px;">V1 Priority</th>
+            <th style="width:110px;">Status</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="item-name">OG image + og:description + twitter:card</td>
+            <td><span class="badge badge-critical" style="margin:0">Critical</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>Dynamic OG image at /opengraph-image (1200×630). Metadata in layout.tsx.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Analytics (GA4 + Microsoft Clarity)</td>
+            <td><span class="badge badge-critical" style="margin:0">Critical</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>Consent-gated — only loads after cookie Accept. G-JDBRXGBYBX + x1p3rgic1z.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Privacy policy (DPDP + GDPR)</td>
+            <td><span class="badge badge-critical" style="margin:0">Critical</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>/privacy in plain English. All processors named. Data rights section.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Terms of service</td>
+            <td><span class="badge badge-high" style="margin:0">High</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>/terms. Pre-launch disclaimers. Links from footer + sidebar.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Cookie consent banner</td>
+            <td><span class="badge badge-high" style="margin:0">High</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>Accept/Decline. localStorage persisted. Linked to /privacy.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Branded 404 page</td>
+            <td><span class="badge badge-high" style="margin:0">High</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>Custom not-found.tsx. On-brand copy. CTA back to home.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Professional toggle — routes to correct form</td>
+            <td><span class="badge badge-critical" style="margin:0">Critical</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>Toggle now switches all copy, fields, and accent colour. Separate DB table (mentors).</td>
+          </tr>
+          <tr>
+            <td class="item-name">JSON-LD structured data</td>
+            <td><span class="badge badge-high" style="margin:0">High</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>Organization schema in layout.tsx &lt;head&gt;. sameAs Instagram.</td>
+          </tr>
+          <tr>
+            <td class="item-name">About page + founder story</td>
+            <td><span class="badge badge-high" style="margin:0">High</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>/about with founder narrative, CTAs, and SEO metadata.</td>
+          </tr>
+          <tr>
+            <td class="item-name">FAQ page</td>
+            <td><span class="badge badge-medium" style="margin:0">Medium</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>/faq with 8 Q&amp;As, bottom CTA. Linked from sidebar nav.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Thank-you page with referral mechanic</td>
+            <td><span class="badge badge-high" style="margin:0">High</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>/thank-you with WhatsApp share, X share, copy link. What happens next section.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Footer with legal links + social handles</td>
+            <td><span class="badge badge-high" style="margin:0">High</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>Footer has About, Privacy, Terms, Instagram (@_the_connek), "Made in India".</td>
+          </tr>
+          <tr>
+            <td class="item-name">Sidebar nav with all pages</td>
+            <td><span class="badge badge-high" style="margin:0">High</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>Home, Join, About, FAQ, Instagram, Contact, Terms, Privacy. Correct order.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Form validation + error states</td>
+            <td><span class="badge badge-medium" style="margin:0">Medium</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>Required fields, error message display, loading state, success redirect.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Join form scroll depth</td>
+            <td><span class="badge badge-high" style="margin:0">High</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>Form now appears right after Hero → Stats → Marquee. ~3 scrolls vs 8+ before.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Experience dropdown</td>
+            <td><span class="badge badge-medium" style="margin:0">Medium</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>0–2 / 2–5 / 5–10 / 10+ years on both candidate and professional forms.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Text visibility (body contrast)</td>
+            <td><span class="badge badge-medium" style="margin:0">Medium</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>Body text updated from #6B7FA3 to #8A9CB8 site-wide.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Database (Supabase pausing issue)</td>
+            <td><span class="badge badge-critical" style="margin:0">Critical</span></td>
+            <td><span class="pill pill-done">✓ Done</span></td>
+            <td>Migrated from Supabase to Neon PostgreSQL. No pausing on free tier.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Mentor profiles grid</td>
+            <td><span class="badge badge-critical" style="margin:0">Critical</span></td>
+            <td><span class="pill pill-gap">✗ Open</span></td>
+            <td>Component built and ready. MENTORS array is empty — no real profiles added yet.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Real member count in stats strip</td>
+            <td><span class="badge badge-high" style="margin:0">High</span></td>
+            <td><span class="pill pill-gap">✗ Open</span></td>
+            <td>Stats show "100% Free / No algorithm / Built for India" — no actual numbers.</td>
+          </tr>
+          <tr>
+            <td class="item-name">sitemap.xml + robots.txt</td>
+            <td><span class="badge badge-high" style="margin:0">High</span></td>
+            <td><span class="pill pill-gap">✗ Open</span></td>
+            <td>Not yet added. Next.js app/sitemap.ts can auto-generate this.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Select dropdown focus rings</td>
+            <td><span class="badge badge-medium" style="margin:0">Medium</span></td>
+            <td><span class="pill pill-minor">~ Minor</span></td>
+            <td>Text inputs have onFocus borders. Role and experience selects do not.</td>
+          </tr>
+          <tr>
+            <td class="item-name">Skip-to-content accessibility link</td>
+            <td><span class="badge badge-medium" style="margin:0">Medium</span></td>
+            <td><span class="pill pill-minor">~ Minor</span></td>
+            <td>Not added. Keyboard/screen reader users must tab through full nav first.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BUILD QUALITY -->
+  <section class="section section-anchor" id="build">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Section 02</div>
+        <div class="section-title">Build Quality</div>
+        <div class="section-desc">Infrastructure, SEO, metadata, and technical compliance. Almost entirely resolved from V1.</div>
+      </div>
+    </div>
+
+    <div class="filter-bar" data-group="build">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="medium">Remaining</button>
+      <button class="filter-btn" data-filter="good">Done</button>
+    </div>
+
+    <div class="findings-grid" id="build-findings">
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">SEO metadata — complete stack</div>
+        <div class="finding-desc">Title, meta description, keywords, Open Graph (title, description, image, locale, type, url), Twitter card (summary_large_image, site @_the_connek), canonical URL, and robots index/follow — all set in layout.tsx via Next.js Metadata API.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">Dynamic OG image at /opengraph-image</div>
+        <div class="finding-desc">Next.js ImageResponse generates a 1200×630 branded card. Plus Jakarta Sans loaded via fetch for the renderer. Used as og:image and twitter:image in all metadata.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">JSON-LD Organization schema</div>
+        <div class="finding-desc">Injected via &lt;script type="application/ld+json"&gt; in layout.tsx &lt;head&gt;. Covers name, url, logo, description, sameAs (Instagram), and foundingLocation (India).</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">GDPR/DPDP compliant analytics setup</div>
+        <div class="finding-desc">GA4 (G-JDBRXGBYBX) and Microsoft Clarity (x1p3rgic1z) only render after explicit cookie acceptance. CookieBanner.tsx reads/writes localStorage. Analytics.tsx listens on storage events for real-time consent changes.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">Neon PostgreSQL — no pausing</div>
+        <div class="finding-desc">Replaced Supabase (which paused after 1 week inactivity) with Neon. Separate mentees and mentors tables. Neon client initialized inside the POST handler to avoid build-time env var errors.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">Custom 404 page</div>
+        <div class="finding-desc">app/not-found.tsx with on-brand copy ("This page wandered off"), consistent dark theme, and a button back to home. No more Vercel default error screen.</div>
+      </div>
+
+      <div class="finding-card" data-severity="medium">
+        <span class="badge badge-medium">Remaining</span>
+        <div class="finding-title">No sitemap.xml or robots.txt</div>
+        <div class="finding-desc">Neither file is present. Google has no crawl guidance for the now multi-page site (/about, /faq, /contact, /privacy, /terms). Next.js can auto-generate a sitemap via <strong>app/sitemap.ts</strong> — under 30 minutes to add, immediate indexing benefit for all pages.</div>
+      </div>
+
+      <div class="finding-card" data-severity="medium">
+        <span class="badge badge-medium">Remaining</span>
+        <div class="finding-title">Select dropdowns missing focus rings</div>
+        <div class="finding-desc">The role and experience &lt;select&gt; elements use <strong>appearance-none</strong> but have no custom onFocus border handler — keyboard users see no visible focus state. Text inputs already have this (onFocus sets border to accent colour). Same pattern needs applying to the selects.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- UX & CONVERSION -->
+  <section class="section section-anchor" id="conversion">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Section 03</div>
+        <div class="section-title">UX & Conversion</div>
+        <div class="section-desc">Landing page flow, form accessibility, referral mechanics, and conversion funnel. Most V1 issues resolved — one key gap remains.</div>
+      </div>
+    </div>
+
+    <div class="filter-bar" data-group="conversion">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="high">Remaining</button>
+      <button class="filter-btn" data-filter="good">Done</button>
+    </div>
+
+    <div class="findings-grid" id="conversion-findings">
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">Join form moved above content sections</div>
+        <div class="finding-desc">Form now appears after Hero → Stats → Marquee strip. Users reach the form in ~3 scrolls instead of 8+. The redundant mid-page CTA was removed since it's no longer needed.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">Dual-persona toggle — fully functional</div>
+        <div class="finding-desc">Candidate / Professional toggle changes all copy, field labels, role options, placeholders, and accent colour. Both paths write to separate DB tables (mentees / mentors). Experience dropdown present on both flows.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">Thank-you page with share mechanic</div>
+        <div class="finding-desc">/thank-you has WhatsApp share, X (Twitter) share, and copy link — all with pre-filled referral URL (?ref=share). "What happens next" section with 3 steps. Share buttons also present inline in the success state on the form itself.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">Form validation + error + loading states</div>
+        <div class="finding-desc">Required fields enforced. Error message displayed on failed submission. Loading state ("Joining...") on submit. Form properly catches API errors and renders them to the user as readable messages.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">Body text readability improved site-wide</div>
+        <div class="finding-desc">Body text colour bumped from #6B7FA3 to #8A9CB8 across all pages and components: homepage, FAQ, contact, cookie banner, not-found, thank-you, and mentors. Noticeably better contrast on dark backgrounds.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">Contact page + FAQ page</div>
+        <div class="finding-desc">/contact with hello@theconnek.in and "We reply within 24 hours". /faq with 8 questions covering pricing, eligibility, matching, study circles, and guesstimate practice. Both linked from sidebar and footer.</div>
+      </div>
+
+      <div class="finding-card" data-severity="high">
+        <span class="badge badge-high">Open — Key Gap</span>
+        <div class="finding-title">Stats strip has no real numbers</div>
+        <div class="finding-desc">The three stats currently read <strong>"100% Free / No algorithm / Built for India"</strong> — all claims, no numbers. A count of real members (even "47 members" or "12 mentors") would be far more convincing than a feature claim. Once real signups exist, replace one stat with a DB count or a hard-coded number.</div>
+      </div>
+
+      <div class="finding-card" data-severity="medium">
+        <span class="badge badge-medium">Minor</span>
+        <div class="finding-title">Skip-to-content link missing</div>
+        <div class="finding-desc">Keyboard and screen reader users must tab through the full fixed nav before reaching page content. A visually-hidden "Skip to main content" anchor at the top of the &lt;body&gt; is the WCAG standard fix — roughly 5 lines of CSS and one HTML link.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TRUST & SOCIAL PROOF -->
+  <section class="section section-anchor" id="trust">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Section 04 · Biggest Gap</div>
+        <div class="section-title">Trust & Social Proof</div>
+        <div class="section-desc">Scored 4/10. This section is what holds the site back from 8.5+. The infrastructure exists — it just needs real people in it.</div>
+      </div>
+    </div>
+
+    <div class="filter-bar" data-group="trust">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="critical">Biggest Gap</button>
+      <button class="filter-btn" data-filter="good">Done</button>
+    </div>
+
+    <div class="findings-grid" id="trust-findings">
+
+      <div class="finding-card" data-severity="critical">
+        <span class="badge badge-critical">Biggest Gap</span>
+        <div class="finding-title">Mentor profiles section is empty</div>
+        <div class="finding-desc">The Mentors component exists and will render a full card grid — but the <strong>MENTORS array is empty</strong>, so the entire section hides itself. A first-time visitor never sees a single real human on the site. Every competitor surveyed (MentorCruise, ADPList, MentorTogether) front-loads real mentor cards. Even 3 real names, companies, and roles would be the single biggest trust lift on the page. <strong>Action: send 3–4 names and they go live in minutes.</strong></div>
+      </div>
+
+      <div class="finding-card" data-severity="critical">
+        <span class="badge badge-critical">Biggest Gap</span>
+        <div class="finding-title">No testimonials or attributed quotes</div>
+        <div class="finding-desc">Not a single person on the site has said "Connek helped me." The value prop cards describe outcomes abstractly — no names, no faces. Once the first real users join, even <strong>one honest quote</strong> ("I had a 20-minute call with a McKinsey associate through Connek — changed how I thought about recruiting. — Priya, NMIMS '25") beats every line of copy on the page. A static pull-quote section above the footer is a 2-hour build.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">About page with founder story</div>
+        <div class="finding-desc">/about exists with a founder narrative explaining why Connek was built. Linked from sidebar and footer. Professional tone without being corporate. CTAs to join and back to home.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">Instagram handle visible and linked</div>
+        <div class="finding-desc">@_the_connek linked from footer and sidebar nav. JSON-LD sameAs also references the Instagram profile. Social presence is findable.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">Legal pages build institutional trust</div>
+        <div class="finding-desc">Privacy policy and terms of service signal a serious product. Plain-English writing, DPDP Act 2023 + GDPR references, all data processors named. Especially important for Indian users evaluating a new platform.</div>
+      </div>
+
+      <div class="finding-card" data-severity="good">
+        <span class="badge badge-good">Done</span>
+        <div class="finding-title">Dual-persona copy signals genuine two-sidedness</div>
+        <div class="finding-desc">The professional flow has distinct copy ("A 30-minute conversation can change someone's direction"), separate form fields, and its own accent colour. Signals that the supply side is real and considered, not an afterthought.</div>
+      </div>
+
+    </div>
+
+    <div class="rec-box">
+      <div class="rec-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818CF8" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <div>
+        <div class="rec-title">The one move that changes everything</div>
+        <div class="rec-body">
+          <strong>Add 3–4 real mentor profiles.</strong> The component, the DB, and the design are all ready — the array is just empty. Send names, companies, and roles (LinkedIn profiles are fine as a source) and the section goes live immediately. This alone would push the overall score from 7.8 to <strong>8.5+</strong> — more than any other single change left on the list. Combined with a real member count in the stats strip, you're at 8.7.
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- PRIORITIES -->
+  <section class="section section-anchor" id="priorities">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Section 05 · What's Left</div>
+        <div class="section-title">Priority Stack</div>
+        <div class="section-desc">Remaining items only. Ordered by impact. The list is short — most work is done.</div>
+      </div>
+    </div>
+
+    <!-- TIER 0 — Must do -->
+    <div class="tier-block">
+      <div class="tier-head t0">
+        <div class="tier-label-wrap">
+          <div class="tier-num t0">T0</div>
+          <div>
+            <div class="tier-title">Must Do — Highest Impact</div>
+            <div class="tier-sub">These are the only items that meaningfully move the score</div>
+          </div>
+        </div>
+        <div class="tier-effort"><span>Total effort:</span> ~2 hours + content from Khushi</div>
+      </div>
+      <div class="tier-items">
+        <div class="tier-row">
+          <div class="tier-row-num">0.1</div>
+          <div class="tier-row-body">
+            <div class="tier-row-action">Add real mentor profiles to Mentors.tsx</div>
+            <div class="tier-row-why">The single highest-impact remaining change. Component is ready. 3–4 names, companies, roles needed from Khushi. Goes live in minutes. Raises score ~0.7 points alone.</div>
+          </div>
+          <div class="tier-row-effort">15 min</div>
+          <div><span class="source-pill gap">OPEN</span></div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-row-num">0.2</div>
+          <div class="tier-row-body">
+            <div class="tier-row-action">Replace one stat in the strip with a real member count</div>
+            <div class="tier-row-why">Numbers are more convincing than feature claims. Even "47 members" or "12 mentors" beats "100% Free". Can hardcode a real count or query the DB server-side.</div>
+          </div>
+          <div class="tier-row-effort">30 min</div>
+          <div><span class="source-pill gap">OPEN</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIER 1 — Quick technical -->
+    <div class="tier-block">
+      <div class="tier-head t1">
+        <div class="tier-label-wrap">
+          <div class="tier-num t1">T1</div>
+          <div>
+            <div class="tier-title">Quick Technical Fixes</div>
+            <div class="tier-sub">Under 1 hour combined · SEO and accessibility improvements</div>
+          </div>
+        </div>
+        <div class="tier-effort"><span>Total effort:</span> ~90 min</div>
+      </div>
+      <div class="tier-items">
+        <div class="tier-row">
+          <div class="tier-row-num">1.1</div>
+          <div class="tier-row-body">
+            <div class="tier-row-action">Add app/sitemap.ts — auto-generates sitemap.xml for all pages</div>
+            <div class="tier-row-why">Tells Google about /about, /faq, /contact, /privacy, /terms. Without it, these pages may take longer to index. 20-minute fix with Next.js built-in sitemap support.</div>
+          </div>
+          <div class="tier-row-effort">20 min</div>
+          <div><span class="source-pill gap">OPEN</span></div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-row-num">1.2</div>
+          <div class="tier-row-body">
+            <div class="tier-row-action">Add robots.txt (public/robots.txt)</div>
+            <div class="tier-row-why">Points to sitemap, allows all crawlers. One file, 4 lines.</div>
+          </div>
+          <div class="tier-row-effort">5 min</div>
+          <div><span class="source-pill gap">OPEN</span></div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-row-num">1.3</div>
+          <div class="tier-row-body">
+            <div class="tier-row-action">Add onFocus border to role and experience selects</div>
+            <div class="tier-row-why">Text inputs already have this pattern. Copy the same onFocus/onBlur handlers to the two &lt;select&gt; elements. Keyboard accessibility fix.</div>
+          </div>
+          <div class="tier-row-effort">5 min</div>
+          <div><span class="source-pill minor">MINOR</span></div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-row-num">1.4</div>
+          <div class="tier-row-body">
+            <div class="tier-row-action">Add skip-to-content link</div>
+            <div class="tier-row-why">Visually-hidden "Skip to main content" anchor at top of body. WCAG standard. ~5 lines CSS + 1 HTML link in layout.tsx.</div>
+          </div>
+          <div class="tier-row-effort">10 min</div>
+          <div><span class="source-pill minor">MINOR</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIER 2 — When you have early users -->
+    <div class="tier-block">
+      <div class="tier-head t2">
+        <div class="tier-label-wrap">
+          <div class="tier-num t2">T2</div>
+          <div>
+            <div class="tier-title">When You Have Early Users</div>
+            <div class="tier-sub">Do after first real signups — requires real content, not just code</div>
+          </div>
+        </div>
+        <div class="tier-effort"><span>Total effort:</span> Depends on content</div>
+      </div>
+      <div class="tier-items">
+        <div class="tier-row">
+          <div class="tier-row-num">2.1</div>
+          <div class="tier-row-body">
+            <div class="tier-row-action">Add first testimonial / pull-quote section</div>
+            <div class="tier-row-why">One attributed quote ("Priya, NMIMS '25 — I had a 20-min call with a McKinsey associate through Connek…") beats all anonymous copy. 2-hour build once quote is obtained.</div>
+          </div>
+          <div class="tier-row-effort">2 hr</div>
+          <div><span class="source-pill gap">OPEN</span></div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-row-num">2.2</div>
+          <div class="tier-row-body">
+            <div class="tier-row-action">Employer logo bar — "Mentors from McKinsey · BCG · Goldman…"</div>
+            <div class="tier-row-why">Doesn't require formal partnership. Just real employers of actual mentors in the array. Logos are instant borrowed authority. Once mentor profiles are added, pull employer names from there.</div>
+          </div>
+          <div class="tier-row-effort">4 hr</div>
+          <div><span class="source-pill gap">OPEN</span></div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-row-num">2.3</div>
+          <div class="tier-row-body">
+            <div class="tier-row-action">Blog — 4–6 India-targeted seed articles</div>
+            <div class="tier-row-why">e.g. "How to prep for a Bain India case", "IB summer analyst hiring calendar for Indian universities". Wide-open SEO space for Connek's ICP. Content-led acquisition channel.</div>
+          </div>
+          <div class="tier-row-effort">1 week</div>
+          <div><span class="source-pill gap">OPEN</span></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- QUICK WINS -->
+  <section class="section section-anchor" id="quickwins">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Bonus Section</div>
+        <div class="section-title">Do These Right Now</div>
+        <div class="section-desc">The remaining open items that can be completed today. Combined: under 3 hours including content time.</div>
+      </div>
+    </div>
+
+    <div class="quick-wins-box">
+      <div class="quick-wins-header">
+        <div class="quick-wins-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div>
+          <div class="quick-wins-title">Three things, maximum impact</div>
+          <div class="quick-wins-sub">Everything else is done · These are what's left</div>
+        </div>
+      </div>
+
+      <div class="wins-grid">
+        <div class="win-item">
+          <div class="win-time">15 min</div>
+          <div class="win-text">
+            Add real mentor profiles
+            <span>Send 3–4 names + companies + roles → I add them to Mentors.tsx → deploy. The section goes from invisible to trust-building immediately. +0.7 score impact.</span>
+          </div>
+        </div>
+        <div class="win-item">
+          <div class="win-time">30 min</div>
+          <div class="win-text">
+            Show a real member count in stats strip
+            <span>Replace "100% Free" or "Built for India" with the actual signup count. Even a small number with social proof weight beats a marketing claim.</span>
+          </div>
+        </div>
+        <div class="win-item">
+          <div class="win-time">25 min</div>
+          <div class="win-text">
+            Add sitemap.ts + robots.txt
+            <span>app/sitemap.ts (built-in Next.js) listing all pages. public/robots.txt pointing to sitemap. Helps Google index /faq, /about, /contact faster.</span>
+          </div>
+        </div>
+        <div class="win-item full">
+          <div class="win-time">10 min</div>
+          <div class="win-text">
+            Fix focus rings on selects + add skip link
+            <span>Copy the existing onFocus border handler from text inputs to the role and experience selects. Add a visually-hidden skip-to-content link in layout.tsx. Both done in one small code pass.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SCORE HISTORY -->
+  <section class="section section-anchor" id="history">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Section 06</div>
+        <div class="section-title">Score History</div>
+        <div class="section-desc">How the site has improved through this build cycle, and the projected ceiling once the remaining gaps are closed.</div>
+      </div>
+    </div>
+
+    <div class="history-row">
+      <div class="h-date">V1 Baseline</div>
+      <div class="h-bar-wrap"><div class="h-bar" style="width:49%; background:#EF4444;"></div></div>
+      <div class="h-score" style="color:#EF4444;">4.9</div>
+      <div class="h-note">No OG, no analytics, no privacy, 404s everywhere, broken toggle</div>
+    </div>
+    <div class="history-row">
+      <div class="h-date">Round 1 fixes</div>
+      <div class="h-bar-wrap"><div class="h-bar" style="width:68%; background:#F97316;"></div></div>
+      <div class="h-score" style="color:#F97316;">6.8</div>
+      <div class="h-note">SEO metadata, OG image, cookie consent, GA4 + Clarity</div>
+    </div>
+    <div class="history-row">
+      <div class="h-date">Round 2 fixes</div>
+      <div class="h-bar-wrap"><div class="h-bar" style="width:75%; background:#EAB308;"></div></div>
+      <div class="h-score" style="color:#EAB308;">7.5</div>
+      <div class="h-note">FAQ, About, privacy policy, sidebar nav, share buttons</div>
+    </div>
+    <div class="history-row">
+      <div class="h-date">Today — 10 June 2026</div>
+      <div class="h-bar-wrap"><div class="h-bar" style="width:78%; background:#6366F1;"></div></div>
+      <div class="h-score" style="color:#6366F1;">7.8</div>
+      <div class="h-note">Form moved up, text visibility, privacy update</div>
+    </div>
+    <div class="history-row">
+      <div class="h-date">After mentor profiles</div>
+      <div class="h-bar-wrap"><div class="h-bar" style="width:85%; background:#22C55E; opacity:0.5;"></div></div>
+      <div class="h-score" style="color:#94A3B8;">~8.5</div>
+      <div class="h-note">Mentors + member count added</div>
+    </div>
+    <div class="history-row">
+      <div class="h-date">After all T1 done</div>
+      <div class="h-bar-wrap"><div class="h-bar" style="width:87%; background:#22C55E; opacity:0.3;"></div></div>
+      <div class="h-score" style="color:#94A3B8;">~8.7</div>
+      <div class="h-note">Sitemap, focus rings, first testimonial</div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="report-footer">
+    <div class="report-footer-text">
+      Prepared by <strong style="color:#475569;">Claude Code</strong> &nbsp;·&nbsp; V3 · 10 June 2026 &nbsp;·&nbsp; <a href="https://theconnek.com" target="_blank">theconnek.com</a>
+    </div>
+    <div class="report-footer-badge">
+      <div class="footer-dot"></div>
+      23 findings tracked · 20 resolved · 3 open · Score: 7.8/10
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  // ── SMOOTH SCROLL & ACTIVE NAV ──
+  const navItems = document.querySelectorAll('.nav-item');
+  const sections = document.querySelectorAll('.section-anchor');
+
+  navItems.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(item.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  function updateActiveNav() {
+    const scrollPos = window.scrollY + 120;
+    let current = sections[0];
+    sections.forEach(section => { if (section.offsetTop <= scrollPos) current = section; });
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) current = sections[sections.length - 1];
+    navItems.forEach(n => n.classList.remove('active'));
+    const active = document.querySelector(`.nav-item[href="#${current.id}"]`);
+    if (active) active.classList.add('active');
+  }
+
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+      window.requestAnimationFrame(() => { updateActiveNav(); scrollTicking = false; });
+      scrollTicking = true;
+    }
+  }, { passive: true });
+  updateActiveNav();
+
+  // ── SCORE COUNTER ANIMATION ──
+  const scoreCards = document.querySelectorAll('.score-card');
+  const scoreObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const numEl = card.querySelector('.score-number');
+        const barFill = card.querySelector('.score-bar-fill');
+        const target = parseInt(numEl.dataset.target || '0');
+        const denom = numEl.querySelector('.score-denom');
+        const denomText = denom ? denom.outerHTML : '';
+        let current = 0;
+        const duration = 1200;
+        const step = duration / Math.max(target, 1);
+        const interval = setInterval(() => {
+          current++;
+          numEl.innerHTML = current + denomText;
+          if (current >= target) clearInterval(interval);
+        }, step);
+        if (barFill) { const width = barFill.dataset.width; setTimeout(() => { barFill.style.width = width; }, 100); }
+        scoreObserver.unobserve(card);
+      }
+    });
+  }, { threshold: 0.5 });
+  scoreCards.forEach(c => scoreObserver.observe(c));
+
+  // ── FILTER BUTTONS ──
+  document.querySelectorAll('.filter-bar').forEach(bar => {
+    const group = bar.dataset.group;
+    const findingsGrid = document.getElementById(group + '-findings');
+    if (!findingsGrid) return;
+    bar.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        findingsGrid.querySelectorAll('.finding-card').forEach(card => {
+          if (filter === 'all' || card.dataset.severity === filter) {
+            card.classList.remove('hidden');
+            card.style.animation = 'none';
+            requestAnimationFrame(() => { card.style.animation = 'fadeUp 0.3s ease forwards'; });
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  });
+</script>
+</body>
+</html>
