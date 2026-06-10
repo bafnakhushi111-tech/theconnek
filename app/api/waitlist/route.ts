@@ -3,25 +3,29 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
 export async function POST(req: NextRequest) {
-  const sql = neon(process.env.DATABASE_URL!);
-  const { name, email, college, role, user_type, location } = await req.json();
-
-  if (!name || !email || !college || !role) {
-    return NextResponse.json({ error: "All fields are required." }, { status: 400 });
-  }
-
   try {
-    await sql`
-      INSERT INTO waitlist (name, email, college, role, user_type, location)
-      VALUES (${name}, ${email}, ${college}, ${role}, ${user_type || "candidate"}, ${location || null})
-    `;
-  } catch (err: unknown) {
-    const e = err as { code?: string; message?: string };
-    if (e.code === "23505") {
-      return NextResponse.json({ error: "This email is already on the waitlist." }, { status: 409 });
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json({ error: "Database not configured." }, { status: 500 });
     }
-    return NextResponse.json({ error: e.message || "Database error" }, { status: 500 });
-  }
+    const sql = neon(process.env.DATABASE_URL);
+    const { name, email, college, role, user_type, location } = await req.json();
+
+    if (!name || !email || !college || !role) {
+      return NextResponse.json({ error: "All fields are required." }, { status: 400 });
+    }
+
+    try {
+      await sql`
+        INSERT INTO waitlist (name, email, college, role, user_type, location)
+        VALUES (${name}, ${email}, ${college}, ${role}, ${user_type || "candidate"}, ${location || null})
+      `;
+    } catch (err: unknown) {
+      const e = err as { code?: string; message?: string };
+      if (e.code === "23505") {
+        return NextResponse.json({ error: "This email is already on the waitlist." }, { status: 409 });
+      }
+      return NextResponse.json({ error: e.message || "Database error" }, { status: 500 });
+    }
 
   // Notify owner of new signup
   if (process.env.RESEND_API_KEY) {
@@ -51,5 +55,9 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true });
+  } catch (err: unknown) {
+    const e = err as { message?: string };
+    return NextResponse.json({ error: e.message || "Unexpected error" }, { status: 500 });
+  }
 }

@@ -133,8 +133,9 @@ export default function Home() {
         setSubmitted(true);
         router.push("/thank-you");
       }
-    } catch {
-      setError("Network error. Please check your connection.");
+    } catch (err: unknown) {
+      const e = err as { message?: string };
+      setError(e.message || "Network error. Please check your connection.");
     } finally {
       setLoading(false);
     }
