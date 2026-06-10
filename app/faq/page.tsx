@@ -40,7 +40,7 @@ export default function FAQPage() {
                 style={{ background: "rgba(75,111,165,0.06)", border: "1px solid rgba(75,111,165,0.15)" }}
               >
                 <p className="font-semibold text-white text-sm sm:text-base mb-2">{q}</p>
-                <p className="text-sm leading-relaxed" style={{ color: "#6B7FA3" }}>{a}</p>
+                <p className="text-sm leading-relaxed" style={{ color: "#8A9CB8" }}>{a}</p>
               </div>
             ))}
           </div>

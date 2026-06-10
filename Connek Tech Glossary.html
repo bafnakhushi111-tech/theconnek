@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Connek — Tech Glossary for Placement Prep</title>
+  <style>
+    body {
+      font-family: Calibri, Arial, sans-serif;
+      font-size: 11pt;
+      color: #1a1a1a;
+      max-width: 750px;
+      margin: 60px auto;
+      line-height: 1.7;
+    }
+    h1 {
+      font-size: 24pt;
+      color: #1e3a5f;
+      border-bottom: 3px solid #4B6FA5;
+      padding-bottom: 8px;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      font-size: 10pt;
+      color: #666;
+      margin-bottom: 40px;
+    }
+    h2 {
+      font-size: 15pt;
+      color: #1e3a5f;
+      margin-top: 40px;
+      margin-bottom: 4px;
+      border-left: 4px solid #4B6FA5;
+      padding-left: 10px;
+    }
+    h3 {
+      font-size: 13pt;
+      color: #2c5282;
+      margin-top: 28px;
+      margin-bottom: 4px;
+    }
+    .term-box {
+      background: #f0f5ff;
+      border: 1px solid #c3d4ef;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 14px 0 20px 0;
+    }
+    .term-box .label {
+      font-size: 9pt;
+      font-weight: bold;
+      color: #4B6FA5;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .analogy-box {
+      background: #fffbea;
+      border: 1px solid #f6d860;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin: 10px 0;
+      font-size: 10.5pt;
+    }
+    .analogy-box .alabel {
+      font-weight: bold;
+      color: #b7791f;
+      font-size: 9pt;
+      text-transform: uppercase;
+    }
+    .interview-box {
+      background: #f0fff4;
+      border: 1px solid #9ae6b4;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin: 10px 0;
+      font-size: 10.5pt;
+    }
+    .interview-box .ilabel {
+      font-weight: bold;
+      color: #276749;
+      font-size: 9pt;
+      text-transform: uppercase;
+    }
+    .flow-box {
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 9.5pt;
+      margin: 10px 0;
+      color: #333;
+      white-space: pre;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 10.5pt;
+    }
+    th {
+      background: #1e3a5f;
+      color: white;
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: bold;
+    }
+    td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    tr:nth-child(even) td {
+      background: #f7fafc;
+    }
+    p { margin: 8px 0; }
+    ul { margin: 6px 0; padding-left: 22px; }
+    li { margin: 4px 0; }
+    .page-break { page-break-before: always; }
+    .toc-item { margin: 4px 0; }
+    a { color: #2c5282; }
+    .badge {
+      display: inline-block;
+      background: #4B6FA5;
+      color: white;
+      font-size: 8pt;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-left: 8px;
+      vertical-align: middle;
+      font-weight: bold;
+    }
+    hr { border: none; border-top: 1px solid #e2e8f0; margin: 36px 0; }
+  </style>
+</head>
+<body>
+
+<h1>Connek — Tech Glossary</h1>
+<div class="subtitle">Every term explained simply &nbsp;|&nbsp; Built for your placement prep &nbsp;|&nbsp; Khushi Bafna, IIT Jodhpur MBA</div>
+
+<p>This document explains every technical tool and concept used to build Connek — in plain English, with real-world analogies and interview-ready answers. Read it once. You'll be able to talk about your project fluently in any interview.</p>
+
+<hr />
+
+<h2>Section 1: The Internet — How It Works</h2>
+<p>Before any specific tool, you need to understand the plumbing. Everything else builds on this.</p>
+
+<h3>The Browser and the Server</h3>
+<div class="term-box">
+  <div class="label">Core Concept</div>
+  Every website has two parts: a <strong>client</strong> (your browser — Chrome, Safari) and a <strong>server</strong> (a computer somewhere in the world that stores and runs your website's code). When you visit theconnek.com, your browser sends a request to Vercel's servers, which send back the HTML/CSS/JavaScript your browser needs to display the page.
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">Analogy</div>
+  Think of a restaurant. The <strong>client</strong> is you (the customer). The <strong>server</strong> is the kitchen. You place an order (a request), the kitchen prepares it (processes it), and the waiter brings it back (response). You never see the kitchen — you just see the food.
+</div>
+
+<h3>HTTP / HTTPS</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  HTTP stands for HyperText Transfer Protocol. It's the language that browsers and servers use to talk to each other. HTTPS is the secure version (the S = SSL encryption). Every URL starting with <em>https://</em> means the communication between your browser and the server is encrypted — no one in the middle can read it.
+</div>
+
+<div class="interview-box">
+  <div class="ilabel">Why it matters for Connek</div>
+  When a user submits the waitlist form, their name and email travel from their browser to our server over HTTPS. Without it, the data could be intercepted. Vercel enforces HTTPS automatically on all deployments.
+</div>
+
+<h3>GET vs POST (HTTP Methods)</h3>
+<div class="term-box">
+  <div class="label">What They Are</div>
+  HTTP requests have "methods" — verbs that describe what you want to do:
+  <ul>
+    <li><strong>GET</strong> — "Give me data." Used when you open a webpage. No body, just a request.</li>
+    <li><strong>POST</strong> — "Here is data, do something with it." Used when you submit a form. Has a body (the form data).</li>
+    <li><strong>PUT / PATCH</strong> — Update existing data.</li>
+    <li><strong>DELETE</strong> — Delete something.</li>
+  </ul>
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">Analogy</div>
+  GET = asking a librarian "what books do you have?" &nbsp; POST = handing the librarian a new book and saying "please add this."
+</div>
+
+<div class="interview-box">
+  <div class="ilabel">In Connek</div>
+  When the user fills the waitlist form and clicks "Join →", the browser sends a <strong>POST</strong> request to <code>/api/waitlist</code> with the form data in the body (name, email, college, role, user_type as JSON).
+</div>
+
+<h3>JSON</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  JSON stands for JavaScript Object Notation. It's the standard format for sending data between a browser and a server. It looks like this:
+  <br /><br />
+  <code>{ "name": "Priya Sharma", "email": "priya@example.com", "role": "Consulting" }</code>
+  <br /><br />
+  It's just structured text — both the browser and server can read it easily.
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">Analogy</div>
+  JSON is like a filled-in form. Instead of a paper form with labeled boxes, it's a digital format where each field has a label ("key") and a value.
+</div>
+
+<hr />
+
+<h2 class="page-break">Section 2: API — The Most Important Concept</h2>
+
+<h3>What is an API?</h3>
+<div class="term-box">
+  <div class="label">Definition</div>
+  API stands for <strong>Application Programming Interface</strong>. An API is a defined way for two pieces of software to talk to each other. It's a contract: "if you send me this, I'll do that and send you back this."
+  <br /><br />
+  You don't need to know how the other software works internally — you just follow the API contract.
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">Analogy</div>
+  A restaurant menu is an API. You don't know how the chef makes the pasta. You just order "Pasta Carbonara" (the request), and you get a plate of food (the response). The menu is the contract — it tells you what you can order and what you'll get.
+  <br /><br />
+  Similarly, Supabase's API says: "Send me a POST request with your table name and data, I'll insert it into the database."
+</div>
+
+<h3>Our API Route — /api/waitlist</h3>
+<div class="term-box">
+  <div class="label">What We Built</div>
+  In Connek, we built our own API endpoint. It lives in <code>app/api/waitlist/route.ts</code>. It does three things when called:
+  <ol>
+    <li>Validates the data (checks all fields are present)</li>
+    <li>Calls Supabase's API to insert the row into the database</li>
+    <li>Calls Resend's API to send an email notification</li>
+  </ol>
+  It returns <code>{ "success": true }</code> if everything worked, or an error message if not.
+</div>
+
+<div class="flow-box">User clicks "Join →"
+   ↓
+Browser sends POST to /api/waitlist with form data
+   ↓
+Our API route (route.ts) runs on Vercel's servers
+   ↓
+Calls Supabase API → row inserted into Postgres database
+   ↓
+Calls Resend API → email sent to bafnakhushi111@gmail.com
+   ↓
+Returns { success: true } to browser
+   ↓
+Browser redirects user to /thank-you</div>
+
+<h3>REST API</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  REST stands for <strong>Representational State Transfer</strong>. It's a set of design rules for how APIs should be structured. Most APIs you'll encounter (Supabase, Resend, Stripe, etc.) follow REST. The rules are simple:
+  <ul>
+    <li>Use URLs to represent resources: <code>/waitlist</code> represents the waitlist</li>
+    <li>Use HTTP methods to define actions: POST = create, GET = read, DELETE = delete</li>
+    <li>Responses are in JSON</li>
+    <li>Each request is self-contained (no "memory" between requests)</li>
+  </ul>
+</div>
+
+<div class="interview-box">
+  <div class="ilabel">Interview Answer</div>
+  "Our waitlist endpoint follows REST principles — POST to /api/waitlist creates a new entry. I used Next.js Route Handlers which automatically map the HTTP method to the right function."
+</div>
+
+<h3>Serverless Functions</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  A serverless function is code that runs in the cloud <em>only when called</em> — there's no server sitting idle waiting. Vercel turns every API route in our Next.js app into a serverless function automatically.
+  <br /><br />
+  When someone hits <code>/api/waitlist</code>, Vercel "spins up" a tiny computer to run that function, it completes, and the computer is gone. You pay only for actual usage, not idle time.
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">Analogy</div>
+  Traditional server = hiring a full-time employee who sits at a desk all day waiting for work.
+  <br />
+  Serverless = hiring a freelancer who you call only when you need them. They show up, do the job, leave. You pay per task, not per hour.
+</div>
+
+<div class="interview-box">
+  <div class="ilabel">Interview Answer</div>
+  "I used Next.js API routes which Vercel deploys as serverless functions. This means I have zero server management overhead — the function scales automatically with traffic and I'm not paying for idle compute."
+</div>
+
+<hr />
+
+<h2 class="page-break">Section 3: The Frontend — What Users See</h2>
+
+<h3>React</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  React is a JavaScript library made by Meta (Facebook) for building user interfaces. Instead of writing HTML directly, you write "components" — reusable pieces of UI. React re-renders only the parts of the page that actually changed, making it fast.
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">Analogy</div>
+  Imagine a physical dashboard with gauges and switches. Traditional HTML = redrawing the entire dashboard every time one needle moves. React = only moving the specific needle that changed. Much faster, much smoother.
+</div>
+
+<div class="term-box">
+  <div class="label">Key Concept: Component</div>
+  A component is a reusable piece of UI with its own logic. In Connek: <code>Logo.tsx</code> is a component (the Connek logo), <code>Footer.tsx</code> is a component (the bottom of every page), <code>Mentors.tsx</code> is a component (the mentors grid). You drop them into any page like Lego bricks: <code>&lt;Footer /&gt;</code>
+</div>
+
+<div class="term-box">
+  <div class="label">Key Concept: State</div>
+  State is data that can change and when it changes, React re-renders the relevant parts of the page.
+  <br /><br />
+  In Connek, <code>userType</code> is state — it holds either "candidate" or "professional". When you click the toggle, <code>userType</code> changes → React re-renders the headline, form, and steps to show the right content. No page reload needed.
+</div>
+
+<h3>Next.js</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  Next.js is a framework built on top of React. A framework = opinionated set of tools and conventions that give you a full application, not just a UI library.
+  <br /><br />
+  Next.js adds on top of React:
+  <ul>
+    <li><strong>File-based routing</strong> — folder structure = URL structure</li>
+    <li><strong>API routes</strong> — backend code collocated with frontend</li>
+    <li><strong>Server-side rendering</strong> — page HTML generated on the server (better SEO)</li>
+    <li><strong>Image optimization, font loading, OG images</strong> — built in</li>
+    <li><strong>TypeScript, Tailwind</strong> — first-class support</li>
+  </ul>
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">React vs Next.js Analogy</div>
+  React = engine.&nbsp; Next.js = the full car (engine + steering + seats + GPS + fuel gauge). You could build the car yourself from just the engine, but why would you?
+</div>
+
+<h3>App Router (Next.js feature)</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  The App Router is how Next.js knows which file to show for which URL. The rule is simple: <strong>folder name = URL path</strong>.
+  <table>
+    <tr><th>File</th><th>URL it serves</th></tr>
+    <tr><td>app/page.tsx</td><td>theconnek.com/</td></tr>
+    <tr><td>app/thank-you/page.tsx</td><td>theconnek.com/thank-you</td></tr>
+    <tr><td>app/privacy/page.tsx</td><td>theconnek.com/privacy</td></tr>
+    <tr><td>app/about/page.tsx</td><td>theconnek.com/about</td></tr>
+    <tr><td>app/api/waitlist/route.ts</td><td>theconnek.com/api/waitlist</td></tr>
+    <tr><td>app/not-found.tsx</td><td>Any URL that doesn't exist (404)</td></tr>
+  </table>
+  No config file, no mapping to set up — just folders and files.
+</div>
+
+<h3>TypeScript</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  TypeScript = JavaScript + type safety. You tell the computer what "type" every variable is (string, number, boolean, etc.) and TypeScript checks your code for mistakes before it runs.
+  <br /><br />
+  Example:
+  <br />
+  <code>type UserType = "candidate" | "professional"</code>
+  <br />
+  This means the variable can only ever be one of those two exact strings. If you accidentally write <code>"candidat"</code> (typo), TypeScript errors immediately — before users ever see it.
+</div>
+
+<div class="interview-box">
+  <div class="ilabel">Interview Answer</div>
+  "I used TypeScript across the entire codebase for type safety. It catches errors at compile time — for example, I typed the form state so missing fields or wrong types throw a build error, not a runtime bug in production."
+</div>
+
+<h3>Tailwind CSS</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  Tailwind is a CSS framework. CSS is what makes websites look the way they do — colors, fonts, spacing, layouts. Instead of writing separate CSS files, Tailwind gives you pre-made "utility classes" you apply directly in your HTML/JSX.
+  <br /><br />
+  Traditional CSS:
+  <br />
+  <code>.button { background-color: blue; padding: 8px 16px; border-radius: 9999px; }</code>
+  <br /><br />
+  Tailwind equivalent:
+  <br />
+  <code>className="bg-blue-500 px-4 py-2 rounded-full"</code>
+  <br /><br />
+  Same result, no separate file, faster to write and change.
+</div>
+
+<h3>Framer Motion</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  Framer Motion is a React library for animations. Without it, things appear and disappear instantly. With it, you get smooth transitions, fade-ins, and scroll-triggered reveals.
+  <br /><br />
+  Key things we used it for in Connek:
+  <ul>
+    <li><strong>fadeUp</strong> — sections fade in from slightly below as you scroll. Signals "there's more content" rather than dumping everything at once.</li>
+    <li><strong>AnimatePresence</strong> — when you toggle between candidate/professional, old content fades out and new content fades in. Without this, it would just snap to the new content jarringly.</li>
+    <li><strong>stagger</strong> — cards animate in one-by-one instead of all at once. Guides the eye. Makes the page feel alive.</li>
+    <li><strong>whileHover / whileTap</strong> — buttons scale slightly when hovered or clicked. Micro-interaction that signals "this is clickable."</li>
+  </ul>
+</div>
+
+<div class="interview-box">
+  <div class="ilabel">Interview Answer</div>
+  "I used Framer Motion for scroll-triggered animations and the candidate/professional toggle transition. The toggle uses AnimatePresence so content crossfades — it communicates that the page is personalised, not just static text swapped out."
+</div>
+
+<hr />
+
+<h2 class="page-break">Section 4: The Backend — Data and Logic</h2>
+
+<h3>Database</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  A database is organised, persistent storage for data. "Persistent" means it survives when the server restarts — unlike variables in code which disappear when the program stops.
+  <br /><br />
+  Two main types:
+  <ul>
+    <li><strong>Relational (SQL)</strong> — data in tables with rows and columns. Like Excel, but more powerful and with strict rules. Examples: PostgreSQL, MySQL, SQLite.</li>
+    <li><strong>Non-relational (NoSQL)</strong> — data in flexible documents (like JSON). Examples: MongoDB, Firebase Firestore.</li>
+  </ul>
+  We use <strong>PostgreSQL</strong> (relational).
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">Analogy</div>
+  A database is like a filing cabinet. Each "table" is a drawer. Each "row" is a folder in that drawer. Each "column" is a labeled section inside the folder (name, email, date, etc.). You can search, sort, and filter any data instantly.
+</div>
+
+<h3>PostgreSQL</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  PostgreSQL (often called "Postgres") is the world's most popular open-source relational database. "Open-source" means the code is free and maintained by a community.
+  <br /><br />
+  Our <code>waitlist</code> table looks like this:
+  <table>
+    <tr><th>id</th><th>name</th><th>email</th><th>college</th><th>role</th><th>user_type</th><th>created_at</th></tr>
+    <tr><td>1</td><td>Priya Sharma</td><td>priya@gmail.com</td><td>NMIMS</td><td>Consulting</td><td>candidate</td><td>2026-06-08</td></tr>
+    <tr><td>2</td><td>Rahul Mehta</td><td>rahul@gmail.com</td><td>McKinsey</td><td>Strategy</td><td>professional</td><td>2026-06-08</td></tr>
+  </table>
+  Each row = one signup. Each column = one field of data.
+</div>
+
+<h3>Supabase</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  Supabase is a hosted platform that gives you a PostgreSQL database + a REST API to talk to it + a dashboard to view your data — without needing to manage any servers yourself.
+  <br /><br />
+  Normally, using a database requires:
+  <ul>
+    <li>Renting a server (AWS/GCP)</li>
+    <li>Installing PostgreSQL on it</li>
+    <li>Writing connection code</li>
+    <li>Managing security, backups, scaling</li>
+  </ul>
+  Supabase handles all of that. You just sign up, create a table, and call their API from your code.
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">Analogy</div>
+  Supabase is to databases what Gmail is to email servers. Running your own email server is possible but complex. Gmail abstracts it — you just log in and send emails. Supabase lets you just "use a database" without managing the infrastructure.
+</div>
+
+<div class="interview-box">
+  <div class="ilabel">Interview Answer</div>
+  "I used Supabase as my database layer — it's a hosted PostgreSQL service with a JavaScript client. Each waitlist signup inserts a row via their API. I chose it because it's free for small scale, requires zero server management, and the dashboard lets me see signups in real time."
+</div>
+
+<div class="term-box">
+  <div class="label">Important: Free Tier Behaviour</div>
+  Supabase's free tier <strong>pauses the database after 1 week of no activity</strong>. If no one signs up for a week, the next person who tries will get an error — the database needs to be "unpaused" manually in the Supabase dashboard. This is a known trade-off of the free tier.
+</div>
+
+<h3>Environment Variables</h3>
+<div class="term-box">
+  <div class="label">What They Are</div>
+  Environment variables are secret values stored outside your code — they're injected at runtime by the platform (Vercel). You reference them as <code>process.env.VARIABLE_NAME</code> in code but never write the actual value in the code file.
+  <br /><br />
+  Our environment variables:
+  <table>
+    <tr><th>Variable Name</th><th>What It Holds</th><th>Who Uses It</th></tr>
+    <tr><td>NEXT_PUBLIC_SUPABASE_URL</td><td>The URL of our Supabase project</td><td>API route + browser</td></tr>
+    <tr><td>NEXT_PUBLIC_SUPABASE_ANON_KEY</td><td>Public key for Supabase</td><td>API route + browser</td></tr>
+    <tr><td>RESEND_API_KEY</td><td>Secret key for Resend email service</td><td>API route only (server)</td></tr>
+    <tr><td>NEXT_PUBLIC_GA_ID</td><td>Google Analytics measurement ID</td><td>Browser (analytics)</td></tr>
+    <tr><td>NEXT_PUBLIC_CLARITY_ID</td><td>Microsoft Clarity project ID</td><td>Browser (analytics)</td></tr>
+  </table>
+  Variables starting with <code>NEXT_PUBLIC_</code> are exposed to the browser. Others (like <code>RESEND_API_KEY</code>) are server-only secrets.
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">Why not just put the keys in the code?</div>
+  If your API key is in your code and your code is on GitHub, anyone who sees the repo has your API key. They could run up your bill, access your database, or send emails from your account. Environment variables keep secrets out of the codebase entirely.
+</div>
+
+<hr />
+
+<h2 class="page-break">Section 5: Tools and Services</h2>
+
+<h3>Git and GitHub</h3>
+<div class="term-box">
+  <div class="label">What Git Is</div>
+  Git is a version control system. It tracks every change you make to your code — what changed, when, and who changed it. You can go back to any previous version at any time.
+  <br /><br />
+  Key commands:
+  <ul>
+    <li><code>git add</code> — stage files you want to save</li>
+    <li><code>git commit</code> — save a snapshot of staged changes with a message</li>
+    <li><code>git push</code> — upload your commits to GitHub (the cloud)</li>
+    <li><code>git pull</code> — download changes from GitHub to your computer</li>
+  </ul>
+</div>
+
+<div class="term-box">
+  <div class="label">What GitHub Is</div>
+  GitHub is a website that hosts Git repositories (codebases) in the cloud. It's where the Connek code lives at <em>github.com/bafnakhushi111-tech/theconnek</em>. It's also how Vercel gets our code — we connect Vercel to GitHub and it auto-deploys every time we push.
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">Analogy</div>
+  Git = track changes in Word. GitHub = Google Drive for your code (stores it in the cloud, lets you share it, see the history).
+</div>
+
+<h3>Vercel</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  Vercel is a cloud deployment platform — it takes your Next.js code from GitHub and makes it available on the internet. Every time you do <code>git push</code>, Vercel automatically:
+  <ol>
+    <li>Detects the new code</li>
+    <li>Builds it (converts TypeScript → JavaScript, bundles assets)</li>
+    <li>Deploys it globally (copies to servers in multiple regions worldwide)</li>
+    <li>Routes your domain (theconnek.com) to the new version</li>
+  </ol>
+  Zero manual steps after the first setup.
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">Analogy</div>
+  Without Vercel, publishing a website = buying a physical server, renting data centre space, installing software, configuring the network, setting up SSL, managing security patches. With Vercel, you just push code to GitHub.
+  <br /><br />
+  It's like the difference between owning a printing press vs. clicking "Print" at Staples.
+</div>
+
+<div class="term-box">
+  <div class="label">What Vercel Does For Connek</div>
+  <ul>
+    <li>Hosts the site at theconnek.com and theconnek.in (custom domains we pointed to Vercel)</li>
+    <li>Stores our environment variables (Supabase keys, Resend key) securely</li>
+    <li>Runs our serverless API routes (/api/waitlist)</li>
+    <li>Handles SSL/HTTPS automatically</li>
+    <li>CDN — serves static files (images, CSS) from servers close to each user globally</li>
+  </ul>
+</div>
+
+<h3>Resend</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  Resend is a transactional email API. "Transactional" means event-triggered automated emails — as opposed to marketing bulk emails (Mailchimp). Every time someone joins the waitlist, Resend sends you an email from <em>hello@theconnek.com</em> with the signup details.
+  <br /><br />
+  Why not Gmail or SMTP directly?
+  <ul>
+    <li>Gmail limits you to ~500 emails/day and has deliverability issues</li>
+    <li>Resend handles DKIM and SPF records (email authentication standards that prevent your mail from landing in spam)</li>
+    <li>It sends from your own domain (<em>theconnek.com</em>), not a generic Gmail address</li>
+    <li>Simple API: one function call with To, From, Subject, and HTML body</li>
+  </ul>
+</div>
+
+<h3>Framer (vs Framer Motion)</h3>
+<div class="term-box">
+  <div class="label">Clarification</div>
+  <strong>Framer</strong> = a no-code/low-code website builder (like Webflow). We did NOT use this.
+  <br />
+  <strong>Framer Motion</strong> = a React animation library made by the same company. We used this. They are different products despite the similar name.
+</div>
+
+<h3>npm and node_modules</h3>
+<div class="term-box">
+  <div class="label">What They Are</div>
+  npm (Node Package Manager) is the tool that installs external libraries. When we say we "use Framer Motion" — npm downloads the Framer Motion code from the internet and saves it in a folder called <code>node_modules</code> inside the project.
+  <br /><br />
+  <code>package.json</code> is the file that lists every library the project depends on. Running <code>npm install</code> reads <code>package.json</code> and installs everything listed.
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">Analogy</div>
+  npm is like Amazon for code. <code>package.json</code> is your shopping list. <code>npm install</code> places the order. <code>node_modules</code> is the delivery — all the packages sitting in your project folder.
+</div>
+
+<hr />
+
+<h2 class="page-break">Section 6: SEO and Discovery</h2>
+
+<h3>SEO (Search Engine Optimisation)</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  SEO is the practice of making your website discoverable by search engines (Google, Bing). When someone Googles "career networking platform India," you want theconnek.com to appear. SEO determines how high you rank.
+  <br /><br />
+  Key SEO signals:
+  <ul>
+    <li><strong>Page title and meta description</strong> — what shows in Google results</li>
+    <li><strong>Sitemap</strong> — tells Google which pages exist</li>
+    <li><strong>robots.txt</strong> — tells Google which pages to crawl or skip</li>
+    <li><strong>Page speed</strong> — faster sites rank higher</li>
+    <li><strong>Mobile-friendliness</strong> — Google penalises non-mobile sites</li>
+    <li><strong>Content quality</strong> — relevant, original content ranks better</li>
+  </ul>
+</div>
+
+<h3>sitemap.ts</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  A sitemap is an XML file at <em>/sitemap.xml</em> that lists every page on your website with the date it was last updated. Google reads this to know what to index.
+  <br /><br />
+  Without a sitemap, Google discovers pages by following links — slow and incomplete. With one, you explicitly hand Google your full page list.
+  <br /><br />
+  In Next.js, you just export a function from <code>app/sitemap.ts</code> — Next.js generates the XML automatically. No manual file editing needed.
+</div>
+
+<h3>robots.ts</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  <code>/robots.txt</code> is a text file that tells web crawlers (Google's bots) which pages they can and cannot access. We allow all pages and point to our sitemap.
+  <br /><br />
+  Example: if you had an admin panel at <em>/admin</em>, you'd tell robots NOT to crawl it. A public sitemap URL gets submitted to Google Search Console.
+</div>
+
+<h3>OG Image (Open Graph)</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  When you share a link on WhatsApp, LinkedIn, or X (Twitter), a preview card appears — with an image, title, and description. This preview is driven by "Open Graph" meta tags in the page's HTML.
+  <br /><br />
+  Next.js has a special convention: put a file called <code>opengraph-image.tsx</code> in your app folder and it auto-generates a PNG image using React components. This image becomes the share card.
+  <br /><br />
+  Why it matters: links with OG images get significantly more clicks than plain text links. It's the difference between a news article showing a photo vs. a bare URL.
+</div>
+
+<div class="interview-box">
+  <div class="ilabel">Interview Answer</div>
+  "I implemented OG images using Next.js's built-in next/og library. The image is generated server-side as a React component — so it includes our logo and tagline and renders as a proper share card on WhatsApp and LinkedIn."
+</div>
+
+<hr />
+
+<h2 class="page-break">Section 7: Analytics</h2>
+
+<h3>Google Analytics 4 (GA4)</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  GA4 is Google's free analytics platform. You add a small JavaScript snippet to your website and it tracks:
+  <ul>
+    <li>How many people visited (sessions, users)</li>
+    <li>Where they came from (direct, Google search, Instagram link)</li>
+    <li>Which pages they visited and in what order</li>
+    <li>How long they stayed</li>
+    <li>What device/country they're on</li>
+    <li>Custom events (e.g. "clicked Join button", "submitted form")</li>
+  </ul>
+  This data lives in your Google Analytics dashboard — accessible from any browser.
+</div>
+
+<h3>Microsoft Clarity</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  Clarity is Microsoft's free behavioural analytics tool. While GA4 gives you numbers, Clarity gives you:
+  <ul>
+    <li><strong>Session recordings</strong> — watch a recording of real users clicking, scrolling, and typing on your site</li>
+    <li><strong>Heatmaps</strong> — see which parts of the page users click most (shown as a colour heat map overlaid on your site)</li>
+    <li><strong>Scroll maps</strong> — see how far down users typically scroll before leaving</li>
+  </ul>
+  This is invaluable for UX decisions. Instead of guessing why users aren't converting, you literally watch what they do.
+</div>
+
+<div class="analogy-box">
+  <div class="alabel">GA4 vs Clarity</div>
+  GA4 = the speedometer and fuel gauge of your car (numbers, metrics). Clarity = a dashcam footage of every trip (you can watch what actually happened).
+</div>
+
+<h3>Analytics Scaffold (how we built it)</h3>
+<div class="term-box">
+  <div class="label">What We Did</div>
+  We built an <code>Analytics.tsx</code> component that:
+  <ol>
+    <li>Loads GA4's script if <code>NEXT_PUBLIC_GA_ID</code> env var is set</li>
+    <li>Loads Clarity's script if <code>NEXT_PUBLIC_CLARITY_ID</code> env var is set</li>
+    <li>Does nothing if neither is set (so local development isn't polluted with fake analytics)</li>
+  </ol>
+  To turn on analytics, you just add the env vars to Vercel — no code changes needed.
+</div>
+
+<hr />
+
+<h2 class="page-break">Section 8: Legal Pages</h2>
+
+<h3>Privacy Policy</h3>
+<div class="term-box">
+  <div class="label">What It Is and Why It's Required</div>
+  A Privacy Policy is a legal document that tells users:
+  <ul>
+    <li>What personal data you collect (name, email)</li>
+    <li>Why you collect it (to manage the waitlist)</li>
+    <li>How you store it (Supabase / Postgres)</li>
+    <li>Who you share it with (Resend for email delivery)</li>
+    <li>User rights (how to request deletion)</li>
+  </ul>
+  <strong>India's DPDP Act (Digital Personal Data Protection Act, 2023)</strong> requires any platform collecting Indian users' personal data to have a Privacy Policy. Without one, you're legally exposed. The EU has GDPR with similar requirements.
+</div>
+
+<h3>Terms of Service</h3>
+<div class="term-box">
+  <div class="label">What It Is</div>
+  Terms of Service is a legal agreement between you and your users. It defines:
+  <ul>
+    <li>What users can and cannot do on your platform</li>
+    <li>What you're responsible for (and what you're not)</li>
+    <li>How disputes are resolved</li>
+    <li>Your right to terminate accounts / remove content</li>
+  </ul>
+  Without it, a disgruntled user could claim anything and you'd have no documented agreement to reference.
+</div>
+
+<hr />
+
+<h2>Section 9: The Connek Architecture — Everything Together</h2>
+
+<div class="flow-box">┌─────────────────────────────────────────────────────────────────┐
+│                        USER'S BROWSER                           │
+│                                                                 │
+│  React components render the UI (page.tsx, Footer.tsx, etc.)   │
+│  Tailwind CSS styles everything                                 │
+│  Framer Motion handles animations                              │
+│  State (userType, form data) lives in React useState()         │
+└────────────────────────┬────────────────────────────────────────┘
+                         │  POST /api/waitlist (JSON body)
+                         │  via HTTPS
+                         ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      VERCEL (Server)                            │
+│                                                                 │
+│  Serverless function: app/api/waitlist/route.ts runs            │
+│  ├── Validates form fields                                      │
+│  ├── Reads secrets from environment variables                   │
+│  ├── Calls Supabase API → INSERT into waitlist table            │
+│  └── Calls Resend API → sends email to Khushi                   │
+│                                                                 │
+│  Returns { success: true } or { error: "..." }                  │
+└────────┬───────────────────────────┬────────────────────────────┘
+         │                           │
+         ▼                           ▼
+┌─────────────────┐       ┌──────────────────────┐
+│    SUPABASE     │       │       RESEND          │
+│  PostgreSQL DB  │       │  Email delivery to    │
+│  waitlist table │       │  bafnakhushi111@      │
+│  (stores rows)  │       │  gmail.com            │
+└─────────────────┘       └──────────────────────┘
+</div>
+
+<hr />
+
+<h2 class="page-break">Section 10: Interview Cheat Sheet</h2>
+
+<table>
+  <tr><th>Question</th><th>Your Answer</th></tr>
+  <tr><td>What did you build?</td><td>A full-stack community platform — React frontend, serverless API backend, PostgreSQL database, transactional email, SEO, analytics, and legal pages. All deployed on Vercel.</td></tr>
+  <tr><td>Why Next.js?</td><td>It gives React + API routes + SSR + deployment in one framework. I didn't need a separate Express server — the API routes are serverless functions that Vercel manages automatically.</td></tr>
+  <tr><td>How does the waitlist work end-to-end?</td><td>User submits form → browser POSTs JSON to /api/waitlist → serverless function inserts a row into Supabase Postgres and sends a Resend notification email → returns success → user is redirected to /thank-you.</td></tr>
+  <tr><td>Why keep API keys server-side?</td><td>If Supabase or Resend keys were in client-side code, anyone could open DevTools and steal them. The API route runs on the server — browser never sees the keys, only the JSON response.</td></tr>
+  <tr><td>How do you handle duplicate signups?</td><td>Supabase has a unique constraint on the email column. On duplicate, it throws error code 23505 (Postgres unique violation). We catch that specifically and return a 409 with a clear message.</td></tr>
+  <tr><td>What is serverless?</td><td>Code that runs in the cloud only when triggered — no idle server. Vercel auto-provisions compute on each API call and tears it down after. You pay per invocation, not per hour.</td></tr>
+  <tr><td>What analytics did you set up?</td><td>GA4 for quantitative metrics (traffic, sources, conversions) and Microsoft Clarity for qualitative behavioural data (session recordings, heatmaps). Both gated on env vars so they're off in development.</td></tr>
+  <tr><td>What's the tech stack?</td><td>Next.js 16 (App Router, TypeScript), Tailwind CSS, Framer Motion, Supabase (PostgreSQL), Resend, Vercel. GitHub for version control.</td></tr>
+  <tr><td>What would you improve?</td><td>Rate limiting on the API endpoint (prevent spam signups), email verification before storing, and moving off Supabase free tier before scaling (to avoid the 1-week pause issue).</td></tr>
+  <tr><td>What was the hardest part?</td><td>The two-view toggle — making AnimatePresence handle the crossfade correctly between candidate and professional content while keeping the form state clean on each switch.</td></tr>
+</table>
+
+<hr />
+
+<h2>Glossary — Quick Reference</h2>
+
+<table>
+  <tr><th>Term</th><th>One-Line Definition</th></tr>
+  <tr><td>API</td><td>A defined contract for how two pieces of software communicate</td></tr>
+  <tr><td>REST API</td><td>An API that uses URLs + HTTP methods (GET/POST/DELETE) + JSON responses</td></tr>
+  <tr><td>Serverless</td><td>Code that runs in the cloud only when called — no always-on server</td></tr>
+  <tr><td>React</td><td>UI library for building component-based web interfaces</td></tr>
+  <tr><td>Next.js</td><td>React framework with routing, API routes, SSR, and Vercel deployment built in</td></tr>
+  <tr><td>TypeScript</td><td>JavaScript with type safety — catches errors before the code runs</td></tr>
+  <tr><td>Tailwind CSS</td><td>Utility-first CSS — style elements with class names directly in JSX</td></tr>
+  <tr><td>Framer Motion</td><td>React animation library — scroll reveals, transitions, hover effects</td></tr>
+  <tr><td>PostgreSQL</td><td>Open-source relational database — data in tables, rows, and columns</td></tr>
+  <tr><td>Supabase</td><td>Hosted Postgres with a REST API — database without server management</td></tr>
+  <tr><td>Resend</td><td>Transactional email API — sends event-triggered emails from your domain</td></tr>
+  <tr><td>Vercel</td><td>Cloud deployment platform — git push → site is live globally</td></tr>
+  <tr><td>Git</td><td>Version control — tracks every code change; lets you go back in time</td></tr>
+  <tr><td>GitHub</td><td>Cloud hosting for Git repos — where your code lives online</td></tr>
+  <tr><td>Environment Variables</td><td>Secrets stored outside code — injected at runtime so keys stay private</td></tr>
+  <tr><td>JSON</td><td>Standard data format for browser↔server communication — key-value pairs</td></tr>
+  <tr><td>HTTP/HTTPS</td><td>Protocol browsers and servers use to talk; HTTPS = encrypted</td></tr>
+  <tr><td>OG Image</td><td>The preview image shown when you share a link on social platforms</td></tr>
+  <tr><td>Sitemap</td><td>XML file listing all pages — helps Google index your site faster</td></tr>
+  <tr><td>SEO</td><td>Practices that improve your ranking in Google search results</td></tr>
+  <tr><td>Component</td><td>A reusable piece of React UI — like a Lego brick (Logo, Footer, etc.)</td></tr>
+  <tr><td>State</td><td>Data that can change in a React component — when it changes, UI re-renders</td></tr>
+  <tr><td>npm</td><td>Package manager — installs external libraries into your project</td></tr>
+  <tr><td>GA4</td><td>Google Analytics 4 — tracks traffic, sources, and user behaviour (numbers)</td></tr>
+  <tr><td>Microsoft Clarity</td><td>Behavioural analytics — session recordings and heatmaps (visual)</td></tr>
+  <tr><td>DPDP Act</td><td>India's data privacy law (2023) — requires Privacy Policy for data collection</td></tr>
+  <tr><td>CDN</td><td>Content Delivery Network — servers worldwide that cache your site closer to users</td></tr>
+</table>
+
+<br />
+<p style="font-size:9pt;color:#999;text-align:center;">Connek Tech Glossary &nbsp;·&nbsp; Khushi Bafna &nbsp;·&nbsp; IIT Jodhpur MBA &nbsp;·&nbsp; Generated June 2026</p>
+
+</body>
+</html>

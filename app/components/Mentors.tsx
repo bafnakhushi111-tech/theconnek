@@ -38,7 +38,7 @@ export default function Mentors() {
       <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-3">
         People you could talk to.
       </h2>
-      <p className="text-center text-sm sm:text-base mb-12 max-w-xl mx-auto" style={{ color: "#6B7FA3" }}>
+      <p className="text-center text-sm sm:text-base mb-12 max-w-xl mx-auto" style={{ color: "#8A9CB8" }}>
         Real professionals who&apos;ve been where you are — and are genuinely open to a conversation.
       </p>
 
@@ -73,7 +73,7 @@ export default function Mentors() {
             <p className="text-sm font-medium mt-0.5" style={{ color: "#7B9EC8" }}>
               {m.role} · {m.company}
             </p>
-            <p className="text-sm mt-3 leading-relaxed" style={{ color: "#6B7FA3" }}>
+            <p className="text-sm mt-3 leading-relaxed" style={{ color: "#8A9CB8" }}>
               {m.bio}
             </p>
           </motion.div>

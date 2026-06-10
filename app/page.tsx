@@ -239,7 +239,7 @@ export default function Home() {
                   <TextReveal text={c.headlineGradient} style={{ color: accentLight }} once={true} delay={0.18} />
                 </h1>
 
-                <p className="text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: "#6B7FA3" }}>
+                <p className="text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: "#8A9CB8" }}>
                   {c.sub}
                 </p>
 
@@ -269,7 +269,7 @@ export default function Home() {
           ].map(({ stat, sub }) => (
             <div key={stat} className="flex flex-col items-center">
               <div className="text-lg sm:text-xl font-bold text-white">{stat}</div>
-              <div className="text-xs sm:text-sm mt-1 leading-snug" style={{ color: "#6B7FA3" }}>{sub}</div>
+              <div className="text-xs sm:text-sm mt-1 leading-snug" style={{ color: "#8A9CB8" }}>{sub}</div>
             </div>
           ))}
         </div>
@@ -277,167 +277,6 @@ export default function Home() {
 
       {/* ── Marquee ── */}
       <MarqueeStrip accent={accent} />
-
-      {/* ── Peer community feature (candidates only) ── */}
-      <AnimatePresence>
-        {userType === "candidate" && (
-          <motion.section
-            key="peer-community"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="py-20"
-            style={{ background: heroBg }}
-          >
-            <div className="max-w-4xl mx-auto px-5">
-              <FadeSection>
-                <p className="text-xs font-semibold uppercase tracking-widest text-center mb-3" style={{ color: accentLight }}>
-                  More than just mentors
-                </p>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-4">
-                  Built for the full journey.
-                </h2>
-                <p className="text-center text-sm sm:text-base max-w-xl mx-auto mb-14" style={{ color: "#6B7FA3" }}>
-                  While you wait for the right conversation, there&apos;s a whole community already figuring it out alongside you.
-                </p>
-              </FadeSection>
-              <motion.div
-                variants={stagger}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-80px" }}
-                className="grid sm:grid-cols-3 gap-6"
-              >
-                {[
-                  {
-                    num: "01",
-                    title: "Case competition prep",
-                    body: "Find people to practice with. Real rounds with real people, not just watching recordings alone and hoping it clicks.",
-                  },
-                  {
-                    num: "02",
-                    title: "Guesstimate practice",
-                    body: "A dedicated group to work through guesstimates together. The kind of repetition that actually builds confidence under pressure.",
-                  },
-                  {
-                    num: "03",
-                    title: "Study circles",
-                    body: "Small groups targeting the same roles. Shared resources, honest feedback, and accountability, without the LinkedIn performativity.",
-                  },
-                ].map(({ num, title, body }) => (
-                  <TiltCard
-                    key={num}
-                    variants={fadeUp}
-                    className="rounded-2xl p-7"
-                    style={{ background: ab(0.06), border: `1px solid ${ab(0.18)}` }}
-                  >
-                    <div className="text-3xl font-black mb-5 leading-none" style={{ color: ab(0.3) }}>{num}</div>
-                    <h3 className="font-bold text-white text-base mb-3">{title}</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "#6B7FA3" }}>{body}</p>
-                  </TiltCard>
-                ))}
-              </motion.div>
-            </div>
-          </motion.section>
-        )}
-      </AnimatePresence>
-
-      {/* ── Mentors grid (renders only once real people are added) ── */}
-      <Mentors />
-
-      {/* ── Why Connek ── */}
-      <AnimatePresence mode="wait">
-        <motion.div key={`why-${userType}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
-          <FadeSection className="max-w-3xl mx-auto px-5 py-20 text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 leading-snug text-white">
-              <TextReveal text={c.whyHeadline} />
-            </h2>
-            {c.why.map((para, i) => (
-              <p key={i} className="leading-relaxed mb-5 text-sm sm:text-base" style={{ color: "#6B7FA3" }}>{para}</p>
-            ))}
-            <p className="font-semibold text-base sm:text-lg" style={{ color: accentLight }}>{c.whyClose}</p>
-          </FadeSection>
-        </motion.div>
-      </AnimatePresence>
-
-      {/* ── Mid-page CTA ── */}
-      <AnimatePresence mode="wait">
-        <motion.div key={`midcta-${userType}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
-          <FadeSection>
-            <div className="max-w-2xl mx-auto px-5 py-10 text-center">
-              <motion.a
-                href="#waitlist"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-block font-bold px-8 py-4 rounded-full text-sm md:text-base text-white"
-                style={{ background: accent, boxShadow: `0 16px 32px ${ab(0.3)}` }}
-              >
-                Join the community — it&apos;s free →
-              </motion.a>
-            </div>
-          </FadeSection>
-        </motion.div>
-      </AnimatePresence>
-
-      {/* ── Value props ── */}
-      <section className="py-20" style={{ background: heroBg }}>
-        <div className="max-w-4xl mx-auto px-5">
-          <AnimatePresence mode="wait">
-            <motion.div key={`vp-${userType}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
-              <FadeSection>
-                <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-12">{c.valuePropHeadline}</h2>
-              </FadeSection>
-              <motion.div
-                key={`vp-grid-${userType}`}
-                variants={stagger}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-80px" }}
-                className={`grid gap-5 ${userType === "candidate" ? "sm:grid-cols-2" : "sm:grid-cols-3"}`}
-              >
-                {c.valueProps.map(({ icon, title, body }) => (
-                  <TiltCard
-                    key={title}
-                    variants={fadeUp}
-                    className="rounded-2xl p-6"
-                    style={{ background: ab(0.08), border: `1px solid ${ab(0.2)}` }}
-                  >
-                    <div className="text-xl mb-4" style={{ color: accentLight }}>{icon}</div>
-                    <h3 className="font-semibold text-white mb-2 text-sm sm:text-base">{title}</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "#6B7FA3" }}>{body}</p>
-                  </TiltCard>
-                ))}
-              </motion.div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </section>
-
-      {/* ── How it works ── */}
-      <section className="max-w-4xl mx-auto px-5 py-20">
-        <FadeSection>
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-12">How it works.</h2>
-        </FadeSection>
-        <AnimatePresence mode="wait">
-          <motion.div key={`steps-${userType}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
-            <motion.div
-              variants={stagger}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              className="grid sm:grid-cols-3 gap-6 sm:gap-8"
-            >
-              {c.steps.map(({ step, title, body }, i) => (
-                <motion.div key={step} variants={fadeUp} className="relative flex flex-col">
-                  <h3 className="font-bold text-base mb-2 z-10" style={{ color: accentLight }}>{step}. {title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "#6B7FA3" }}>{body}</p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
-      </section>
 
       {/* ── Join form ── */}
       <section id="waitlist" className="py-20" style={{ background: heroBg }}>
@@ -460,7 +299,7 @@ export default function Home() {
                 >
                   <div className="text-4xl mb-4">🎉</div>
                   <h3 className="text-xl font-bold mb-2 text-white">You&apos;re in.</h3>
-                  <p className="text-sm mb-6" style={{ color: "#6B7FA3" }}>
+                  <p className="text-sm mb-6" style={{ color: "#8A9CB8" }}>
                     We&apos;ll be in touch at <span className="text-white font-medium">{form.email}</span>.
                   </p>
                   <p className="text-sm font-semibold text-white mb-3">Know someone who should be here?</p>
@@ -486,7 +325,7 @@ export default function Home() {
               ) : (
                 <>
                   <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-3">{c.formTitle}</h2>
-                  <p className="text-center text-sm sm:text-base mb-10" style={{ color: "#6B7FA3" }}>{c.formSub}</p>
+                  <p className="text-center text-sm sm:text-base mb-10" style={{ color: "#8A9CB8" }}>{c.formSub}</p>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     {[
                       { label: "Full name", key: "name", type: "text", placeholder: "Priya Sharma" },
@@ -570,6 +409,148 @@ export default function Home() {
             </motion.div>
           </AnimatePresence>
         </div>
+      </section>
+
+      {/* ── Peer community feature (candidates only) ── */}
+      <AnimatePresence>
+        {userType === "candidate" && (
+          <motion.section
+            key="peer-community"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="py-20"
+            style={{ background: heroBg }}
+          >
+            <div className="max-w-4xl mx-auto px-5">
+              <FadeSection>
+                <p className="text-xs font-semibold uppercase tracking-widest text-center mb-3" style={{ color: accentLight }}>
+                  More than just mentors
+                </p>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-4">
+                  Built for the full journey.
+                </h2>
+                <p className="text-center text-sm sm:text-base max-w-xl mx-auto mb-14" style={{ color: "#8A9CB8" }}>
+                  While you wait for the right conversation, there&apos;s a whole community already figuring it out alongside you.
+                </p>
+              </FadeSection>
+              <motion.div
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+                className="grid sm:grid-cols-3 gap-6"
+              >
+                {[
+                  {
+                    num: "01",
+                    title: "Case competition prep",
+                    body: "Find people to practice with. Real rounds with real people, not just watching recordings alone and hoping it clicks.",
+                  },
+                  {
+                    num: "02",
+                    title: "Guesstimate practice",
+                    body: "A dedicated group to work through guesstimates together. The kind of repetition that actually builds confidence under pressure.",
+                  },
+                  {
+                    num: "03",
+                    title: "Study circles",
+                    body: "Small groups targeting the same roles. Shared resources, honest feedback, and accountability, without the LinkedIn performativity.",
+                  },
+                ].map(({ num, title, body }) => (
+                  <TiltCard
+                    key={num}
+                    variants={fadeUp}
+                    className="rounded-2xl p-7"
+                    style={{ background: ab(0.06), border: `1px solid ${ab(0.18)}` }}
+                  >
+                    <div className="text-3xl font-black mb-5 leading-none" style={{ color: ab(0.3) }}>{num}</div>
+                    <h3 className="font-bold text-white text-base mb-3">{title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: "#8A9CB8" }}>{body}</p>
+                  </TiltCard>
+                ))}
+              </motion.div>
+            </div>
+          </motion.section>
+        )}
+      </AnimatePresence>
+
+      {/* ── Mentors grid (renders only once real people are added) ── */}
+      <Mentors />
+
+      {/* ── Why Connek ── */}
+      <AnimatePresence mode="wait">
+        <motion.div key={`why-${userType}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
+          <FadeSection className="max-w-3xl mx-auto px-5 py-20 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 leading-snug text-white">
+              <TextReveal text={c.whyHeadline} />
+            </h2>
+            {c.why.map((para, i) => (
+              <p key={i} className="leading-relaxed mb-5 text-sm sm:text-base" style={{ color: "#8A9CB8" }}>{para}</p>
+            ))}
+            <p className="font-semibold text-base sm:text-lg" style={{ color: accentLight }}>{c.whyClose}</p>
+          </FadeSection>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* ── Value props ── */}
+      <section className="py-20" style={{ background: heroBg }}>
+        <div className="max-w-4xl mx-auto px-5">
+          <AnimatePresence mode="wait">
+            <motion.div key={`vp-${userType}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
+              <FadeSection>
+                <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-12">{c.valuePropHeadline}</h2>
+              </FadeSection>
+              <motion.div
+                key={`vp-grid-${userType}`}
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+                className={`grid gap-5 ${userType === "candidate" ? "sm:grid-cols-2" : "sm:grid-cols-3"}`}
+              >
+                {c.valueProps.map(({ icon, title, body }) => (
+                  <TiltCard
+                    key={title}
+                    variants={fadeUp}
+                    className="rounded-2xl p-6"
+                    style={{ background: ab(0.08), border: `1px solid ${ab(0.2)}` }}
+                  >
+                    <div className="text-xl mb-4" style={{ color: accentLight }}>{icon}</div>
+                    <h3 className="font-semibold text-white mb-2 text-sm sm:text-base">{title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: "#8A9CB8" }}>{body}</p>
+                  </TiltCard>
+                ))}
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </section>
+
+      {/* ── How it works ── */}
+      <section className="max-w-4xl mx-auto px-5 py-20">
+        <FadeSection>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-12">How it works.</h2>
+        </FadeSection>
+        <AnimatePresence mode="wait">
+          <motion.div key={`steps-${userType}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              className="grid sm:grid-cols-3 gap-6 sm:gap-8"
+            >
+              {c.steps.map(({ step, title, body }, i) => (
+                <motion.div key={step} variants={fadeUp} className="relative flex flex-col">
+                  <h3 className="font-bold text-base mb-2 z-10" style={{ color: accentLight }}>{step}. {title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "#8A9CB8" }}>{body}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
       </section>
 
       {/* ── Footer ── */}
