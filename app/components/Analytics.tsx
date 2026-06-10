@@ -1,11 +1,21 @@
-import Script from "next/script";
+"use client";
 
-// Both are inert until the matching env var is set in Vercel.
-//   NEXT_PUBLIC_GA_ID       e.g. "G-XXXXXXXXXX"   (Google Analytics 4)
-//   NEXT_PUBLIC_CLARITY_ID  e.g. "abcdefghij"     (Microsoft Clarity project id)
+import Script from "next/script";
+import { useEffect, useState } from "react";
+
 export default function Analytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
+  const [consented, setConsented] = useState(false);
+
+  useEffect(() => {
+    const check = () => setConsented(localStorage.getItem("cookie_consent") === "true");
+    check();
+    window.addEventListener("storage", check);
+    return () => window.removeEventListener("storage", check);
+  }, []);
+
+  if (!consented) return null;
 
   return (
     <>

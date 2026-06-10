@@ -44,7 +44,7 @@ const jsonLd = {
   url: "https://theconnek.com",
   logo: "https://theconnek.com/icon.svg",
   description: "A community platform connecting MBA students and early professionals with industry mentors for real career conversations.",
-  sameAs: ["https://www.instagram.com/theconnek"],
+  sameAs: ["https://www.instagram.com/_the_connek"],
   foundingLocation: {
     "@type": "Place",
     addressCountry: "IN",

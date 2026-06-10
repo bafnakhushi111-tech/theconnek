@@ -11,13 +11,13 @@ export default function Footer() {
             Real conversations. No cold DMs. No algorithm. Just people.
           </p>
           <a
-            href="https://www.instagram.com/theconnek"
+            href="https://www.instagram.com/_the_connek"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs font-medium mt-1"
             style={{ color: "#4B6FA5" }}
           >
-            @theconnek on Instagram
+            @_the_connek on Instagram
           </a>
         </div>
         <div className="flex flex-col items-center sm:items-end gap-2 text-xs" style={{ color: "#2A3A50" }}>

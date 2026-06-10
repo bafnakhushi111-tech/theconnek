@@ -361,6 +361,25 @@ export default function Home() {
         </motion.div>
       </AnimatePresence>
 
+      {/* ── Mid-page CTA ── */}
+      <AnimatePresence mode="wait">
+        <motion.div key={`midcta-${userType}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
+          <FadeSection>
+            <div className="max-w-2xl mx-auto px-5 py-10 text-center">
+              <motion.a
+                href="#waitlist"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-block font-bold px-8 py-4 rounded-full text-sm md:text-base text-white"
+                style={{ background: accent, boxShadow: `0 16px 32px ${ab(0.3)}` }}
+              >
+                Join the community — it&apos;s free →
+              </motion.a>
+            </div>
+          </FadeSection>
+        </motion.div>
+      </AnimatePresence>
+
       {/* ── Value props ── */}
       <section className="py-20" style={{ background: heroBg }}>
         <div className="max-w-4xl mx-auto px-5">
