@@ -25,7 +25,7 @@ export default function ContactPage() {
         </p>
 
         <a
-          href="mailto:hello@theconnek.com"
+          href="mailto:hello@theconnek.in"
           className="group flex flex-col items-center gap-2 px-10 py-6 rounded-2xl transition-colors"
           style={{ background: "rgba(75,111,165,0.1)", border: "1px solid rgba(75,111,165,0.25)" }}
           onMouseEnter={undefined}
@@ -34,7 +34,7 @@ export default function ContactPage() {
             Email us
           </span>
           <span className="text-xl sm:text-2xl font-bold" style={{ color: "#7B9EC8" }}>
-            hello@theconnek.com
+            hello@theconnek.in
           </span>
           <span className="text-sm mt-1" style={{ color: "#3A4A60" }}>
             We reply within 24 hours

@@ -52,7 +52,7 @@ const jsonLd = [
     alternateName: ["connek", "the connek", "Connek"],
     url: "https://www.theconnek.com",
     logo: "https://www.theconnek.com/icon.svg",
-    email: "hello@theconnek.com",
+    email: "hello@theconnek.in",
     description: "A community platform connecting MBA students and early professionals with industry mentors for real career conversations.",
     sameAs: ["https://www.instagram.com/_the_connek"],
     foundingLocation: {

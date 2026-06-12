@@ -11,7 +11,7 @@ const NAV_LINKS: { label: string; href: string; external?: boolean; sub?: string
   { label: "About", href: "/about" },
   { label: "FAQ", href: "/faq" },
   { label: "Instagram", href: "https://instagram.com/_the_connek", external: true },
-  { label: "Contact Us", href: "/contact", sub: "hello@theconnek.com" },
+  { label: "Contact Us", href: "/contact", sub: "hello@theconnek.in" },
   { label: "Terms", href: "/terms" },
   { label: "Privacy", href: "/privacy" },
 ];

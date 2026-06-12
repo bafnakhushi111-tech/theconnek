@@ -65,8 +65,8 @@ export default function TermsPage() {
         <p>
           We may update these terms as theconnek evolves from a waitlist into a product. We&apos;ll change the
           date at the top when we do. Questions? Email{" "}
-          <a href="mailto:hello@theconnek.com" style={{ color: "#7B9EC8" }}>
-            hello@theconnek.com
+          <a href="mailto:hello@theconnek.in" style={{ color: "#7B9EC8" }}>
+            hello@theconnek.in
           </a>
           .
         </p>
