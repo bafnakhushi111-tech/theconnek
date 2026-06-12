@@ -12,14 +12,14 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.theconnek.com"),
   title: {
-    default: "theconnek | MBA Networking & Career Mentorship Community India",
+    default: "theconnek | Networking & Career Mentorship Community India",
     template: "%s | theconnek",
   },
   description: "theconnek connects MBA students and early professionals with industry mentors for real career conversations. No cold DMs, no algorithm. Free to join. Built for India.",
   keywords: "theconnek, connek, MBA networking India, career mentorship, MBA community, consulting career advice, IIM networking, case competition prep, guesstimate practice, career conversations, mentorship platform India",
   applicationName: "theconnek",
   openGraph: {
-    title: "theconnek | MBA Networking & Career Mentorship Community India",
+    title: "theconnek | Networking & Career Mentorship Community India",
     description: "Real career conversations with professionals who've been there. No cold DMs. No algorithm. Free to join.",
     url: "https://www.theconnek.com",
     siteName: "theconnek",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "theconnek | MBA Networking & Career Mentorship Community India",
+    title: "theconnek | Networking & Career Mentorship Community India",
     description: "Real career conversations with professionals who've been there. No cold DMs. No algorithm. Free to join.",
     site: "@_the_connek",
     images: ["/opengraph-image"],
