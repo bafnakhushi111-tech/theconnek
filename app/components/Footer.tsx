@@ -26,7 +26,7 @@ export default function Footer() {
             <Link href="/privacy" className="hover:opacity-80 transition-opacity" style={{ color: "#3A4A60" }}>Privacy</Link>
             <Link href="/terms" className="hover:opacity-80 transition-opacity" style={{ color: "#3A4A60" }}>Terms</Link>
           </div>
-          <span>© {2026} theconnek · Made in India</span>
+          <span>© {new Date().getFullYear()} theconnek · Made in India</span>
         </div>
       </div>
     </footer>

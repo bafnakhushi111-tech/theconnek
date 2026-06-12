@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import Logo from "../components/Logo";
 import Footer from "../components/Footer";
 
-const SHARE_URL = "https://theconnek.com/?ref=share";
+const SHARE_URL = "https://www.theconnek.com/?ref=share";
 const SHARE_TEXT =
   "I just joined theconnek, real career conversations with people who've been there. No cold DMs, no algorithm. Join me:";
 

@@ -10,14 +10,18 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://theconnek.com"),
-  title: "theconnek | MBA Networking & Career Mentorship Community India",
+  metadataBase: new URL("https://www.theconnek.com"),
+  title: {
+    default: "theconnek | MBA Networking & Career Mentorship Community India",
+    template: "%s | theconnek",
+  },
   description: "theconnek connects MBA students and early professionals with industry mentors for real career conversations. No cold DMs, no algorithm. Free to join. Built for India.",
-  keywords: "MBA networking India, career mentorship, MBA community, consulting career advice, IIM networking, case competition prep, guesstimate practice, career conversations, mentorship platform India",
+  keywords: "theconnek, connek, MBA networking India, career mentorship, MBA community, consulting career advice, IIM networking, case competition prep, guesstimate practice, career conversations, mentorship platform India",
+  applicationName: "theconnek",
   openGraph: {
     title: "theconnek | MBA Networking & Career Mentorship Community India",
     description: "Real career conversations with professionals who've been there. No cold DMs. No algorithm. Free to join.",
-    url: "https://theconnek.com",
+    url: "https://www.theconnek.com",
     siteName: "theconnek",
     type: "website",
     locale: "en_IN",
@@ -31,7 +35,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image"],
   },
   alternates: {
-    canonical: "https://theconnek.com",
+    canonical: "/",
   },
   robots: {
     index: true,
@@ -39,19 +43,34 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "theconnek",
-  url: "https://theconnek.com",
-  logo: "https://theconnek.com/icon.svg",
-  description: "A community platform connecting MBA students and early professionals with industry mentors for real career conversations.",
-  sameAs: ["https://www.instagram.com/_the_connek"],
-  foundingLocation: {
-    "@type": "Place",
-    addressCountry: "IN",
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://www.theconnek.com/#organization",
+    name: "theconnek",
+    alternateName: ["connek", "the connek", "Connek"],
+    url: "https://www.theconnek.com",
+    logo: "https://www.theconnek.com/icon.svg",
+    email: "hello@theconnek.com",
+    description: "A community platform connecting MBA students and early professionals with industry mentors for real career conversations.",
+    sameAs: ["https://www.instagram.com/_the_connek"],
+    foundingLocation: {
+      "@type": "Place",
+      addressCountry: "IN",
+    },
   },
-};
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://www.theconnek.com/#website",
+    name: "theconnek",
+    alternateName: ["connek", "the connek"],
+    url: "https://www.theconnek.com",
+    publisher: { "@id": "https://www.theconnek.com/#organization" },
+    inLanguage: "en-IN",
+  },
+];
 
 export default function RootLayout({
   children,

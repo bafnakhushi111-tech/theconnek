@@ -4,9 +4,9 @@ import NavWithPanel from "../components/NavWithPanel";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "About theconnek | Why We Built This MBA Networking Community",
+  title: "About Us: Why We Built This MBA Networking Community",
   description: "theconnek was built because real career conversations, the ones that actually change direction, were happening in rooms most MBA students never get access to. Here's the story.",
-  alternates: { canonical: "https://theconnek.com/about" },
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

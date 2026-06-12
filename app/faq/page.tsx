@@ -4,9 +4,9 @@ import NavWithPanel from "../components/NavWithPanel";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "FAQ | theconnek",
+  title: "FAQ",
   description: "Common questions about theconnek, the free networking and mentorship community for students and professionals in India.",
-  alternates: { canonical: "https://theconnek.com/faq" },
+  alternates: { canonical: "/faq" },
 };
 
 const FAQS = [
@@ -20,9 +20,23 @@ const FAQS = [
   { q: "What's guesstimate practice?", a: "A dedicated group to work through guesstimates together. The kind of repetition that actually builds confidence under pressure, with real people, not just recordings." },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
 export default function FAQPage() {
   return (
     <main className="min-h-screen text-white" style={{ background: "#08090E" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <NavWithPanel />
 
       <section className="px-5 py-20" style={{ background: "#0D1628" }}>

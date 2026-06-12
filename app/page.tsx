@@ -162,6 +162,13 @@ export default function Home() {
 
   return (
     <main className="min-h-screen text-white" style={{ background: "#08090E" }}>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-20 focus:left-5 focus:z-[60] focus:px-5 focus:py-2.5 focus:rounded-full focus:text-sm focus:font-semibold"
+        style={{ background: accent, color: "#ffffff" }}
+      >
+        Skip to content
+      </a>
       <ScrollProgress accent={accent} />
       <CursorGlow accent={accent} />
 
@@ -190,7 +197,7 @@ export default function Home() {
       <SidePanel open={panelOpen} onClose={() => setPanelOpen(false)} />
 
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden pt-24 pb-20 md:pt-32 md:pb-28" style={{ background: heroBg }}>
+      <section id="main-content" className="relative overflow-hidden pt-24 pb-20 md:pt-32 md:pb-28" style={{ background: heroBg }}>
         <motion.div
           animate={{ opacity: [0.18, 0.26, 0.18] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -343,8 +350,9 @@ export default function Home() {
                       { label: c.institutionLabel, key: "college", type: "text", placeholder: c.institutionPlaceholder },
                     ].map(({ label, key, type, placeholder }) => (
                       <div key={key}>
-                        <label className="block text-sm font-medium mb-1" style={{ color: accentLight }}>{label}</label>
+                        <label htmlFor={key} className="block text-sm font-medium mb-1" style={{ color: accentLight }}>{label}</label>
                         <input
+                          id={key}
                           type={type}
                           required
                           placeholder={placeholder}
@@ -358,9 +366,10 @@ export default function Home() {
                       </div>
                     ))}
                     <div>
-                      <label className="block text-sm font-medium mb-1" style={{ color: accentLight }}>{c.roleLabel}</label>
+                      <label htmlFor="role" className="block text-sm font-medium mb-1" style={{ color: accentLight }}>{c.roleLabel}</label>
                       {userType === "professional" ? (
                         <input
+                          id="role"
                           type="text"
                           required
                           placeholder="e.g. Associate, VP Strategy, Founder"
@@ -373,11 +382,14 @@ export default function Home() {
                         />
                       ) : (
                         <select
+                          id="role"
                           required
                           value={form.role}
                           onChange={(e) => setForm({ ...form, role: e.target.value })}
                           className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none appearance-none"
                           style={{ background: ab(0.1), border: `1px solid ${ab(0.25)}` }}
+                          onFocus={(e) => (e.target.style.border = `1px solid ${accent}`)}
+                          onBlur={(e) => (e.target.style.border = `1px solid ${ab(0.25)}`)}
                         >
                           <option value="" style={{ background: heroBg }}>Select a role</option>
                           {c.roleOptions.map((r) => (
@@ -387,13 +399,16 @@ export default function Home() {
                       )}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-1" style={{ color: accentLight }}>Years of experience</label>
+                      <label htmlFor="experience" className="block text-sm font-medium mb-1" style={{ color: accentLight }}>Years of experience</label>
                       <select
+                        id="experience"
                         required
                         value={form.experience}
                         onChange={(e) => setForm({ ...form, experience: e.target.value })}
                         className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none appearance-none"
                         style={{ background: ab(0.1), border: `1px solid ${ab(0.25)}` }}
+                        onFocus={(e) => (e.target.style.border = `1px solid ${accent}`)}
+                        onBlur={(e) => (e.target.style.border = `1px solid ${ab(0.25)}`)}
                       >
                         <option value="" style={{ background: heroBg }}>Select experience</option>
                         {["0–2 years", "2–5 years", "5–10 years", "10+ years"].map((opt) => (

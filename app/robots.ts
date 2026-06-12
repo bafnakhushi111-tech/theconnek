@@ -5,9 +5,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/api/",
+      disallow: ["/api/", "/color-preview"],
     },
-    sitemap: "https://theconnek.com/sitemap.xml",
-    host: "https://theconnek.com",
+    sitemap: "https://www.theconnek.com/sitemap.xml",
+    host: "https://www.theconnek.com",
   };
 }

@@ -11,7 +11,7 @@ const NAV_LINKS: { label: string; href: string; external?: boolean; sub?: string
   { label: "About", href: "/about" },
   { label: "FAQ", href: "/faq" },
   { label: "Instagram", href: "https://instagram.com/_the_connek", external: true },
-  { label: "Contact Us", href: "/contact", sub: "hello@theconnek.in" },
+  { label: "Contact Us", href: "/contact", sub: "hello@theconnek.com" },
   { label: "Terms", href: "/terms" },
   { label: "Privacy", href: "/privacy" },
 ];
@@ -126,7 +126,7 @@ export default function SidePanel({ open, onClose }: { open: boolean; onClose: (
                 Join the community →
               </a>
               <p className="text-center text-xs mt-3" style={{ color: "#2A3A50" }}>
-                © {2026} theconnek · Real conversations. That&apos;s it.
+                © {new Date().getFullYear()} theconnek · Real conversations. That&apos;s it.
               </p>
             </div>
           </motion.div>

@@ -3,8 +3,9 @@ import Link from "next/link";
 import LegalPage, { Section } from "../components/LegalPage";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | theconnek",
+  title: "Privacy Policy",
   description: "How theconnek collects, uses, and protects your personal information.",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {
@@ -20,8 +21,8 @@ export default function PrivacyPage() {
         <p>
           theconnek is operated from India and is currently in a pre-launch / waitlist stage. For any
           privacy question, or to exercise the rights described below, contact us at{" "}
-          <a href="mailto:hello@theconnek.in" style={{ color: "#7B9EC8" }}>
-            hello@theconnek.in
+          <a href="mailto:hello@theconnek.com" style={{ color: "#7B9EC8" }}>
+            hello@theconnek.com
           </a>
           .
         </p>
@@ -105,8 +106,8 @@ export default function PrivacyPage() {
         </ul>
         <p>
           To do any of these, email{" "}
-          <a href="mailto:hello@theconnek.in" style={{ color: "#7B9EC8" }}>
-            hello@theconnek.in
+          <a href="mailto:hello@theconnek.com" style={{ color: "#7B9EC8" }}>
+            hello@theconnek.com
           </a>
           . If you&apos;re not satisfied with how we handle a request, you may raise a grievance with us
           first, and you have the right to complain to the Data Protection Board of India.
