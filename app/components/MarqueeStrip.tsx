@@ -24,7 +24,7 @@ export default function MarqueeStrip({ accent = "#4B6FA5" }: { accent?: string }
         overflow: "hidden",
         borderTop: "1px solid #1a2a45",
         borderBottom: "1px solid #1a2a45",
-        background: "#08090E",
+        background: "#0F1219",
         padding: "13px 0",
       }}
     >
@@ -40,7 +40,7 @@ export default function MarqueeStrip({ accent = "#4B6FA5" }: { accent?: string }
               display: "inline-flex",
               alignItems: "center",
               paddingRight: 36,
-              color: "#3A4A60",
+              color: "#8A99B2",
               fontSize: 11,
               fontWeight: 700,
               letterSpacing: "0.12em",

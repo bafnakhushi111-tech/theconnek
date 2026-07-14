@@ -10,12 +10,12 @@ export default function LegalPage({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen text-white" style={{ background: "#08090E" }}>
+    <main className="min-h-screen text-white" style={{ background: "#0F1219" }}>
       <NavWithPanel />
 
       <article className="max-w-3xl mx-auto px-5 py-16">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">{title}</h1>
-        <p className="text-sm mb-12" style={{ color: "#2A3A50" }}>
+        <p className="text-sm mb-12" style={{ color: "#7B9EC8" }}>
           Last updated {updated}
         </p>
         <div className="legal-body flex flex-col gap-6">{children}</div>
@@ -23,7 +23,7 @@ export default function LegalPage({
 
       <footer
         className="py-8 text-center text-xs"
-        style={{ background: "#08090E", borderTop: "1px solid #1a2a45", color: "#2A3A50" }}
+        style={{ background: "#0F1219", borderTop: "1px solid #1a2a45", color: "#7B9EC8" }}
       >
         <span>theconnek · Real conversations. That&apos;s it.</span>
       </footer>

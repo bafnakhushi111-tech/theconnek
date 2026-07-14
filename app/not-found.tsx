@@ -5,19 +5,19 @@ export default function NotFound() {
   return (
     <main
       className="min-h-screen flex flex-col items-center justify-center text-center px-5 text-white"
-      style={{ background: "#08090E" }}
+      style={{ background: "#0F1219" }}
     >
       <div className="mb-8">
         <Logo variant="dark" size="md" />
       </div>
 
-      <p className="text-sm font-semibold tracking-widest mb-3" style={{ color: "#4B6FA5" }}>
+      <p className="text-sm font-semibold tracking-widest mb-3" style={{ color: "#7B9EC8" }}>
         404
       </p>
       <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
         This page wandered off.
       </h1>
-      <p className="text-sm sm:text-base max-w-md mb-10 leading-relaxed" style={{ color: "#8A9CB8" }}>
+      <p className="text-sm sm:text-base max-w-md mb-10 leading-relaxed" style={{ color: "#C2CEE0" }}>
         The link you followed doesn&apos;t exist (yet). The conversations, though, are still happening
         back home.
       </p>

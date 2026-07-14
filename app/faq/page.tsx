@@ -32,7 +32,7 @@ const faqJsonLd = {
 
 export default function FAQPage() {
   return (
-    <main className="min-h-screen text-white" style={{ background: "#08090E" }}>
+    <main className="min-h-screen text-white" style={{ background: "#0F1219" }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -41,7 +41,7 @@ export default function FAQPage() {
 
       <section className="px-5 py-20" style={{ background: "#0D1628" }}>
         <div className="max-w-2xl mx-auto">
-          <p className="text-sm font-semibold tracking-widest mb-3" style={{ color: "#4B6FA5" }}>FAQ</p>
+          <p className="text-sm font-semibold tracking-widest mb-3" style={{ color: "#7B9EC8" }}>FAQ</p>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-12 leading-tight">
             Common questions.
           </h1>
@@ -54,7 +54,7 @@ export default function FAQPage() {
                 style={{ background: "rgba(75,111,165,0.06)", border: "1px solid rgba(75,111,165,0.15)" }}
               >
                 <p className="font-semibold text-white text-sm sm:text-base mb-2">{q}</p>
-                <p className="text-sm leading-relaxed" style={{ color: "#8A9CB8" }}>{a}</p>
+                <p className="text-sm leading-relaxed" style={{ color: "#C2CEE0" }}>{a}</p>
               </div>
             ))}
           </div>

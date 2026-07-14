@@ -48,7 +48,7 @@ export default async function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px 90px",
-          background: "linear-gradient(135deg, #08090E 0%, #0D1628 55%, #16233D 100%)",
+          background: "linear-gradient(135deg, #0F1219 0%, #0D1628 55%, #16233D 100%)",
           fontFamily: "Jakarta",
         }}
       >
@@ -98,7 +98,7 @@ export default async function Image() {
             gap: 16,
             fontSize: 26,
             fontWeight: 500,
-            color: "#4B6FA5",
+            color: "#7B9EC8",
           }}
         >
           <span style={{ display: "flex", width: 10, height: 10, borderRadius: 5, background: "#4B6FA5" }} />

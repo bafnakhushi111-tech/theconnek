@@ -27,7 +27,7 @@ export default function ThankYou() {
   const x = `https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TEXT)}&url=${encodeURIComponent(SHARE_URL)}`;
 
   return (
-    <main className="min-h-screen flex flex-col text-white" style={{ background: "#08090E" }}>
+    <main className="min-h-screen flex flex-col text-white" style={{ background: "#0F1219" }}>
       {/* Nav */}
       <nav
         className="sticky top-0 z-50 backdrop-blur-md"
@@ -49,7 +49,7 @@ export default function ThankYou() {
         >
           <div className="text-5xl mb-6">🎉</div>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">You&apos;re in.</h1>
-          <p className="text-sm sm:text-base leading-relaxed mb-10" style={{ color: "#8A9CB8" }}>
+          <p className="text-sm sm:text-base leading-relaxed mb-10" style={{ color: "#C2CEE0" }}>
             Thanks for joining theconnek. We&apos;re building this carefully and in small batches, we&apos;ll
             email you the moment there&apos;s a real conversation waiting for you. Keep an eye on your inbox
             (and your spam folder, just in case).
@@ -60,7 +60,7 @@ export default function ThankYou() {
             className="rounded-2xl p-6 mb-10 text-left flex flex-col gap-4"
             style={{ background: "rgba(75,111,165,0.08)", border: "1px solid rgba(75,111,165,0.2)" }}
           >
-            <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "#4B6FA5" }}>
+            <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "#7B9EC8" }}>
               What happens next
             </p>
             {[
@@ -81,7 +81,7 @@ export default function ThankYou() {
 
           {/* Share */}
           <p className="font-semibold text-base mb-2 text-white">Know someone who should be in the room?</p>
-          <p className="text-sm mb-6" style={{ color: "#8A9CB8" }}>
+          <p className="text-sm mb-6" style={{ color: "#C2CEE0" }}>
             theconnek gets better with the right people. Pass it on.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -113,7 +113,7 @@ export default function ThankYou() {
           </div>
 
           <div className="mt-12">
-            <Link href="/" className="text-sm" style={{ color: "#4B6FA5" }}>
+            <Link href="/" className="text-sm" style={{ color: "#7B9EC8" }}>
               ← Back home
             </Link>
           </div>

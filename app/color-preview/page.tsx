@@ -31,8 +31,8 @@ export default function ColorPreview() {
   ];
 
   return (
-    <main style={{ background: "#08090E", minHeight: "100vh", padding: "40px 20px" }}>
-      <p style={{ color: "#3A4A60", fontSize: 12, textAlign: "center", marginBottom: 48, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+    <main style={{ background: "#0F1219", minHeight: "100vh", padding: "40px 20px" }}>
+      <p style={{ color: "#8A99B2", fontSize: 12, textAlign: "center", marginBottom: 48, letterSpacing: "0.1em", textTransform: "uppercase" }}>
         Professional view — light options
       </p>
 
@@ -55,7 +55,7 @@ export default function ColorPreview() {
                     <div style={{ padding: "8px 20px", borderRadius: 999, background: "transparent", color: al(0.45), fontSize: 13, fontWeight: 600 }}>
                       I&apos;m here to grow
                     </div>
-                    <div style={{ padding: "8px 20px", borderRadius: 999, background: accent, color: "#08090E", fontSize: 13, fontWeight: 700, boxShadow: `0 4px 20px ${ab(0.35)}` }}>
+                    <div style={{ padding: "8px 20px", borderRadius: 999, background: accent, color: "#0F1219", fontSize: 13, fontWeight: 700, boxShadow: `0 4px 20px ${ab(0.35)}` }}>
                       I want to give back
                     </div>
                   </div>
@@ -71,7 +71,7 @@ export default function ColorPreview() {
                   </div>
 
                   {/* CTA */}
-                  <a href="#" style={{ background: accent, color: "#08090E", fontWeight: 700, padding: "14px 32px", borderRadius: 999, fontSize: 14, textDecoration: "none", boxShadow: `0 16px 32px ${ab(0.25)}`, position: "relative", zIndex: 1 }}>
+                  <a href="#" style={{ background: accent, color: "#0F1219", fontWeight: 700, padding: "14px 32px", borderRadius: 999, fontSize: 14, textDecoration: "none", boxShadow: `0 16px 32px ${ab(0.25)}`, position: "relative", zIndex: 1 }}>
                     Join the community →
                   </a>
 

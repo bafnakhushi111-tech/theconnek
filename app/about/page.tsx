@@ -11,12 +11,12 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen text-white" style={{ background: "#08090E" }}>
+    <main className="min-h-screen text-white" style={{ background: "#0F1219" }}>
       <NavWithPanel />
 
       <section className="px-5 py-20" style={{ background: "#0D1628" }}>
         <div className="max-w-3xl mx-auto">
-          <p className="text-sm font-semibold tracking-widest mb-3" style={{ color: "#4B6FA5" }}>
+          <p className="text-sm font-semibold tracking-widest mb-3" style={{ color: "#7B9EC8" }}>
             OUR STORY
           </p>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-12 leading-tight">

@@ -90,7 +90,7 @@ export default function SidePanel({ open, onClose }: { open: boolean; onClose: (
                     >
                       <span className="flex flex-col gap-0.5">
                         <span className="text-base font-medium">{label}</span>
-                        {sub && <span className="text-xs" style={{ color: "#4B6FA5" }}>{sub}</span>}
+                        {sub && <span className="text-xs" style={{ color: "#7B9EC8" }}>{sub}</span>}
                       </span>
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="opacity-40 group-hover:opacity-80 transition-opacity flex-shrink-0">
                         <path d="M2 7H12M7 2L12 7L7 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -125,7 +125,7 @@ export default function SidePanel({ open, onClose }: { open: boolean; onClose: (
               >
                 Join the community →
               </a>
-              <p className="text-center text-xs mt-3" style={{ color: "#2A3A50" }}>
+              <p className="text-center text-xs mt-3" style={{ color: "#7B9EC8" }}>
                 © {new Date().getFullYear()} theconnek · Real conversations. That&apos;s it.
               </p>
             </div>
