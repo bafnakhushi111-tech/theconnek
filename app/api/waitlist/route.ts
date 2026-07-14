@@ -1,6 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import bcrypt from "bcryptjs";
 
 const FROM = "theconnek <hello@theconnek.com>";
 
@@ -23,6 +24,11 @@ function rateLimited(ip: string): boolean {
   hits.set(ip, recent);
   if (hits.size > 5000) hits.clear();
   return false;
+}
+
+function generatePassword(): string {
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
+  return Array.from({ length: 10 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
 }
 
 function clean(value: unknown, max: number): string {
@@ -57,7 +63,7 @@ function adminEmail(name: string, email: string, college: string, role: string, 
   `;
 }
 
-function welcomeEmail(name: string, user_type: string) {
+function welcomeEmail(name: string, user_type: string, email: string, password: string) {
   const isPro = user_type === "professional";
   const firstName = name.split(" ")[0];
   const headline = isPro
@@ -152,6 +158,25 @@ function welcomeEmail(name: string, user_type: string) {
               <div style="height:1px;background:rgba(75,111,165,0.12);"></div>
             </td></tr>
 
+            <!-- Login credentials -->
+            <tr><td style="padding-bottom:12px;">
+              <p style="margin:0;font-size:10px;font-weight:700;color:#4B6FA5;text-transform:uppercase;letter-spacing:2px;font-family:'Plus Jakarta Sans',-apple-system,sans-serif;">Your login details</p>
+            </td></tr>
+            <tr><td style="padding-bottom:28px;">
+              <table cellpadding="0" cellspacing="0" width="100%" style="background:rgba(75,111,165,0.06);border:1px solid rgba(75,111,165,0.12);border-radius:10px;">
+                <tr><td style="padding:16px;">
+                  <p style="margin:0 0 6px;font-size:13px;color:#CBD5E1;font-family:'Plus Jakarta Sans',-apple-system,sans-serif;"><strong>Email:</strong> ${email}</p>
+                  <p style="margin:0 0 10px;font-size:13px;color:#CBD5E1;font-family:'Plus Jakarta Sans',-apple-system,sans-serif;"><strong>Password:</strong> <span style="font-family:monospace;background:rgba(255,255,255,0.06);padding:2px 8px;border-radius:4px;">${password}</span></p>
+                  <p style="margin:0;font-size:11px;color:#4B6FA5;font-family:'Plus Jakarta Sans',-apple-system,sans-serif;">Save this email. You&apos;ll use these to access your member dashboard at theconnek.com.</p>
+                </td></tr>
+              </table>
+            </td></tr>
+
+            <!-- Divider -->
+            <tr><td style="padding-bottom:24px;">
+              <div style="height:1px;background:rgba(75,111,165,0.12);"></div>
+            </td></tr>
+
             <!-- Share nudge -->
             <tr><td style="padding-bottom:20px;">
               <p style="margin:0;font-size:14px;color:#8A9CB8;line-height:1.65;font-family:'Plus Jakarta Sans',-apple-system,sans-serif;">Know someone who would benefit? Share it. The more real people in the room, the better the conversations.</p>
@@ -202,16 +227,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
     }
 
+    const plainPassword = generatePassword();
+    const passwordHash = await bcrypt.hash(plainPassword, 12);
+
     try {
       if (user_type === "professional") {
         await sql`
-          INSERT INTO mentors (name, email, company, role, location, experience)
-          VALUES (${name}, ${email}, ${college}, ${role}, ${location || null}, ${experience || null})
+          INSERT INTO mentors (name, email, company, role, location, experience, password_hash)
+          VALUES (${name}, ${email}, ${college}, ${role}, ${location || null}, ${experience || null}, ${passwordHash})
         `;
       } else {
         await sql`
-          INSERT INTO mentees (name, email, college, role, location, experience)
-          VALUES (${name}, ${email}, ${college}, ${role}, ${location || null}, ${experience || null})
+          INSERT INTO mentees (name, email, college, role, location, experience, password_hash)
+          VALUES (${name}, ${email}, ${college}, ${role}, ${location || null}, ${experience || null}, ${passwordHash})
         `;
       }
     } catch (err: unknown) {
@@ -230,8 +258,8 @@ export async function POST(req: NextRequest) {
         resend.emails.send({
           from: FROM,
           to: email,
-          subject: `You're in — welcome to Connek`,
-          html: welcomeEmail(name, user_type),
+          subject: `You're in — welcome to theconnek`,
+          html: welcomeEmail(name, user_type, email, plainPassword),
         }),
         resend.emails.send({
           from: FROM,
