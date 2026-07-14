@@ -100,10 +100,98 @@ const content = {
   },
 };
 
+// Searchable list for the candidate "College" field. MBA/B-school leaning (Khushi's
+// audience) plus the major engineering schools. Not exhaustive by design — anyone whose
+// college isn't listed can just type their own; whatever they type is saved as-is.
+const COLLEGES = [
+  "IIM Ahmedabad", "IIM Bangalore", "IIM Calcutta", "IIM Lucknow", "IIM Kozhikode",
+  "IIM Indore", "IIM Shillong", "IIM Rohtak", "IIM Udaipur", "IIM Trichy", "IIM Raipur",
+  "IIM Ranchi", "IIM Kashipur", "IIM Nagpur", "IIM Amritsar", "IIM Bodh Gaya",
+  "IIM Sambalpur", "IIM Sirmaur", "IIM Jammu", "IIM Visakhapatnam", "IIM Mumbai (NITIE)",
+  "ISB Hyderabad", "XLRI Jamshedpur", "FMS Delhi", "SPJIMR Mumbai", "MDI Gurgaon",
+  "JBIMS Mumbai", "IIFT Delhi", "NMIMS Mumbai", "SIBM Pune", "IMT Ghaziabad",
+  "TISS Mumbai", "Great Lakes Chennai", "IMI New Delhi", "XIM Bhubaneswar",
+  "SCMHRD Pune", "K J Somaiya Mumbai", "Welingkar Mumbai", "DMS IIT Delhi",
+  "Christ University", "Symbiosis (SIU) Pune",
+  "IIT Bombay", "IIT Delhi", "IIT Madras", "IIT Kanpur", "IIT Kharagpur", "IIT Roorkee",
+  "IIT Guwahati", "IIT Hyderabad", "IIT (BHU) Varanasi", "IIT Indore", "IIT Jodhpur",
+  "IIT Gandhinagar", "IIT Ropar", "IIT Patna", "IIT Mandi", "IIT Bhubaneswar",
+  "IIT (ISM) Dhanbad", "NIT Trichy", "NIT Surathkal", "NIT Warangal", "NIT Rourkela",
+  "BITS Pilani", "Delhi University (DU)", "SRCC Delhi", "Delhi Technological University (DTU)",
+  "VIT Vellore", "Anna University", "Jadavpur University", "Manipal (MAHE)",
+  "Ashoka University", "Shiv Nadar University", "Amity University",
+  "Jamia Millia Islamia", "Jawaharlal Nehru University (JNU)",
+];
+
+// College field with type-ahead suggestions and a free-text fallback: users can pick from
+// the list or type anything. The typed value is always what gets submitted.
+function CollegeCombobox({
+  value, onChange, label, placeholder, accent, accentLight, fieldBg, fieldBorder, heroBg,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  label: string;
+  placeholder: string;
+  accent: string;
+  accentLight: string;
+  fieldBg: string;
+  fieldBorder: string;
+  heroBg: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const q = value.trim().toLowerCase();
+  const matches = (q ? COLLEGES.filter((col) => col.toLowerCase().includes(q)) : COLLEGES).slice(0, 8);
+
+  return (
+    <div className="relative">
+      <label htmlFor="college" className="block text-sm font-medium mb-1" style={{ color: accentLight }}>{label}</label>
+      <input
+        id="college"
+        type="text"
+        required
+        autoComplete="off"
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => { onChange(e.target.value); setOpen(true); }}
+        onFocus={(e) => { setOpen(true); e.target.style.border = `1px solid ${accent}`; }}
+        onBlur={(e) => { window.setTimeout(() => setOpen(false), 120); e.target.style.border = `1px solid ${fieldBorder}`; }}
+        className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none"
+        style={{ background: fieldBg, border: `1px solid ${fieldBorder}` }}
+      />
+      {open && matches.length > 0 && (
+        <ul
+          className="absolute z-20 mt-1 w-full rounded-xl py-1 max-h-60 overflow-y-auto"
+          style={{ background: heroBg, border: `1px solid ${fieldBorder}`, boxShadow: "0 12px 32px rgba(0,0,0,0.45)" }}
+        >
+          {matches.map((col) => (
+            <li key={col}>
+              <button
+                type="button"
+                onMouseDown={(e) => { e.preventDefault(); onChange(col); setOpen(false); }}
+                className="w-full text-left px-4 py-2.5 text-sm"
+                style={{ color: "#CBD5E1", background: "transparent" }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = fieldBg)}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+              >
+                {col}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      {q.length > 1 && matches.length === 0 && (
+        <p className="mt-1 text-xs" style={{ color: accentLight }}>
+          Not in the list? No problem — we&apos;ll save exactly what you typed.
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function Home() {
   const router = useRouter();
   const [userType, setUserType] = useState<UserType>("candidate");
-  const [form, setForm] = useState({ name: "", email: "", college: "", role: "", location: "", experience: "" });
+  const [form, setForm] = useState({ name: "", email: "", college: "", role: "", location: "", experience: "", linkedin: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -111,7 +199,7 @@ export default function Home() {
 
   function handleToggle(type: UserType) {
     setUserType(type);
-    setForm({ name: "", email: "", college: "", role: "", location: "", experience: "" });
+    setForm({ name: "", email: "", college: "", role: "", location: "", experience: "", linkedin: "" });
     setSubmitted(false);
     setError("");
   }
@@ -347,7 +435,6 @@ export default function Home() {
                       { label: "Full name", key: "name", type: "text", placeholder: "Priya Sharma" },
                       { label: "Email", key: "email", type: "email", placeholder: "priya@example.com" },
                       { label: "Location", key: "location", type: "text", placeholder: "e.g. Mumbai, Bangalore" },
-                      { label: c.institutionLabel, key: "college", type: "text", placeholder: c.institutionPlaceholder },
                     ].map(({ label, key, type, placeholder }) => (
                       <div key={key}>
                         <label htmlFor={key} className="block text-sm font-medium mb-1" style={{ color: accentLight }}>{label}</label>
@@ -365,6 +452,35 @@ export default function Home() {
                         />
                       </div>
                     ))}
+                    {userType === "candidate" ? (
+                      <CollegeCombobox
+                        value={form.college}
+                        onChange={(v) => setForm({ ...form, college: v })}
+                        label={c.institutionLabel}
+                        placeholder={c.institutionPlaceholder}
+                        accent={accent}
+                        accentLight={accentLight}
+                        fieldBg={ab(0.1)}
+                        fieldBorder={ab(0.25)}
+                        heroBg={heroBg}
+                      />
+                    ) : (
+                      <div>
+                        <label htmlFor="college" className="block text-sm font-medium mb-1" style={{ color: accentLight }}>{c.institutionLabel}</label>
+                        <input
+                          id="college"
+                          type="text"
+                          required
+                          placeholder={c.institutionPlaceholder}
+                          value={form.college}
+                          onChange={(e) => setForm({ ...form, college: e.target.value })}
+                          className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none"
+                          style={{ background: ab(0.1), border: `1px solid ${ab(0.25)}` }}
+                          onFocus={(e) => (e.target.style.border = `1px solid ${accent}`)}
+                          onBlur={(e) => (e.target.style.border = `1px solid ${ab(0.25)}`)}
+                        />
+                      </div>
+                    )}
                     <div>
                       <label htmlFor="role" className="block text-sm font-medium mb-1" style={{ color: accentLight }}>{c.roleLabel}</label>
                       {userType === "professional" ? (
@@ -415,6 +531,23 @@ export default function Home() {
                           <option key={opt} value={opt} style={{ background: heroBg }}>{opt}</option>
                         ))}
                       </select>
+                    </div>
+                    <div>
+                      <label htmlFor="linkedin" className="block text-sm font-medium mb-1" style={{ color: accentLight }}>
+                        LinkedIn <span style={{ color: "#64748B", fontWeight: 400 }}>(optional)</span>
+                      </label>
+                      <input
+                        id="linkedin"
+                        type="text"
+                        inputMode="url"
+                        placeholder="linkedin.com/in/yourname"
+                        value={form.linkedin}
+                        onChange={(e) => setForm({ ...form, linkedin: e.target.value })}
+                        className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none"
+                        style={{ background: ab(0.1), border: `1px solid ${ab(0.25)}` }}
+                        onFocus={(e) => (e.target.style.border = `1px solid ${accent}`)}
+                        onBlur={(e) => (e.target.style.border = `1px solid ${ab(0.25)}`)}
+                      />
                     </div>
                     {error && <p className="text-red-400 text-sm text-center">{error}</p>}
                     <motion.button

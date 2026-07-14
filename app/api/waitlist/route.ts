@@ -29,7 +29,7 @@ function clean(value: unknown, max: number): string {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
 }
 
-function adminEmail(name: string, email: string, college: string, role: string, user_type: string, location?: string, experience?: string) {
+function adminEmail(name: string, email: string, college: string, role: string, user_type: string, location?: string, experience?: string, linkedin?: string) {
   const typeLabel = user_type === "professional" ? "Professional" : "Candidate";
   const institutionLabel = user_type === "professional" ? "Company" : "College";
   const roleLabel = user_type === "professional" ? "Current Role" : "Target Role";
@@ -40,6 +40,7 @@ function adminEmail(name: string, email: string, college: string, role: string, 
     [institutionLabel, college],
     [roleLabel, role],
     ...(experience ? [["Experience", experience]] : []),
+    ...(linkedin ? [["LinkedIn", `<a href="${linkedin}" style="color:#4B6FA5;font-weight:600;">${linkedin}</a>`]] : []),
   ];
   return `
     <div style="font-family:Arial,sans-serif;max-width:480px;margin:0 auto;padding:32px;background:#f9fafb;border-radius:12px;">
@@ -194,6 +195,9 @@ export async function POST(req: NextRequest) {
     const user_type = body.user_type === "professional" ? "professional" : "candidate";
     const location = clean(body.location, 100) || undefined;
     const experience = clean(body.experience, 20) || undefined;
+    // LinkedIn is optional. Normalize a bare "linkedin.com/in/…" into a clickable https URL.
+    let linkedin = clean(body.linkedin, 200) || undefined;
+    if (linkedin && !/^https?:\/\//i.test(linkedin)) linkedin = `https://${linkedin}`;
 
     if (!name || !email || !college || !role) {
       return NextResponse.json({ error: "All fields are required." }, { status: 400 });
@@ -205,13 +209,13 @@ export async function POST(req: NextRequest) {
     try {
       if (user_type === "professional") {
         await sql`
-          INSERT INTO mentors (name, email, company, role, location, experience)
-          VALUES (${name}, ${email}, ${college}, ${role}, ${location || null}, ${experience || null})
+          INSERT INTO mentors (name, email, company, role, location, experience, linkedin)
+          VALUES (${name}, ${email}, ${college}, ${role}, ${location || null}, ${experience || null}, ${linkedin || null})
         `;
       } else {
         await sql`
-          INSERT INTO mentees (name, email, college, role, location, experience)
-          VALUES (${name}, ${email}, ${college}, ${role}, ${location || null}, ${experience || null})
+          INSERT INTO mentees (name, email, college, role, location, experience, linkedin)
+          VALUES (${name}, ${email}, ${college}, ${role}, ${location || null}, ${experience || null}, ${linkedin || null})
         `;
       }
     } catch (err: unknown) {
@@ -237,7 +241,7 @@ export async function POST(req: NextRequest) {
           from: FROM,
           to: "hello@theconnek.in",
           subject: `New ${typeLabel} signup: ${name}`,
-          html: adminEmail(name, email, college, role, user_type, location, experience),
+          html: adminEmail(name, email, college, role, user_type, location, experience, linkedin),
         }),
       ]);
     }
