@@ -343,7 +343,7 @@ export default function Home() {
                   <TextReveal text={c.headlineGradient} style={{ color: accentLight }} once={true} delay={0.18} />
                 </h1>
 
-                <p className="text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: "#C2CEE0" }}>
+                <p className="text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: "#D5DEEC" }}>
                   {c.sub}
                 </p>
 
@@ -373,7 +373,7 @@ export default function Home() {
           ].map(({ stat, sub }) => (
             <div key={stat} className="flex flex-col items-center">
               <div className="text-lg sm:text-xl font-bold text-white">{stat}</div>
-              <div className="text-xs sm:text-sm mt-1 leading-snug" style={{ color: "#C2CEE0" }}>{sub}</div>
+              <div className="text-xs sm:text-base mt-1 leading-snug" style={{ color: "#D5DEEC" }}>{sub}</div>
             </div>
           ))}
         </div>
@@ -403,7 +403,7 @@ export default function Home() {
                 >
                   <div className="text-4xl mb-4">🎉</div>
                   <h3 className="text-xl font-bold mb-2 text-white">You&apos;re in.</h3>
-                  <p className="text-sm mb-6" style={{ color: "#C2CEE0" }}>
+                  <p className="text-base mb-6" style={{ color: "#D5DEEC" }}>
                     We&apos;ll be in touch at <span className="text-white font-medium">{form.email}</span>.
                   </p>
                   <p className="text-sm font-semibold text-white mb-3">Know someone who should be here?</p>
@@ -429,7 +429,7 @@ export default function Home() {
               ) : (
                 <>
                   <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-3">{c.formTitle}</h2>
-                  <p className="text-center text-sm sm:text-base mb-10" style={{ color: "#C2CEE0" }}>{c.formSub}</p>
+                  <p className="text-center text-base sm:text-base mb-10" style={{ color: "#D5DEEC" }}>{c.formSub}</p>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     {[
                       { label: "Full name", key: "name", type: "text", placeholder: "Priya Sharma" },
@@ -588,7 +588,7 @@ export default function Home() {
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-4">
                   Built for the full journey.
                 </h2>
-                <p className="text-center text-sm sm:text-base max-w-xl mx-auto mb-14" style={{ color: "#C2CEE0" }}>
+                <p className="text-center text-base sm:text-base max-w-xl mx-auto mb-14" style={{ color: "#D5DEEC" }}>
                   While you wait for the right conversation, there&apos;s a whole community already figuring it out alongside you.
                 </p>
               </FadeSection>
@@ -624,7 +624,7 @@ export default function Home() {
                   >
                     <div className="text-3xl font-black mb-5 leading-none" style={{ color: ab(0.3) }}>{num}</div>
                     <h3 className="font-bold text-white text-base mb-3">{title}</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "#C2CEE0" }}>{body}</p>
+                    <p className="text-base leading-relaxed" style={{ color: "#D5DEEC" }}>{body}</p>
                   </TiltCard>
                 ))}
               </motion.div>
@@ -644,7 +644,7 @@ export default function Home() {
               <TextReveal text={c.whyHeadline} />
             </h2>
             {c.why.map((para, i) => (
-              <p key={i} className="leading-relaxed mb-5 text-sm sm:text-base" style={{ color: "#C2CEE0" }}>{para}</p>
+              <p key={i} className="leading-relaxed mb-5 text-base sm:text-base" style={{ color: "#D5DEEC" }}>{para}</p>
             ))}
             <p className="font-semibold text-base sm:text-lg" style={{ color: accentLight }}>{c.whyClose}</p>
           </FadeSection>
@@ -676,7 +676,7 @@ export default function Home() {
                   >
                     <div className="text-xl mb-4" style={{ color: accentLight }}>{icon}</div>
                     <h3 className="font-semibold text-white mb-2 text-sm sm:text-base">{title}</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "#C2CEE0" }}>{body}</p>
+                    <p className="text-base leading-relaxed" style={{ color: "#D5DEEC" }}>{body}</p>
                   </TiltCard>
                 ))}
               </motion.div>
@@ -702,7 +702,7 @@ export default function Home() {
               {c.steps.map(({ step, title, body }, i) => (
                 <motion.div key={step} variants={fadeUp} className="relative flex flex-col">
                   <h3 className="font-bold text-base mb-2 z-10" style={{ color: accentLight }}>{step}. {title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "#C2CEE0" }}>{body}</p>
+                  <p className="text-base leading-relaxed" style={{ color: "#D5DEEC" }}>{body}</p>
                 </motion.div>
               ))}
             </motion.div>

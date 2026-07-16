@@ -17,7 +17,7 @@ export default function NotFound() {
       <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
         This page wandered off.
       </h1>
-      <p className="text-sm sm:text-base max-w-md mb-10 leading-relaxed" style={{ color: "#C2CEE0" }}>
+      <p className="text-base sm:text-base max-w-md mb-10 leading-relaxed" style={{ color: "#D5DEEC" }}>
         The link you followed doesn&apos;t exist (yet). The conversations, though, are still happening
         back home.
       </p>

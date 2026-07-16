@@ -29,7 +29,7 @@ export default function CookieBanner() {
       className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-sm z-50 rounded-2xl px-5 py-4 flex flex-col gap-3 text-sm"
       style={{ background: "#0D1628", border: "1px solid #1a2a45", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}
     >
-      <p style={{ color: "#C2CEE0" }} className="text-xs leading-relaxed">
+      <p style={{ color: "#D5DEEC" }} className="text-xs leading-relaxed">
         We use cookies for analytics to improve your experience.{" "}
         <Link href="/privacy" className="underline" style={{ color: "#7B9EC8" }}>Privacy policy</Link>.
       </p>
@@ -44,7 +44,7 @@ export default function CookieBanner() {
         <button
           onClick={decline}
           className="flex-1 text-xs font-bold px-4 py-2 rounded-xl"
-          style={{ border: "1px solid #1a2a45", color: "#C2CEE0" }}
+          style={{ border: "1px solid #1a2a45", color: "#D5DEEC" }}
         >
           Decline
         </button>

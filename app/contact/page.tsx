@@ -20,7 +20,7 @@ export default function ContactPage() {
         <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
           Say hello.
         </h1>
-        <p className="text-base sm:text-lg max-w-md mx-auto mb-12 leading-relaxed" style={{ color: "#C2CEE0" }}>
+        <p className="text-base sm:text-lg max-w-md mx-auto mb-12 leading-relaxed" style={{ color: "#D5DEEC" }}>
           Have a question, feedback, or just want to talk? We&apos;d love to hear from you.
         </p>
 

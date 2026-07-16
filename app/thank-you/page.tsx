@@ -49,7 +49,7 @@ export default function ThankYou() {
         >
           <div className="text-5xl mb-6">🎉</div>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">You&apos;re in.</h1>
-          <p className="text-sm sm:text-base leading-relaxed mb-10" style={{ color: "#C2CEE0" }}>
+          <p className="text-base sm:text-base leading-relaxed mb-10" style={{ color: "#D5DEEC" }}>
             Thanks for joining theconnek. We&apos;re building this carefully and in small batches, we&apos;ll
             email you the moment there&apos;s a real conversation waiting for you. Keep an eye on your inbox
             (and your spam folder, just in case).
@@ -81,7 +81,7 @@ export default function ThankYou() {
 
           {/* Share */}
           <p className="font-semibold text-base mb-2 text-white">Know someone who should be in the room?</p>
-          <p className="text-sm mb-6" style={{ color: "#C2CEE0" }}>
+          <p className="text-base mb-6" style={{ color: "#D5DEEC" }}>
             theconnek gets better with the right people. Pass it on.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
