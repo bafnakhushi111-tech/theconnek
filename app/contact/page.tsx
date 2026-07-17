@@ -25,7 +25,9 @@ export default function ContactPage() {
         </p>
 
         <a
-          href="mailto:hello@theconnek.in"
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@theconnek.in"
+          target="_blank"
+          rel="noopener noreferrer"
           className="group flex flex-col items-center gap-2 px-10 py-6 rounded-2xl transition-colors"
           style={{ background: "rgba(75,111,165,0.1)", border: "1px solid rgba(75,111,165,0.25)" }}
           onMouseEnter={undefined}
@@ -43,7 +45,13 @@ export default function ContactPage() {
 
         <p className="text-sm mt-8" style={{ color: "#D5DEEC" }}>
           Prefer to reach the founder directly?{" "}
-          <a href="mailto:bafnakhushi111@gmail.com" className="font-semibold" style={{ color: "#7B9EC8" }}>
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=bafnakhushi111@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold"
+            style={{ color: "#7B9EC8" }}
+          >
             bafnakhushi111@gmail.com
           </a>
         </p>
