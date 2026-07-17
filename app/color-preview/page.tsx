@@ -5,7 +5,7 @@ export const metadata = {
 export default function ColorPreview() {
   const options = [
     {
-      label: "Option A — Mint",
+      label: "Option A - Mint",
       accent: "#7ECFB8",
       accentLight: "#B5E8DA",
       accentRgb: "126,207,184",
@@ -13,7 +13,7 @@ export default function ColorPreview() {
       heroBg: "#0D1714",
     },
     {
-      label: "Option B — Lavender",
+      label: "Option B - Lavender",
       accent: "#A897E8",
       accentLight: "#C9BFEF",
       accentRgb: "168,151,232",
@@ -21,7 +21,7 @@ export default function ColorPreview() {
       heroBg: "#0F0D1A",
     },
     {
-      label: "Option C — Champagne",
+      label: "Option C - Champagne",
       accent: "#D4B896",
       accentLight: "#E8D5C0",
       accentRgb: "212,184,150",
@@ -33,7 +33,7 @@ export default function ColorPreview() {
   return (
     <main style={{ background: "#0F1219", minHeight: "100vh", padding: "40px 20px" }}>
       <p style={{ color: "#8A99B2", fontSize: 12, textAlign: "center", marginBottom: 48, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-        Professional view — light options
+        Professional view - light options
       </p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 48, maxWidth: 640, margin: "0 auto" }}>
@@ -79,7 +79,7 @@ export default function ColorPreview() {
                   <div style={{ width: "100%", borderRadius: 16, padding: "20px 24px", background: ab(0.07), border: `1px solid ${ab(0.18)}`, position: "relative", zIndex: 1 }}>
                     <div style={{ color: accentLight, fontSize: 18, marginBottom: 10 }}>✦</div>
                     <p style={{ color: "#fff", fontWeight: 600, fontSize: 14, marginBottom: 6 }}>Give what you wish you&apos;d had</p>
-                    <p style={{ color: "#6B7FA3", fontSize: 13, lineHeight: 1.6 }}>The honest advice, the insider context — the things that took you years to figure out.</p>
+                    <p style={{ color: "#6B7FA3", fontSize: 13, lineHeight: 1.6 }}>The honest advice, the insider context - the things that took you years to figure out.</p>
                   </div>
                 </div>
               </div>

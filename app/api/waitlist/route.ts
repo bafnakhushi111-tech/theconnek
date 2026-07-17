@@ -44,7 +44,7 @@ function adminEmail(name: string, email: string, college: string, role: string, 
   ];
   return `
     <div style="font-family:Arial,sans-serif;max-width:480px;margin:0 auto;padding:32px;background:#f9fafb;border-radius:12px;">
-      <p style="margin:0 0 4px;font-size:20px;font-weight:700;color:#111827;">New ${typeLabel} signup — ${name}</p>
+      <p style="margin:0 0 4px;font-size:20px;font-weight:700;color:#111827;">New ${typeLabel} signup - ${name}</p>
       <p style="margin:0 0 24px;font-size:13px;color:#6b7280;">${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST</p>
       <table style="width:100%;border-collapse:collapse;">
         ${rows.map(([label, value]) => `
@@ -234,7 +234,7 @@ export async function POST(req: NextRequest) {
         resend.emails.send({
           from: FROM,
           to: email,
-          subject: `You're in — welcome to Connek`,
+          subject: `You're in - welcome to Connek`,
           html: welcomeEmail(name, user_type),
         }),
         resend.emails.send({

@@ -11,11 +11,11 @@ export const metadata: Metadata = {
 
 const FAQS = [
   { q: "Is theconnek free?", a: "Yes, completely. No subscription, no premium tier, no catch. theconnek is free for both students and professionals." },
-  { q: "Who is this for?", a: "Any student, undergraduate, postgraduate, MBA, or otherwise, who wants real career conversations. And professionals who are open to sharing their journey. No pedigree filter, no college cutoff." },
+  { q: "Who is this for?", a: "Any student, undergraduate, postgraduate, or otherwise, who wants real career conversations. And professionals who are open to sharing their journey. No pedigree filter, no college cutoff." },
   { q: "How does matching work?", a: "We match based on your background, target role, and what you're looking for, then make the introduction. You're always in control of who you talk to." },
   { q: "Do I need to be from a top college?", a: "No. There's no pedigree filter. If you're serious about your career and willing to have real conversations, you belong here." },
   { q: "How soon will I hear back after joining?", a: "We review every signup personally and onboard in small batches. You'll get an email the moment a conversation is ready for you." },
-  { q: "I'm a professional — how much time does this take?", a: "As much or as little as you want. No quota, no schedule. One conversation a month is enough to make a real difference for someone." },
+  { q: "I'm a professional - how much time does this take?", a: "As much or as little as you want. No quota, no schedule. One conversation a month is enough to make a real difference for someone." },
   { q: "What is a study circle?", a: "A small group of students targeting the same roles, think shared resources, honest feedback, and accountability without the LinkedIn performativity." },
   { q: "What's guesstimate practice?", a: "A dedicated group to work through guesstimates together. The kind of repetition that actually builds confidence under pressure, with real people, not just recordings." },
 ];

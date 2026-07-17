@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy Policy" updated="4 June 2026">
+    <LegalPage title="Privacy Policy" updated="17 July 2026">
       <p className="text-sm sm:text-base leading-relaxed" style={{ color: "#8093AE" }}>
         theconnek (&ldquo;theconnek&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) helps students and professionals
         have honest career conversations. This policy explains what we collect when you join our waitlist,
@@ -65,17 +65,17 @@ export default function PrivacyPage() {
         </p>
         <ul className="list-disc pl-5 flex flex-col gap-1">
           <li>
-            <strong style={{ color: "#B8C6DC" }}>Neon</strong>, securely stores the waitlist database.
+            <strong style={{ color: "#B8C6DC" }}>Neon</strong> securely stores the waitlist database.
           </li>
           <li>
-            <strong style={{ color: "#B8C6DC" }}>Resend</strong>, sends us a notification when you sign up,
+            <strong style={{ color: "#B8C6DC" }}>Resend</strong> sends us a notification when you sign up,
             and may be used to email you.
           </li>
           <li>
-            <strong style={{ color: "#B8C6DC" }}>Vercel</strong>, hosts the website.
+            <strong style={{ color: "#B8C6DC" }}>Vercel</strong> hosts the website.
           </li>
           <li>
-            <strong style={{ color: "#B8C6DC" }}>Google Analytics & Microsoft Clarity</strong>, used for
+            <strong style={{ color: "#B8C6DC" }}>Google Analytics & Microsoft Clarity</strong> provide
             anonymous website analytics, only if you accept cookies.
           </li>
         </ul>
@@ -111,6 +111,27 @@ export default function PrivacyPage() {
           </a>
           . If you&apos;re not satisfied with how we handle a request, you may raise a grievance with us
           first, and you have the right to complain to the Data Protection Board of India.
+        </p>
+      </Section>
+
+      <Section heading="Grievance contact">
+        <p>
+          Under India&apos;s Digital Personal Data Protection Act, 2023, you can reach our grievance contact
+          for any question or complaint about how your data is handled:
+        </p>
+        <ul className="list-disc pl-5 flex flex-col gap-1">
+          <li>
+            <strong style={{ color: "#B8C6DC" }}>Khushi Bafna</strong>, Founder and Grievance Officer
+          </li>
+          <li>
+            Email:{" "}
+            <a href="mailto:bafnakhushi111@gmail.com" style={{ color: "#7B9EC8" }}>
+              bafnakhushi111@gmail.com
+            </a>
+          </li>
+        </ul>
+        <p>
+          We aim to acknowledge every grievance within a reasonable time and resolve it promptly.
         </p>
       </Section>
 

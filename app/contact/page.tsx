@@ -40,6 +40,13 @@ export default function ContactPage() {
             We reply within 24 hours
           </span>
         </a>
+
+        <p className="text-sm mt-8" style={{ color: "#D5DEEC" }}>
+          Prefer to reach the founder directly?{" "}
+          <a href="mailto:bafnakhushi111@gmail.com" className="font-semibold" style={{ color: "#7B9EC8" }}>
+            bafnakhushi111@gmail.com
+          </a>
+        </p>
       </section>
 
       <Footer />

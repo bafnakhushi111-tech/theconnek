@@ -15,8 +15,8 @@ export const metadata: Metadata = {
     default: "theconnek | Networking & Career Mentorship Community India",
     template: "%s | theconnek",
   },
-  description: "theconnek connects MBA students and early professionals with industry mentors for real career conversations. No cold DMs, no algorithm. Free to join. Built for India.",
-  keywords: "theconnek, connek, MBA networking India, career mentorship, MBA community, consulting career advice, IIM networking, case competition prep, guesstimate practice, career conversations, mentorship platform India",
+  description: "theconnek connects students and early professionals with industry mentors for real career conversations. No cold DMs, no algorithm. Free to join. Built for India.",
+  keywords: "theconnek, connek, student networking India, career mentorship, student community India, consulting career advice, college networking, case competition prep, guesstimate practice, career conversations, mentorship platform India",
   applicationName: "theconnek",
   openGraph: {
     title: "theconnek | Networking & Career Mentorship Community India",
@@ -53,7 +53,7 @@ const jsonLd = [
     url: "https://www.theconnek.com",
     logo: "https://www.theconnek.com/icon.svg",
     email: "hello@theconnek.in",
-    description: "A community platform connecting MBA students and early professionals with industry mentors for real career conversations.",
+    description: "A community platform connecting students and early professionals with industry mentors for real career conversations.",
     sameAs: [
       "https://www.instagram.com/_the_connek",
       "https://www.linkedin.com/company/127853994/",

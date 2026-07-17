@@ -11,7 +11,7 @@ type Mentor = {
 };
 
 // ⚠️ REPLACE WITH REAL PEOPLE before showing this publicly.
-// Only add mentors who've actually agreed to be listed — even 4-6 real ones
+// Only add mentors who've actually agreed to be listed - even 4-6 real ones
 // beat any amount of generic copy. The section stays hidden until this array
 // has entries, so nothing fake ever ships.
 //
@@ -39,7 +39,7 @@ export default function Mentors() {
         People you could talk to.
       </h2>
       <p className="text-center text-base sm:text-base mb-12 max-w-xl mx-auto" style={{ color: "#D5DEEC" }}>
-        Real professionals who&apos;ve been where you are — and are genuinely open to a conversation.
+        Real professionals who&apos;ve been where you are - and are genuinely open to a conversation.
       </p>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">

@@ -4,8 +4,8 @@ import NavWithPanel from "../components/NavWithPanel";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "About Us: Why We Built This MBA Networking Community",
-  description: "theconnek was built because real career conversations, the ones that actually change direction, were happening in rooms most MBA students never get access to. Here's the story.",
+  title: "About Us: Why We Built This Career Community",
+  description: "theconnek was built because real career conversations, the ones that actually change direction, were happening in rooms most students never get access to. Here's the story.",
   alternates: { canonical: "/about" },
 };
 
@@ -22,27 +22,27 @@ export default function AboutPage() {
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-12 leading-tight">
             Why we built theconnek.
           </h1>
-          <div className="flex flex-col gap-6 text-base sm:text-lg leading-relaxed" style={{ color: "#8093AE" }}>
+          <div className="flex flex-col gap-6 text-base sm:text-lg leading-relaxed" style={{ color: "#D5DEEC" }}>
             <p>
-              While I am doing my MBA programme, I realised within weeks that the conversations that
+              A few weeks into her studies, Khushi realised that the conversations that
               actually matter, which firm to target, how to crack a case interview, what consulting
-              really looks like from the inside, were happening in rooms I wasn&apos;t in. I sent cold
-              emails. I slid into LinkedIn DMs. Most went unanswered. The ones that didn&apos;t felt
+              really looks like from the inside, were happening in rooms she wasn&apos;t in. She sent cold
+              emails. She slid into LinkedIn DMs. Most went unanswered. The ones that didn&apos;t felt
               transactional.
             </p>
             <p>
-              MBA networking has become a performance. You post on LinkedIn, do cold outreach, show up to
+              Networking has become a performance. You post on LinkedIn, do cold outreach, show up to
               events. But when you need a partner to practice guesstimates with at 11pm, or someone to do
               a case competition with, or a professional who&apos;ll give you honest advice about their
               field, there&apos;s no real place to find them. The conversations that change careers happen
               through luck and proximity, not effort. That felt wrong.
             </p>
             <p>
-              theconnek is built around the conversations I couldn&apos;t find. A community for real case
+              theconnek is built around the conversations Khushi couldn&apos;t find. A community for real case
               prep, guesstimate practice, and mentor-mentee relationships built through proper matching,
               not cold DMs. No pedigree filter. No algorithm deciding who you should know. Just people who want to talk and people who want to listen.
             </p>
-            <p style={{ color: "#B8C6DC" }}>
+            <p style={{ color: "#EAF0F8" }}>
               We&apos;re just getting started. But if you&apos;ve ever felt locked out of the
               conversation, this is for you.
             </p>

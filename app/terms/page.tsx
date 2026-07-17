@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <LegalPage title="Terms of Service" updated="4 June 2026">
+    <LegalPage title="Terms of Service" updated="17 July 2026">
       <p className="text-sm sm:text-base leading-relaxed" style={{ color: "#8093AE" }}>
         These terms cover your use of the theconnek website and waitlist while we&apos;re in our pre-launch
         stage. By using the site or joining the waitlist, you agree to them. They&apos;re short on purpose.
@@ -19,7 +19,7 @@ export default function TermsPage() {
       <Section heading="What theconnek is right now">
         <p>
           theconnek is a community for honest career conversations between students and professionals. Today
-          the website is a waitlist, joining means you&apos;re expressing interest and asking to be notified.
+          the website is a waitlist. Joining means you&apos;re expressing interest and asking to be notified.
           It does not guarantee access, a match, a mentor, a referral, or any specific outcome.
         </p>
       </Section>

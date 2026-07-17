@@ -101,7 +101,7 @@ const content = {
 };
 
 // Searchable list for the candidate "College" field. MBA/B-school leaning (Khushi's
-// audience) plus the major engineering schools. Not exhaustive by design — anyone whose
+// audience) plus the major engineering schools. Not exhaustive by design - anyone whose
 // college isn't listed can just type their own; whatever they type is saved as-is.
 const COLLEGES = [
   "IIM Ahmedabad", "IIM Bangalore", "IIM Calcutta", "IIM Lucknow", "IIM Kozhikode",
@@ -181,7 +181,7 @@ function CollegeCombobox({
       )}
       {q.length > 1 && matches.length === 0 && (
         <p className="mt-1 text-xs" style={{ color: accentLight }}>
-          Not in the list? No problem — we&apos;ll save exactly what you typed.
+          Not in the list? No problem - we&apos;ll save exactly what you typed.
         </p>
       )}
     </div>
@@ -369,7 +369,7 @@ export default function Home() {
           {[
             { stat: "100% Free", sub: "No paywalls, ever" },
             { stat: "No algorithm", sub: "You choose who you talk to" },
-            { stat: "Built for India", sub: "MBA students & professionals" },
+            { stat: "Built for India", sub: "Students & professionals" },
           ].map(({ stat, sub }) => (
             <div key={stat} className="flex flex-col items-center">
               <div className="text-lg sm:text-xl font-bold text-white">{stat}</div>
@@ -527,7 +527,7 @@ export default function Home() {
                         onBlur={(e) => (e.target.style.border = `1px solid ${ab(0.25)}`)}
                       >
                         <option value="" style={{ background: heroBg }}>Select experience</option>
-                        {["0–2 years", "2–5 years", "5–10 years", "10+ years"].map((opt) => (
+                        {["0-2 years", "2-5 years", "5-10 years", "10+ years"].map((opt) => (
                           <option key={opt} value={opt} style={{ background: heroBg }}>{opt}</option>
                         ))}
                       </select>
