@@ -4,6 +4,44 @@ import { Resend } from "resend";
 
 const FROM = "theconnek <hello@theconnek.com>";
 
+function esc(s: string) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+async function sendTelegramAlert(
+  name: string, email: string, college: string, role: string,
+  user_type: string, location?: string, experience?: string, linkedin?: string
+) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+
+  const typeLabel = user_type === "professional" ? "Professional" : "Candidate";
+  const institutionLabel = user_type === "professional" ? "Company" : "College";
+  const roleLabel = user_type === "professional" ? "Current Role" : "Target Role";
+  const time = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" });
+
+  const lines = [
+    `🔔 <b>New ${typeLabel} signup</b>`,
+    ``,
+    `👤 <b>Name:</b> ${esc(name)}`,
+    `📧 <b>Email:</b> ${esc(email)}`,
+    ...(location ? [`📍 <b>Location:</b> ${esc(location)}`] : []),
+    `🏫 <b>${institutionLabel}:</b> ${esc(college)}`,
+    `🎯 <b>${roleLabel}:</b> ${esc(role)}`,
+    ...(experience ? [`⏱ <b>Experience:</b> ${esc(experience)}`] : []),
+    ...(linkedin ? [`🔗 <b>LinkedIn:</b> <a href="${esc(linkedin)}">${esc(linkedin)}</a>`] : []),
+    ``,
+    `⏰ ${time} IST`,
+  ];
+
+  await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ chat_id: chatId, text: lines.join("\n"), parse_mode: "HTML" }),
+  });
+}
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 // Per-IP rate limit. In-memory, so each serverless instance counts separately;
@@ -234,7 +272,7 @@ export async function POST(req: NextRequest) {
         resend.emails.send({
           from: FROM,
           to: email,
-          subject: `You're in - welcome to Connek`,
+          subject: `You're in. Welcome to theconnek.`,
           html: welcomeEmail(name, user_type),
         }),
         resend.emails.send({
@@ -243,6 +281,7 @@ export async function POST(req: NextRequest) {
           subject: `New ${typeLabel} signup: ${name}`,
           html: adminEmail(name, email, college, role, user_type, location, experience, linkedin),
         }),
+        sendTelegramAlert(name, email, college, role, user_type, location, experience, linkedin),
       ]);
     }
 
