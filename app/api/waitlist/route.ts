@@ -35,11 +35,18 @@ async function sendTelegramAlert(
     `⏰ ${time} IST`,
   ];
 
-  await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: chatId, text: lines.join("\n"), parse_mode: "HTML" }),
-  });
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text: lines.join("\n"), parse_mode: "HTML" }),
+    });
+    const json = await res.json();
+    if (!json.ok) console.error("[telegram] error:", JSON.stringify(json));
+    else console.log("[telegram] sent ok, message_id:", json.result?.message_id);
+  } catch (e) {
+    console.error("[telegram] fetch failed:", e);
+  }
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -264,26 +271,27 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: e.message || "Database error" }, { status: 500 });
     }
 
-    if (process.env.RESEND_API_KEY) {
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      const typeLabel = user_type === "professional" ? "Professional" : "Candidate";
+    const typeLabel = user_type === "professional" ? "Professional" : "Candidate";
 
-      await Promise.all([
-        resend.emails.send({
-          from: FROM,
-          to: email,
-          subject: `You're in. Welcome to theconnek.`,
-          html: welcomeEmail(name, user_type),
-        }),
-        resend.emails.send({
-          from: FROM,
-          to: "hello@theconnek.in",
-          subject: `New ${typeLabel} signup: ${name}`,
-          html: adminEmail(name, email, college, role, user_type, location, experience, linkedin),
-        }),
-        sendTelegramAlert(name, email, college, role, user_type, location, experience, linkedin),
-      ]);
-    }
+    await Promise.all([
+      process.env.RESEND_API_KEY
+        ? new Resend(process.env.RESEND_API_KEY).emails.send({
+            from: FROM,
+            to: email,
+            subject: `You're in. Welcome to theconnek.`,
+            html: welcomeEmail(name, user_type),
+          })
+        : Promise.resolve(),
+      process.env.RESEND_API_KEY
+        ? new Resend(process.env.RESEND_API_KEY).emails.send({
+            from: FROM,
+            to: "hello@theconnek.in",
+            subject: `New ${typeLabel} signup: ${name}`,
+            html: adminEmail(name, email, college, role, user_type, location, experience, linkedin),
+          })
+        : Promise.resolve(),
+      sendTelegramAlert(name, email, college, role, user_type, location, experience, linkedin),
+    ]);
 
     return NextResponse.json({ success: true });
   } catch (err: unknown) {
