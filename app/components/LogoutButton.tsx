@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { theme } from "@/app/lib/theme";
 
 export default function LogoutButton({ role }: { role: "mentee" | "mentor" }) {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function LogoutButton({ role }: { role: "mentee" | "mentor" }) {
       onClick={handleLogout}
       disabled={loading}
       className="text-xs font-medium px-4 py-2 rounded-full transition-opacity hover:opacity-80"
-      style={{ border: "1px solid #1a2a45", color: "#8A9CB8" }}
+      style={{ border: `1px solid ${theme.border}`, color: theme.muted }}
     >
       {loading ? "..." : "Sign out"}
     </button>

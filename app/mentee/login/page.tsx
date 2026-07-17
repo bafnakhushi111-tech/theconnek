@@ -87,7 +87,7 @@ export default function MenteeLoginPage() {
     border: `1px solid ${BORDER}`,
     borderRadius: "12px",
     padding: "13px 16px",
-    color: "#E2E8F0",
+    color: "#D5DEEC",
     fontSize: "15px",
     outline: "none",
   };
@@ -95,7 +95,7 @@ export default function MenteeLoginPage() {
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4"
-      style={{ background: "#08090E" }}
+      style={{ background: "#0F1219" }}
     >
       <div style={{ width: "100%", maxWidth: "400px" }}>
         <Link href="/" className="block mb-8">
@@ -110,14 +110,14 @@ export default function MenteeLoginPage() {
               <h1 style={{ margin: 0, fontSize: "28px", fontWeight: 800, color: "#fff", letterSpacing: "-0.5px" }}>
                 Welcome back
               </h1>
-              <p style={{ margin: "8px 0 0", fontSize: "14px", color: "#8A9CB8" }}>
+              <p style={{ margin: "8px 0 0", fontSize: "14px", color: "#8A99B2" }}>
                 Sign in to your mentee account
               </p>
             </div>
 
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="email" style={{ fontSize: "13px", fontWeight: 500, color: "#8A9CB8" }}>
+                <label htmlFor="email" style={{ fontSize: "13px", fontWeight: 500, color: "#8A99B2" }}>
                   Email
                 </label>
                 <input
@@ -134,7 +134,7 @@ export default function MenteeLoginPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="password" style={{ fontSize: "13px", fontWeight: 500, color: "#8A9CB8" }}>
+                <label htmlFor="password" style={{ fontSize: "13px", fontWeight: 500, color: "#8A99B2" }}>
                   Password
                 </label>
                 <input
@@ -164,9 +164,9 @@ export default function MenteeLoginPage() {
               {loading ? "Sending code..." : "Continue →"}
             </button>
 
-            <p style={{ textAlign: "center", fontSize: "13px", color: "#2A3A50" }}>
+            <p style={{ textAlign: "center", fontSize: "13px", color: "#5A6B85" }}>
               Are you a mentor?{" "}
-              <Link href="/mentor/login" style={{ color: "#4B6FA5" }}>
+              <Link href="/mentor/login" style={{ color: "#7B9EC8" }}>
                 Sign in here
               </Link>
             </p>
@@ -177,14 +177,14 @@ export default function MenteeLoginPage() {
               <h1 style={{ margin: 0, fontSize: "28px", fontWeight: 800, color: "#fff", letterSpacing: "-0.5px" }}>
                 Check your email
               </h1>
-              <p style={{ margin: "8px 0 0", fontSize: "14px", color: "#8A9CB8" }}>
+              <p style={{ margin: "8px 0 0", fontSize: "14px", color: "#8A99B2" }}>
                 We sent a 6-digit code to{" "}
-                <span style={{ color: "#CBD5E1" }}>{email}</span>
+                <span style={{ color: "#D5DEEC" }}>{email}</span>
               </p>
             </div>
 
             <div className="flex flex-col gap-2">
-              <label style={{ fontSize: "13px", fontWeight: 500, color: "#8A9CB8" }}>
+              <label style={{ fontSize: "13px", fontWeight: 500, color: "#8A99B2" }}>
                 Verification code
               </label>
               <div className="flex gap-2" onPaste={handleOTPPaste}>
@@ -231,7 +231,7 @@ export default function MenteeLoginPage() {
             <button
               type="button"
               onClick={() => { setStep(1); setOtp(["", "", "", "", "", ""]); setError(""); }}
-              style={{ background: "none", border: "none", color: "#4B6FA5", fontSize: "13px", cursor: "pointer", padding: 0 }}
+              style={{ background: "none", border: "none", color: "#7B9EC8", fontSize: "13px", cursor: "pointer", padding: 0 }}
             >
               ← Back to login
             </button>

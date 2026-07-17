@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { theme } from "@/app/lib/theme";
 
 export default function AssignButton({ menteeId }: { menteeId: number }) {
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ export default function AssignButton({ menteeId }: { menteeId: number }) {
   }
 
   if (done) {
-    return <span className="text-xs font-bold" style={{ color: "#4ade80" }}>Matched!</span>;
+    return <span className="text-xs font-bold" style={{ color: theme.success }}>Matched!</span>;
   }
 
   return (
@@ -37,11 +38,11 @@ export default function AssignButton({ menteeId }: { menteeId: number }) {
         onClick={handleAssign}
         disabled={loading}
         className="w-full text-xs font-bold py-2 px-4 rounded-xl transition-opacity hover:opacity-80 disabled:opacity-50"
-        style={{ background: "#4B6FA5", color: "#fff" }}
+        style={{ background: theme.mentor.accent, color: "#1A1330" }}
       >
-        {loading ? "Matching..." : "Choose this mentee"}
+        {loading ? "Matching..." : "Mentor me"}
       </button>
-      {error && <p className="text-xs" style={{ color: "#f87171" }}>{error}</p>}
+      {error && <p className="text-xs" style={{ color: theme.danger }}>{error}</p>}
     </div>
   );
 }
