@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { motion, useInView, AnimatePresence, type Variants } from "framer-motion";
 import Logo from "./components/Logo";
 import Footer from "./components/Footer";
@@ -270,16 +271,25 @@ export default function Home() {
       >
         <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
           <Logo variant="dark" size="sm" />
-          <button
-            onClick={() => setPanelOpen(true)}
-            className="flex flex-col items-center justify-center gap-1.5 w-10 h-10 rounded-xl transition-colors"
-            style={{ background: ab(0.12) }}
-            aria-label="Open menu"
-          >
-            <span className="block w-5 h-px rounded-full" style={{ background: accentLight }} />
-            <span className="block w-5 h-px rounded-full" style={{ background: accentLight }} />
-            <span className="block w-3 h-px rounded-full" style={{ background: accentLight }} />
-          </button>
+          <div className="flex items-center gap-3">
+            <Link
+              href={userType === "professional" ? "/mentor/login" : "/mentee/login"}
+              className="text-sm font-medium transition-opacity hover:opacity-80"
+              style={{ color: accentLight }}
+            >
+              Log in
+            </Link>
+            <button
+              onClick={() => setPanelOpen(true)}
+              className="flex flex-col items-center justify-center gap-1.5 w-10 h-10 rounded-xl transition-colors"
+              style={{ background: ab(0.12) }}
+              aria-label="Open menu"
+            >
+              <span className="block w-5 h-px rounded-full" style={{ background: accentLight }} />
+              <span className="block w-5 h-px rounded-full" style={{ background: accentLight }} />
+              <span className="block w-3 h-px rounded-full" style={{ background: accentLight }} />
+            </button>
+          </div>
         </div>
       </motion.nav>
       <SidePanel open={panelOpen} onClose={() => setPanelOpen(false)} />

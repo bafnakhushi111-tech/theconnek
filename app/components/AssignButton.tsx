@@ -1,0 +1,52 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { theme } from "@/app/lib/theme";
+
+export default function AssignButton({ menteeId }: { menteeId: number }) {
+  const [loading, setLoading] = useState(false);
+  const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  async function handleAssign() {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/mentor/assign", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ menteeId }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setDone(true);
+        router.refresh();
+      } else {
+        setError(data.error ?? "Failed to match.");
+      }
+    } catch {
+      setError("Something went wrong. Try again.");
+    }
+    setLoading(false);
+  }
+
+  if (done) {
+    return <span className="text-xs font-bold" style={{ color: theme.success }}>Matched!</span>;
+  }
+
+  return (
+    <div className="flex flex-col gap-1">
+      <button
+        onClick={handleAssign}
+        disabled={loading}
+        className="w-full text-xs font-bold py-2 px-4 rounded-xl transition-opacity hover:opacity-80 disabled:opacity-50"
+        style={{ background: theme.mentor.accent, color: "#1A1330" }}
+      >
+        {loading ? "Matching..." : "Mentor me"}
+      </button>
+      {error && <p className="text-xs" style={{ color: theme.danger }}>{error}</p>}
+    </div>
+  );
+}
