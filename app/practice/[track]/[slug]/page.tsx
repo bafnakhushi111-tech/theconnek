@@ -55,7 +55,7 @@ export default async function QuestionPage({ params }: { params: Promise<Params>
 
       <section className="px-5 pt-10 pb-20">
         <div className="max-w-5xl mx-auto">
-          <p className="text-[15px] mb-6" style={{ color: "#8090A8" }}>
+          <p className="text-[15px] mb-6" style={{ color: "#97A7BF" }}>
             <Link href={signedIn ? "/mentee/dashboard" : "/practice"} style={{ color: "#7B9EC8" }}>
               {signedIn ? "Dashboard" : "Practice"}
             </Link>
@@ -81,7 +81,7 @@ export default async function QuestionPage({ params }: { params: Promise<Params>
                 <h1 className="text-[24px] sm:text-[30px] font-bold leading-[1.28] tracking-tight text-balance">
                   {question.title}
                 </h1>
-                <p className="mt-5 text-[15px]" style={{ color: "#8090A8" }}>
+                <p className="mt-5 text-[15px]" style={{ color: "#97A7BF" }}>
                   {question.type} &middot; {DIFFICULTY_LABEL[question.difficulty]} &middot; {question.minutes} minute box
                   {question.askedAt ? ` · reported from ${question.askedAt}` : ""}
                 </p>
@@ -111,7 +111,7 @@ export default async function QuestionPage({ params }: { params: Promise<Params>
                   <h2 className="mt-4 text-[22px] sm:text-[26px] font-bold tracking-tight text-balance">
                     Sign in to solve this question
                   </h2>
-                  <p className="mx-auto mt-3 max-w-md text-[17px] leading-relaxed" style={{ color: "#A6B6CE" }}>
+                  <p className="mx-auto mt-3 max-w-md text-[17px] leading-relaxed" style={{ color: "#B9C7DC" }}>
                     You get a timer, a scratchpad that saves as you type, and the full approach the moment you
                     submit your answer.
                   </p>
@@ -126,12 +126,12 @@ export default async function QuestionPage({ params }: { params: Promise<Params>
                     <Link
                       href="/mentee/login"
                       className="font-bold text-[17px] rounded-xl px-7 py-4"
-                      style={{ border: "1px solid #1a2a45", color: "#DFE7F3" }}
+                      style={{ border: "1px solid #1a2a45", color: "#E6EDF7" }}
                     >
                       Log in
                     </Link>
                   </div>
-                  <p className="mt-4 text-[15px]" style={{ color: "#8090A8" }}>
+                  <p className="mt-4 text-[15px]" style={{ color: "#97A7BF" }}>
                     Free, and it also gets you matched with a mentor.
                   </p>
                 </div>
@@ -141,23 +141,23 @@ export default async function QuestionPage({ params }: { params: Promise<Params>
             <aside className="flex flex-col gap-4 lg:sticky lg:top-24">
               <div className="rounded-2xl p-6" style={{ background: "rgba(255,255,255,0.015)", border: "1px solid #1a2a45" }}>
                 <h2 className="text-[17px] font-bold m-0">Hint</h2>
-                <p className="mt-1.5 text-[15px]" style={{ color: "#8090A8" }}>
+                <p className="mt-1.5 text-[15px]" style={{ color: "#97A7BF" }}>
                   Take it only if you are stuck.
                 </p>
-                <p className="mt-4 text-[16.5px] leading-relaxed m-0" style={{ color: signedIn ? "#DFE7F3" : "#8090A8" }}>
+                <p className="mt-4 text-[16.5px] leading-relaxed m-0" style={{ color: signedIn ? "#E6EDF7" : "#97A7BF" }}>
                   {signedIn ? question.hints[0] : "Sign in to see the hint."}
                 </p>
               </div>
 
               <div className="rounded-2xl p-6" style={{ border: "1px dashed #1a2a45" }}>
                 <h2 className="text-[17px] font-bold m-0">Stuck on the logic?</h2>
-                <p className="mt-2 text-[16px] leading-relaxed" style={{ color: "#A6B6CE" }}>
+                <p className="mt-2 text-[16px] leading-relaxed" style={{ color: "#B9C7DC" }}>
                   Bring your working to a 15 minute call with someone who has been asked this for real.
                 </p>
                 <Link
                   href={signedIn ? "/mentee/dashboard" : "/mentee/signup"}
                   className="mt-5 block text-center font-bold text-[16px] rounded-xl py-3.5"
-                  style={{ border: "1px solid #1a2a45", color: "#DFE7F3" }}
+                  style={{ border: "1px solid #1a2a45", color: "#E6EDF7" }}
                 >
                   {signedIn ? "Check your match" : "Find a mentor"}
                 </Link>

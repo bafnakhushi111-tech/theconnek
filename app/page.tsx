@@ -100,9 +100,6 @@ const content = {
   },
 };
 
-// Searchable list for the candidate "College" field. MBA/B-school leaning (Khushi's
-// audience) plus the major engineering schools. Not exhaustive by design - anyone whose
-// college isn't listed can just type their own; whatever they type is saved as-is.
 export default function Home() {
   const [userType, setUserType] = useState<UserType>("candidate");
   const [panelOpen, setPanelOpen] = useState(false);

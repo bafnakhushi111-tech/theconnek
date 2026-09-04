@@ -66,7 +66,7 @@ export default function SignupForm({ role }: { role: "mentee" | "mentor" }) {
     borderRadius: "12px",
     padding: "13px 16px",
     color: theme.body,
-    fontSize: "15px",
+    fontSize: "16px",
     outline: "none",
   };
 
@@ -86,7 +86,14 @@ export default function SignupForm({ role }: { role: "mentee" | "mentor" }) {
       <>
         <StepDots current={step} accent={C.accent} />
         <PasswordStep role={role} tempToken={tempToken}
-          onDone={(next) => { setTempToken(next); setStep("details"); }}
+          onDone={(result) => {
+            if (result.done) {
+              window.location.href = `/${role}/dashboard`;
+            } else if (result.tempToken) {
+              setTempToken(result.tempToken);
+              setStep("details");
+            }
+          }}
           onBack={() => setStep("otp")} />
       </>
     );
@@ -109,7 +116,7 @@ export default function SignupForm({ role }: { role: "mentee" | "mentor" }) {
           <h1 style={{ margin: 0, fontSize: "28px", fontWeight: 800, color: "#fff", letterSpacing: "-0.5px" }}>
             {role === "mentee" ? "Create your account" : "Join as a mentor"}
           </h1>
-          <p style={{ margin: "8px 0 0", fontSize: "14px", color: theme.muted }}>
+          <p style={{ margin: "8px 0 0", fontSize: "15px", color: theme.muted }}>
             {role === "mentee"
               ? "Find someone who's been where you're going."
               : "A 30-minute conversation can change someone's direction."}
@@ -117,26 +124,26 @@ export default function SignupForm({ role }: { role: "mentee" | "mentor" }) {
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="email" style={{ fontSize: "13px", fontWeight: 500, color: theme.muted }}>Email</label>
+          <label htmlFor="email" style={{ fontSize: "14px", fontWeight: 500, color: theme.muted }}>Email</label>
           <input id="email" type="email" required autoFocus value={email} onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com" style={inputStyle}
             onFocus={(e) => (e.target.style.borderColor = C.accent)}
             onBlur={(e) => (e.target.style.borderColor = theme.border)} />
         </div>
 
-        {error && <p style={{ margin: 0, fontSize: "13px", color: theme.danger }}>{error}</p>}
+        {error && <p style={{ margin: 0, fontSize: "14px", color: theme.danger }}>{error}</p>}
 
         <button type="submit" disabled={loading}
           className="w-full font-bold py-3 rounded-2xl transition-opacity hover:opacity-90 disabled:opacity-50"
-          style={{ background: C.accent, color: btnText, fontSize: "15px" }}>
+          style={{ background: C.accent, color: btnText, fontSize: "16px" }}>
           {loading ? "Sending code..." : "Continue →"}
         </button>
 
         <div className="flex flex-col gap-2 text-center">
-          <p style={{ margin: 0, fontSize: "13px", color: theme.muted }}>
+          <p style={{ margin: 0, fontSize: "14px", color: theme.muted }}>
             Already have an account? <Link href={`/${role}/login`} style={{ color: C.text, fontWeight: 600 }}>Sign in</Link>
           </p>
-          <p style={{ margin: 0, fontSize: "13px", color: theme.faint }}>
+          <p style={{ margin: 0, fontSize: "14px", color: theme.faint }}>
             {role === "mentee" ? "Want to mentor instead?" : "Looking for a mentor?"}{" "}
             <Link href={`/${otherRole}/signup`} style={{ color: C.text }}>Sign up as a {otherRole}</Link>
           </p>

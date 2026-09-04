@@ -27,7 +27,7 @@ export default function PracticePage() {
 
       <section className="px-5 pt-16 pb-10">
         <div className="max-w-5xl mx-auto">
-          <p className="text-[15px] font-semibold tracking-[0.18em] mb-4" style={{ color: "#8090A8" }}>
+          <p className="text-[15px] font-semibold tracking-[0.18em] mb-4" style={{ color: "#97A7BF" }}>
             PRACTICE
           </p>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.08]">
@@ -35,7 +35,7 @@ export default function PracticePage() {
             <br />
             trying to sit in.
           </h1>
-          <p className="mt-5 text-[18px] sm:text-xl leading-relaxed max-w-2xl" style={{ color: "#A6B6CE" }}>
+          <p className="mt-5 text-[18px] sm:text-xl leading-relaxed max-w-2xl" style={{ color: "#B9C7DC" }}>
             Guesstimates and cases sorted by the job they prepare you for, not by a generic difficulty
             ladder. A product root-cause question and a consulting profitability case are not the same
             skill, so they don&apos;t live in the same pile.
@@ -55,7 +55,7 @@ export default function PracticePage() {
               <span className="block h-[2px] w-10 rounded-full" style={{ background: track.hue }} />
               <div>
                 <h2 className="text-xl font-bold tracking-tight">{track.name}</h2>
-                <p className="mt-2 text-[17px] leading-relaxed" style={{ color: "#A6B6CE" }}>
+                <p className="mt-2 text-[17px] leading-relaxed" style={{ color: "#B9C7DC" }}>
                   {track.blurb}
                 </p>
               </div>
@@ -64,7 +64,7 @@ export default function PracticePage() {
                   <span className="block text-2xl font-extrabold leading-none" style={{ color: track.hue }}>
                     {countByShape(track, "guesstimate")}
                   </span>
-                  <span className="block mt-1 text-[15px]" style={{ color: "#8090A8" }}>
+                  <span className="block mt-1 text-[15px]" style={{ color: "#97A7BF" }}>
                     guesstimates
                   </span>
                 </span>
@@ -72,7 +72,7 @@ export default function PracticePage() {
                   <span className="block text-2xl font-extrabold leading-none" style={{ color: track.hue }}>
                     {countByShape(track, "case")}
                   </span>
-                  <span className="block mt-1 text-[15px]" style={{ color: "#8090A8" }}>
+                  <span className="block mt-1 text-[15px]" style={{ color: "#97A7BF" }}>
                     cases
                   </span>
                 </span>
@@ -87,7 +87,7 @@ export default function PracticePage() {
 
       <section className="px-5 pb-20">
         <div className="max-w-5xl mx-auto">
-          <p className="text-[15px] font-semibold tracking-[0.18em] mb-5" style={{ color: "#8090A8" }}>
+          <p className="text-[15px] font-semibold tracking-[0.18em] mb-5" style={{ color: "#97A7BF" }}>
             HOW A QUESTION WORKS
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 rounded-2xl overflow-hidden" style={{ border: "1px solid #1a2a45" }}>
@@ -104,7 +104,7 @@ export default function PracticePage() {
                   {step.n}
                 </span>
                 <p className="mt-2 text-[18px] font-bold">{step.title}</p>
-                <p className="mt-1.5 text-[16px] leading-relaxed" style={{ color: "#A6B6CE" }}>
+                <p className="mt-1.5 text-[16px] leading-relaxed" style={{ color: "#B9C7DC" }}>
                   {step.body}
                 </p>
               </div>

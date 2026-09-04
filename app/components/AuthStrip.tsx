@@ -127,7 +127,7 @@ export function Strip({ tone, label, headline, detail, cta, href }: StripProps) 
           <span className="block text-[17px] font-semibold leading-snug" style={{ color: "#EAF0F8" }}>
             {headline}
           </span>
-          <span className="block text-[15.5px] leading-snug mt-0.5" style={{ color: "#A6B6CE" }}>
+          <span className="block text-[15.5px] leading-snug mt-0.5" style={{ color: "#B9C7DC" }}>
             {detail}
           </span>
         </span>

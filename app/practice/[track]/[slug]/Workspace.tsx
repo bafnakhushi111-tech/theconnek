@@ -116,7 +116,7 @@ export default function Workspace({
           <span className="text-[19px] font-bold tabular-nums tracking-wide" style={{ color: timeUp ? "#F87171" : "#FFFFFF" }}>
             {mm}:{ss}
           </span>
-          <span className="text-[14px]" style={{ color: "#8090A8" }}>
+          <span className="text-[14px]" style={{ color: "#97A7BF" }}>
             {timeUp ? "up" : "left"}
           </span>
           <button
@@ -140,7 +140,7 @@ export default function Workspace({
       <div className="mt-4 rounded-2xl overflow-hidden" style={{ border: "1px solid #1a2a45", background: "rgba(255,255,255,0.015)" }}>
         {FIELDS.map((f, i) => (
           <div key={f.key} style={{ borderBottom: i < FIELDS.length - 1 ? "1px solid #1a2a45" : undefined }}>
-            <label htmlFor={f.key} className="block px-5 pt-4 text-[13px] font-bold tracking-[0.14em]" style={{ color: "#8090A8" }}>
+            <label htmlFor={f.key} className="block px-5 pt-4 text-[13px] font-bold tracking-[0.14em]" style={{ color: "#97A7BF" }}>
               {f.label}
             </label>
             <textarea
@@ -150,7 +150,7 @@ export default function Workspace({
               onChange={(e) => setNotes((n) => ({ ...n, [f.key]: e.target.value }))}
               placeholder={f.placeholder}
               className="w-full bg-transparent border-0 resize-y px-5 pb-4 pt-2 text-[17px] leading-relaxed outline-none"
-              style={{ color: "#DFE7F3", fontFamily: f.key === "working" ? "ui-monospace, SFMono-Regular, Menlo, monospace" : undefined }}
+              style={{ color: "#E6EDF7", fontFamily: f.key === "working" ? "ui-monospace, SFMono-Regular, Menlo, monospace" : undefined }}
             />
           </div>
         ))}
@@ -166,7 +166,7 @@ export default function Workspace({
           >
             Submit answer and see the approach
           </button>
-          <p className="mt-3 text-[15px]" style={{ color: nudge ? "#F87171" : "#8090A8" }}>
+          <p className="mt-3 text-[15px]" style={{ color: nudge ? "#F87171" : "#97A7BF" }}>
             {nudge
               ? "Write your answer first. Even a rough number counts."
               : "The approach stays hidden until you have attempted it. Saved in this browser as you type."}
@@ -184,7 +184,7 @@ export default function Workspace({
               setLeft(minutes * 60);
             }}
             className="text-[15px] font-semibold underline"
-            style={{ color: "#A6B6CE" }}
+            style={{ color: "#B9C7DC" }}
           >
             Try it again
           </button>
@@ -193,16 +193,16 @@ export default function Workspace({
 
       {submitted && (
         <div ref={revealRef} className="mt-12 scroll-mt-24">
-          <p className="text-[14px] font-bold tracking-[0.18em] mb-3" style={{ color: "#8090A8" }}>
+          <p className="text-[14px] font-bold tracking-[0.18em] mb-3" style={{ color: "#97A7BF" }}>
             THE ANSWER
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="rounded-2xl p-6" style={{ border: "1px solid #1a2a45", background: "rgba(255,255,255,0.015)" }}>
-              <p className="m-0 text-[13px] font-bold tracking-[0.14em]" style={{ color: "#8090A8" }}>
+              <p className="m-0 text-[13px] font-bold tracking-[0.14em]" style={{ color: "#97A7BF" }}>
                 WHAT YOU SAID
               </p>
-              <p className="mt-3 mb-0 text-[17px] leading-relaxed whitespace-pre-wrap" style={{ color: "#DFE7F3" }}>
+              <p className="mt-3 mb-0 text-[17px] leading-relaxed whitespace-pre-wrap" style={{ color: "#E6EDF7" }}>
                 {(notes.answer ?? "").trim()}
               </p>
             </div>
@@ -217,7 +217,7 @@ export default function Workspace({
             </div>
           </div>
 
-          <p className="mt-4 mb-0 text-[15px] leading-relaxed" style={{ color: "#8090A8" }}>
+          <p className="mt-4 mb-0 text-[15px] leading-relaxed" style={{ color: "#97A7BF" }}>
             Being outside the band is not a fail. Interviewers mark the structure, so read the moves below and
             check which one you skipped.
           </p>
@@ -236,7 +236,7 @@ export default function Workspace({
                 <span className="text-[13px] font-bold tracking-[0.1em] uppercase pt-1" style={{ color: hue }}>
                   {move.label}
                 </span>
-                <p className="m-0 text-[17px] leading-[1.65]" style={{ color: "#DFE7F3" }}>
+                <p className="m-0 text-[17px] leading-[1.65]" style={{ color: "#E6EDF7" }}>
                   {move.text}
                 </p>
               </li>
@@ -244,12 +244,12 @@ export default function Workspace({
           </ol>
 
           <div className="mt-8 rounded-2xl p-6" style={{ background: "rgba(255,255,255,0.015)", border: "1px solid #1a2a45" }}>
-            <h3 className="text-[13px] font-bold tracking-[0.14em] m-0" style={{ color: "#8090A8" }}>
+            <h3 className="text-[13px] font-bold tracking-[0.14em] m-0" style={{ color: "#97A7BF" }}>
               WHERE MOST ATTEMPTS LOSE THE ROOM
             </h3>
             <ul className="mt-4 list-none p-0 m-0 flex flex-col gap-3.5">
               {pitfalls.map((p) => (
-                <li key={p} className="relative pl-6 text-[16px] leading-relaxed" style={{ color: "#A6B6CE" }}>
+                <li key={p} className="relative pl-6 text-[16px] leading-relaxed" style={{ color: "#B9C7DC" }}>
                   <span className="absolute left-0 top-[10px] w-1.5 h-1.5 rounded-full" style={{ border: `1px solid ${hue}` }} />
                   {p}
                 </li>
@@ -257,7 +257,7 @@ export default function Workspace({
             </ul>
           </div>
 
-          <p className="mt-6 text-[15px] leading-relaxed" style={{ color: "#8090A8" }}>
+          <p className="mt-6 text-[15px] leading-relaxed" style={{ color: "#97A7BF" }}>
             There is no single correct figure here. The band and the structure are the answer, which is how these
             are actually marked.
           </p>

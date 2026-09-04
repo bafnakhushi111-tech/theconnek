@@ -5,7 +5,7 @@ import Logo from "@/app/components/Logo";
 const COPY: Record<"mentee" | "mentor", { headline: string; sub: string; points: string[] }> = {
   mentee: {
     headline: "Real conversations. That's it.",
-    sub: "No cold DMs, no pedigree filter, no algorithm deciding who you get to talk to.",
+    sub: "No cold DMs, no gatekeeping, no algorithm deciding who you get to talk to.",
     points: [
       "Matched by hand, not by an algorithm",
       "Case prep and guesstimate partners",

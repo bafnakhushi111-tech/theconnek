@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { sql } from "@/app/lib/db";
-import { decrypt, encrypt } from "@/app/lib/session";
+import { decrypt, encrypt, createSession } from "@/app/lib/session";
 import { clientIp, rateLimited } from "@/app/lib/ratelimit";
 
 // Step 3 of signup: set a password now that the email is verified.
@@ -31,6 +31,20 @@ export async function POST(req: NextRequest) {
       await sql`UPDATE mentors SET password_hash = ${hash} WHERE id = ${id}`;
     } else {
       await sql`UPDATE mentees SET password_hash = ${hash} WHERE id = ${id}`;
+    }
+
+    // Waitlist members already gave us their profile on the old join form.
+    // If the row is complete, don't make them type it all again - finish the
+    // signup right here and sign them in.
+    type ProfileRow = { name: string | null; institution: string | null; role: string | null };
+    const rows = (role === "mentor"
+      ? await sql`SELECT name, company AS institution, role FROM mentors WHERE id = ${id} LIMIT 1`
+      : await sql`SELECT name, college AS institution, role FROM mentees WHERE id = ${id} LIMIT 1`) as ProfileRow[];
+    const profile = rows[0];
+
+    if (profile?.name && profile?.institution && profile?.role) {
+      await createSession(id, role, profile.name);
+      return NextResponse.json({ done: true, role });
     }
 
     const nextToken = await encrypt({ sub: id, role, purpose: "signup-details" }, "15m");

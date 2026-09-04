@@ -75,19 +75,19 @@ export default function OtpStep({
     <form onSubmit={handleVerify} className="flex flex-col gap-6">
       <div>
         <h1 style={{ margin: 0, fontSize: "28px", fontWeight: 800, color: "#fff", letterSpacing: "-0.5px" }}>Check your email</h1>
-        <p style={{ margin: "8px 0 0", fontSize: "14px", color: theme.muted }}>
+        <p style={{ margin: "8px 0 0", fontSize: "15px", color: theme.muted }}>
           We sent a 6-digit code to <span style={{ color: theme.body }}>{email}</span>
         </p>
       </div>
 
       <div className="flex flex-col gap-2">
-        <label style={{ fontSize: "13px", fontWeight: 500, color: theme.muted }}>Verification code</label>
+        <label style={{ fontSize: "14px", fontWeight: 500, color: theme.muted }}>Verification code</label>
         <div className="flex gap-2" onPaste={handlePaste}>
           {otp.map((digit, i) => (
             <input key={i} ref={(el) => { refs.current[i] = el; }} type="text" inputMode="numeric" maxLength={1}
               value={digit} onChange={(e) => handleInput(i, e.target.value)} onKeyDown={(e) => handleKeyDown(i, e)}
               style={{
-                flex: 1, height: "52px", textAlign: "center", fontSize: "22px", fontWeight: 700, color: "#fff",
+                flex: 1, maxWidth: "46px", height: "46px", textAlign: "center", fontSize: "18px", fontWeight: 700, color: "#fff",
                 background: digit ? C.soft : "rgba(255,255,255,0.03)",
                 border: `1px solid ${digit ? C.accent : theme.border}`, borderRadius: "10px", outline: "none",
               }} />
@@ -95,16 +95,16 @@ export default function OtpStep({
         </div>
       </div>
 
-      {error && <p style={{ margin: 0, fontSize: "13px", color: theme.danger }}>{error}</p>}
+      {error && <p style={{ margin: 0, fontSize: "14px", color: theme.danger }}>{error}</p>}
 
       <button type="submit" disabled={loading || otp.join("").length < 6}
         className="w-full font-bold py-3 rounded-2xl transition-opacity hover:opacity-90 disabled:opacity-50"
-        style={{ background: C.accent, color: btnText, fontSize: "15px" }}>
+        style={{ background: C.accent, color: btnText, fontSize: "16px" }}>
         {loading ? "Verifying..." : "Verify code →"}
       </button>
 
       <button type="button" onClick={onBack}
-        style={{ background: "none", border: "none", color: C.text, fontSize: "13px", cursor: "pointer", padding: 0 }}>
+        style={{ background: "none", border: "none", color: C.text, fontSize: "14px", cursor: "pointer", padding: 0 }}>
         ← Back
       </button>
     </form>

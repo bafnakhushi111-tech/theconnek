@@ -24,7 +24,7 @@ export default function AboutPage() {
           </h1>
           <div className="flex flex-col gap-6 text-base sm:text-lg leading-relaxed" style={{ color: "#D5DEEC" }}>
             <p>
-              A few weeks into her studies, Khushi realised that the conversations that
+              A few weeks into her studies, our founder realised that the conversations that
               actually matter, which firm to target, how to crack a case interview, what consulting
               really looks like from the inside, were happening in rooms she wasn&apos;t in. She sent cold
               emails. She slid into LinkedIn DMs. Most went unanswered. The ones that didn&apos;t felt
@@ -38,9 +38,9 @@ export default function AboutPage() {
               through luck and proximity, not effort. That felt wrong.
             </p>
             <p>
-              theconnek is built around the conversations Khushi couldn&apos;t find. A community for real case
+              theconnek is built around the conversations she couldn&apos;t find. A community for real case
               prep, guesstimate practice, and mentor-mentee relationships built through proper matching,
-              not cold DMs. No pedigree filter. No algorithm deciding who you should know. Just people who want to talk and people who want to listen.
+              not cold DMs. Open to every college. No algorithm deciding who you should know. Just people who want to talk and people who want to listen.
             </p>
             <p style={{ color: "#EAF0F8" }}>
               Today theconnek is live: a practice library of 400+ guesstimates and cases, and mentors who

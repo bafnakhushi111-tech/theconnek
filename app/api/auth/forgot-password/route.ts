@@ -32,9 +32,10 @@ export async function POST(req: NextRequest) {
 
     let userId = "0";
 
-    // Only accounts that have finished signup can reset a password. A pure
-    // waitlist row (no password yet) belongs in the signup flow instead.
-    if (rows[0]?.password_hash) {
+    // Any existing row gets the code - including waitlist members who never
+    // set a password. For them, "reset" doubles as activation: they choose a
+    // password and they're in. Only truly unknown emails get the silent path.
+    if (rows[0]) {
       userId = String(rows[0].id);
       const otp = generateOTP();
       const expires = new Date(Date.now() + 10 * 60 * 1000).toISOString();

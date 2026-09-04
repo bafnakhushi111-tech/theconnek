@@ -125,7 +125,7 @@ export default function PrivacyPage() {
         </p>
         <ul className="list-disc pl-5 flex flex-col gap-1">
           <li>
-            <strong style={{ color: "#B8C6DC" }}>Khushi Bafna</strong>, Founder and Grievance Officer
+            <strong style={{ color: "#B8C6DC" }}>The Founder</strong>, who also serves as Grievance Officer
           </li>
           <li>
             Email:{" "}

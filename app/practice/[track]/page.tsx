@@ -73,7 +73,7 @@ export default async function TrackPage({
 
       <section className="px-5 pt-12 pb-8">
         <div className="max-w-4xl mx-auto">
-          <p className="text-[15px] mb-4" style={{ color: "#8090A8" }}>
+          <p className="text-[15px] mb-4" style={{ color: "#97A7BF" }}>
             <Link href="/practice" style={{ color: "#7B9EC8" }}>
               Practice
             </Link>
@@ -81,7 +81,7 @@ export default async function TrackPage({
             {track.name}
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">{track.name}</h1>
-          <p className="mt-4 text-[18px] leading-relaxed max-w-2xl" style={{ color: "#A6B6CE" }}>
+          <p className="mt-4 text-[18px] leading-relaxed max-w-2xl" style={{ color: "#B9C7DC" }}>
             {track.lede}
           </p>
 
@@ -95,12 +95,12 @@ export default async function TrackPage({
                   href={s === "case" ? `${base}?type=case` : base}
                   className="px-4 py-3 text-[17px] font-semibold -mb-px"
                   style={{
-                    color: on ? "#FFFFFF" : "#A6B6CE",
+                    color: on ? "#FFFFFF" : "#B9C7DC",
                     borderBottom: `2px solid ${on ? track.hue : "transparent"}`,
                   }}
                 >
                   {s === "guesstimate" ? "Guesstimates" : "Cases"}
-                  <span className="ml-2 text-[15px]" style={{ color: "#8090A8" }}>
+                  <span className="ml-2 text-[15px]" style={{ color: "#97A7BF" }}>
                     {countByShape(track, s)}
                   </span>
                 </Link>
@@ -109,7 +109,7 @@ export default async function TrackPage({
           </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-2">
-            <span className="text-[13.5px] font-semibold tracking-[0.12em] mr-1" style={{ color: "#8090A8" }}>
+            <span className="text-[13.5px] font-semibold tracking-[0.12em] mr-1" style={{ color: "#97A7BF" }}>
               LEVEL
             </span>
             {[null, 1, 2, 3].map((l) => {
@@ -120,7 +120,7 @@ export default async function TrackPage({
                   href={levelHref(l)}
                   className="px-3.5 py-1.5 rounded-full text-[15.5px]"
                   style={{
-                    color: on ? "#FFFFFF" : "#A6B6CE",
+                    color: on ? "#FFFFFF" : "#B9C7DC",
                     background: on ? track.hueSoft : "transparent",
                     border: `1px solid ${on ? track.hueBorder : "#1a2a45"}`,
                   }}
@@ -136,7 +136,7 @@ export default async function TrackPage({
       <section className="px-5 pb-20">
         <div className="max-w-4xl mx-auto">
           {questions.length === 0 ? (
-            <p className="py-14 text-center text-[17px]" style={{ color: "#A6B6CE" }}>
+            <p className="py-14 text-center text-[17px]" style={{ color: "#B9C7DC" }}>
               Nothing at that level yet. <Link href={base} style={{ color: track.hue }}>Show all</Link>
             </p>
           ) : (
@@ -148,7 +148,7 @@ export default async function TrackPage({
                     className="grid grid-cols-[1fr_auto] sm:grid-cols-[36px_1fr_auto] gap-x-5 gap-y-3 items-center py-5"
                     style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
                   >
-                    <span className="hidden sm:block text-[15px] tabular-nums" style={{ color: "#8090A8" }}>
+                    <span className="hidden sm:block text-[15px] tabular-nums" style={{ color: "#97A7BF" }}>
                       {String(i + 1).padStart(2, "0")}
                     </span>
 
@@ -163,14 +163,14 @@ export default async function TrackPage({
                         </span>
                         <span
                           className="text-[13px] px-2 py-[3px] rounded"
-                          style={{ background: "rgba(255,255,255,0.045)", color: "#A6B6CE" }}
+                          style={{ background: "rgba(255,255,255,0.045)", color: "#B9C7DC" }}
                         >
                           {DIFFICULTY_LABEL[q.difficulty]}
                         </span>
                         {q.askedAt && (
                           <span
                             className="text-[13px] px-2 py-[3px] rounded"
-                            style={{ border: "1px solid #1a2a45", color: "#8090A8" }}
+                            style={{ border: "1px solid #1a2a45", color: "#97A7BF" }}
                           >
                             asked at {q.askedAt}
                           </span>
@@ -180,7 +180,7 @@ export default async function TrackPage({
 
                     <span className="flex items-center gap-4 justify-self-end">
                       <DifficultyBars level={q.difficulty} hue={track.hue} />
-                      <span className="text-[15px] tabular-nums" style={{ color: "#A6B6CE" }}>
+                      <span className="text-[15px] tabular-nums" style={{ color: "#B9C7DC" }}>
                         {q.minutes} min
                       </span>
                       <span className="text-[18px]" style={{ color: track.hue }}>

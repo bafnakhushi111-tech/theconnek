@@ -1,12 +1,12 @@
 // Portal palette - matched to the live waitlist site (theconnek.com).
-// Ground #0F1219, body #DFE7F3, captions #A6B6CE. Mentee = blue, mentor = lavender.
+// Ground #0F1219, body #E6EDF7, captions #B9C7DC. Mentee = blue, mentor = lavender.
 export const theme = {
   bg: "#0F1219",
   border: "#1a2a45",
   heading: "#FFFFFF",
-  body: "#DFE7F3",
-  muted: "#A6B6CE",
-  faint: "#8090A8",
+  body: "#E6EDF7",
+  muted: "#B9C7DC",
+  faint: "#97A7BF",
   success: "#7ECFB8",
   danger: "#F87171",
   mentee: {
