@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: "Your dashboard", robots: { index: fa
 
 const C = theme.mentor;
 
-type MentorRow = { id: number; name: string; company: string; role: string; location: string | null };
+type MentorRow = { id: number; name: string; company: string; role: string; location: string | null; approved: boolean };
 type MenteeRow = {
   id: number; name: string; email: string; college: string; role: string;
   location: string | null; experience: string | null;
@@ -38,17 +38,47 @@ export default async function MentorDashboard() {
 
   const id = session.sub as string;
 
-  const mentorRows = (await sql`SELECT id, name, company, role, location FROM mentors WHERE id = ${id} LIMIT 1`) as MentorRow[];
+  const mentorRows = (await sql`SELECT id, name, company, role, location, approved FROM mentors WHERE id = ${id} LIMIT 1`) as MentorRow[];
   const mentor: MentorRow = mentorRows[0] ?? {
-    id: 0, name: (session.name as string) ?? "there", company: "—", role: "—", location: null,
+    id: 0, name: (session.name as string) ?? "there", company: "—", role: "—", location: null, approved: false,
   };
+
+  // The mentee directory is the community's private space. A mentor sees it
+  // only after we have approved them by hand.
+  if (!mentor.approved) {
+    return (
+      <div className="min-h-screen" style={{ background: theme.bg }}>
+        <header className="flex items-center justify-between px-6 py-4" style={{ borderBottom: `1px solid ${theme.border}` }}>
+          <Link href="/"><span style={{ fontSize: "18px", fontWeight: 800, color: theme.heading, letterSpacing: "-0.5px" }}>theconnek</span></Link>
+          <LogoutButton role="mentor" />
+        </header>
+        <main className="px-6 py-24 flex justify-center">
+          <div className="max-w-lg text-center flex flex-col items-center gap-4">
+            <span className="block w-2.5 h-2.5 rounded-full" style={{ background: "#D9A87C" }} />
+            <h1 className="text-[26px] font-extrabold tracking-tight" style={{ color: theme.heading }}>
+              Thanks, {mentor.name.split(" ")[0]}. We&apos;re reviewing your profile.
+            </h1>
+            <p className="text-[16px] leading-relaxed" style={{ color: theme.muted }}>
+              Every mentor is approved by hand before they can see mentee profiles. That&apos;s what keeps
+              this a safe room for students. It usually takes a day; you&apos;ll get an email when you&apos;re in.
+            </p>
+            <p className="text-[15px]" style={{ color: theme.faint }}>
+              Questions? Write to hello@theconnek.in
+            </p>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   const assignedMentees = (await sql`
     SELECT id, name, email, college, role, location, experience FROM mentees WHERE mentor_id = ${id} ORDER BY name
   `) as MenteeRow[];
 
   const availableMentees = (await sql`
-    SELECT id, name, email, college, role, location, experience FROM mentees WHERE mentor_id IS NULL ORDER BY name
+    SELECT id, name, email, college, role, location, experience FROM mentees
+    WHERE mentor_id IS NULL AND name <> '' AND college <> '' AND role <> ''
+    ORDER BY name
   `) as MenteeRow[];
 
   const count = assignedMentees.length;

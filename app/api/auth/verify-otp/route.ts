@@ -28,10 +28,10 @@ export async function POST(req: NextRequest) {
     const id = payload.sub as string;
     const role = payload.role as string;
 
-    type OTPRow = { otp: string | null; otp_expires_at: string | null };
+    type OTPRow = { otp: string | null; otp_expires_at: string | null; otp_attempts: number };
     const rows = (role === "mentor"
-      ? await sql`SELECT otp, otp_expires_at FROM mentors WHERE id = ${id} LIMIT 1`
-      : await sql`SELECT otp, otp_expires_at FROM mentees WHERE id = ${id} LIMIT 1`) as OTPRow[];
+      ? await sql`SELECT otp, otp_expires_at, otp_attempts FROM mentors WHERE id = ${id} LIMIT 1`
+      : await sql`SELECT otp, otp_expires_at, otp_attempts FROM mentees WHERE id = ${id} LIMIT 1`) as OTPRow[];
 
     const record = rows[0];
 
@@ -43,21 +43,33 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Code expired. Please start again." }, { status: 401 });
     }
 
+    // A 6-digit code dies after 5 wrong guesses. This is the real brake on
+    // brute force - the IP rate limit is only advisory on serverless.
+    if (record.otp_attempts >= 5) {
+      return NextResponse.json({ error: "Too many wrong attempts. Please request a new code." }, { status: 401 });
+    }
+
     if (String(otp).trim() !== record.otp) {
+      if (role === "mentor") {
+        await sql`UPDATE mentors SET otp_attempts = otp_attempts + 1 WHERE id = ${id}`;
+      } else {
+        await sql`UPDATE mentees SET otp_attempts = otp_attempts + 1 WHERE id = ${id}`;
+      }
       return NextResponse.json({ error: "Incorrect code. Try again." }, { status: 401 });
     }
 
     // One-time use: clear the code so it cannot be replayed.
     if (role === "mentor") {
-      await sql`UPDATE mentors SET otp = NULL, otp_expires_at = NULL WHERE id = ${id}`;
+      await sql`UPDATE mentors SET otp = NULL, otp_expires_at = NULL, otp_attempts = 0 WHERE id = ${id}`;
     } else {
-      await sql`UPDATE mentees SET otp = NULL, otp_expires_at = NULL WHERE id = ${id}`;
+      await sql`UPDATE mentees SET otp = NULL, otp_expires_at = NULL, otp_attempts = 0 WHERE id = ${id}`;
     }
 
     const nextToken = await encrypt({ sub: id, role, purpose: "signup-password" }, "15m");
 
     return NextResponse.json({ tempToken: nextToken });
   } catch (e: unknown) {
-    return NextResponse.json({ error: (e as { message?: string }).message ?? "Unexpected error" }, { status: 500 });
+    console.error("[api] error:", e);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }

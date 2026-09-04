@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 import { sql } from "@/app/lib/db";
 import { decrypt, createSession } from "@/app/lib/session";
 import { clientIp, rateLimited } from "@/app/lib/ratelimit";
@@ -43,6 +44,29 @@ export async function POST(req: NextRequest) {
           location = ${location}, experience = ${experience}, linkedin = ${linkedin}
         WHERE id = ${id}
       `;
+
+      // New mentors start unapproved. Tell the admin so they can vet and
+      // approve; a mail failure must not block the signup itself.
+      if (process.env.RESEND_API_KEY) {
+        const esc = (v: string | null) =>
+          String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        resend.emails
+          .send({
+            from: "theconnek <hello@theconnek.com>",
+            to: "hello@theconnek.in",
+            subject: `Approve mentor: ${name}`,
+            html: `
+              <div style="font-family:Arial,sans-serif;max-width:500px;padding:32px;background:#f9fafb;border-radius:12px;">
+                <p style="margin:0 0 4px;font-size:20px;font-weight:700;color:#111827;">New mentor awaiting approval</p>
+                <p style="margin:0 0 20px;font-size:13px;color:#374151;">They cannot see mentee profiles until approved. To approve, run:<br><code>node scripts/approve-mentor.mjs their-email</code></p>
+                <p style="margin:0;font-size:14px;color:#111827;"><strong>${esc(name)}</strong> &middot; ${esc(targetRole)} at ${esc(institution)}${location ? ` &middot; ${esc(location)}` : ""}</p>
+                ${linkedin ? `<p style="margin:8px 0 0;font-size:13px;"><a href="${esc(linkedin)}" style="color:#4B6FA5;">${esc(linkedin)}</a></p>` : ""}
+              </div>
+            `,
+          })
+          .catch((err) => console.error("[signup-complete] mentor-approval mail failed:", err));
+      }
     } else {
       await sql`
         UPDATE mentees SET
@@ -56,6 +80,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, role });
   } catch (e: unknown) {
-    return NextResponse.json({ error: (e as { message?: string }).message ?? "Unexpected error" }, { status: 500 });
+    console.error("[api] error:", e);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }

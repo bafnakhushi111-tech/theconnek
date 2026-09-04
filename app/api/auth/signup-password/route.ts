@@ -51,6 +51,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ tempToken: nextToken });
   } catch (e: unknown) {
-    return NextResponse.json({ error: (e as { message?: string }).message ?? "Unexpected error" }, { status: 500 });
+    console.error("[api] error:", e);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }

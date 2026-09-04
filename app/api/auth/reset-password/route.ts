@@ -35,33 +35,45 @@ export async function POST(req: NextRequest) {
 
     // sub "0" means the email had no account - fall through to the same
     // generic rejection a wrong code gets.
-    type OTPRow = { name: string; otp: string | null; otp_expires_at: string | null };
+    type OTPRow = { name: string; otp: string | null; otp_expires_at: string | null; otp_attempts: number };
     const rows = (role === "mentor"
-      ? await sql`SELECT name, otp, otp_expires_at FROM mentors WHERE id = ${id} LIMIT 1`
-      : await sql`SELECT name, otp, otp_expires_at FROM mentees WHERE id = ${id} LIMIT 1`) as OTPRow[];
+      ? await sql`SELECT name, otp, otp_expires_at, otp_attempts FROM mentors WHERE id = ${id} LIMIT 1`
+      : await sql`SELECT name, otp, otp_expires_at, otp_attempts FROM mentees WHERE id = ${id} LIMIT 1`) as OTPRow[];
     const record = id === "0" ? undefined : rows[0];
 
-    if (
-      !record?.otp ||
-      !record?.otp_expires_at ||
-      new Date() > new Date(record.otp_expires_at) ||
-      String(otp).trim() !== record.otp
-    ) {
+    const valid =
+      record?.otp &&
+      record?.otp_expires_at &&
+      new Date() <= new Date(record.otp_expires_at) &&
+      record.otp_attempts < 5 &&
+      String(otp).trim() === record.otp;
+
+    if (!valid) {
+      // Count the miss when there was a live code to guess at. Same brake as
+      // signup verification: 5 wrong guesses kill the code.
+      if (record?.otp && id !== "0") {
+        if (role === "mentor") {
+          await sql`UPDATE mentors SET otp_attempts = otp_attempts + 1 WHERE id = ${id}`;
+        } else {
+          await sql`UPDATE mentees SET otp_attempts = otp_attempts + 1 WHERE id = ${id}`;
+        }
+      }
       return NextResponse.json({ error: "Incorrect or expired code. Try again." }, { status: 401 });
     }
 
     const hash = await bcrypt.hash(clean, 12);
 
     if (role === "mentor") {
-      await sql`UPDATE mentors SET password_hash = ${hash}, otp = NULL, otp_expires_at = NULL WHERE id = ${id}`;
+      await sql`UPDATE mentors SET password_hash = ${hash}, otp = NULL, otp_expires_at = NULL, otp_attempts = 0 WHERE id = ${id}`;
     } else {
-      await sql`UPDATE mentees SET password_hash = ${hash}, otp = NULL, otp_expires_at = NULL WHERE id = ${id}`;
+      await sql`UPDATE mentees SET password_hash = ${hash}, otp = NULL, otp_expires_at = NULL, otp_attempts = 0 WHERE id = ${id}`;
     }
 
     await createSession(id, role, record.name);
 
     return NextResponse.json({ success: true, role });
   } catch (e: unknown) {
-    return NextResponse.json({ error: (e as { message?: string }).message ?? "Unexpected error" }, { status: 500 });
+    console.error("[api] error:", e);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }

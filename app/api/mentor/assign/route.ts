@@ -6,6 +6,12 @@ import { getSession } from "@/app/lib/session";
 const FROM = "theconnek <hello@theconnek.com>";
 const ADMIN = "hello@theconnek.in";
 
+// User-supplied text goes into email HTML - escape it so a crafted name can
+// never smuggle markup into the mentor's or admin's inbox.
+function esc(v: string | null | undefined): string {
+  return String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
 // Testing must never put mail in a real mentor's inbox. Outside production the
 // mentor's copy is redirected to the admin address with the intended recipient
 // written into the subject line.
@@ -32,7 +38,7 @@ export async function POST(req: NextRequest) {
     type MenteeRow = { id: number; name: string; email: string; college: string; role: string };
     const menteeRows = (await sql`
       SELECT id, name, email, college, role FROM mentees
-      WHERE id = ${menteeId} AND mentor_id IS NULL
+      WHERE id = ${menteeId} AND mentor_id IS NULL AND name <> '' AND college <> '' AND role <> ''
       LIMIT 1
     `) as MenteeRow[];
 
@@ -41,11 +47,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Mentee not found or already matched." }, { status: 404 });
     }
 
-    type MentorRow = { name: string; email: string; company: string; role: string };
+    type MentorRow = { name: string; email: string; company: string; role: string; approved: boolean };
     const mentorRows = (await sql`
-      SELECT name, email, company, role FROM mentors WHERE id = ${mentorId} LIMIT 1
+      SELECT name, email, company, role, approved FROM mentors WHERE id = ${mentorId} LIMIT 1
     `) as MentorRow[];
     const mentor = mentorRows[0];
+
+    if (!mentor?.approved) {
+      return NextResponse.json({ error: "Your mentor profile is still being reviewed." }, { status: 403 });
+    }
 
     // Three mentees per mentor keeps every match a real commitment. Checked
     // again here so the cap holds even if the button is bypassed.
@@ -71,7 +81,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Someone just matched with this mentee." }, { status: 409 });
     }
 
-    if (process.env.RESEND_API_KEY && mentor) {
+    try {
+      if (!process.env.RESEND_API_KEY || !mentor) throw null;
       const resend = new Resend(process.env.RESEND_API_KEY);
       const mentorFirst = mentor.name.split(" ")[0];
       const menteeFirst = mentee.name.split(" ")[0];
@@ -90,7 +101,7 @@ export async function POST(req: NextRequest) {
               <p style="margin:0 0 28px;font-size:17px;font-weight:800;color:#ffffff;">theconnek</p>
               <p style="margin:0 0 18px;font-size:16px;line-height:1.65;color:#CBD5E1;">Hi ${mentorFirst},</p>
               <p style="margin:0 0 18px;font-size:16px;line-height:1.65;color:#CBD5E1;">
-                You have been matched with <strong style="color:#ffffff;">${mentee.name}</strong>, ${mentee.role} at ${mentee.college}. Thank you for offering your time.
+                You have been matched with <strong style="color:#ffffff;">${esc(mentee.name)}</strong>, ${esc(mentee.role)} at ${esc(mentee.college)}. Thank you for offering your time.
               </p>
               <p style="margin:0 0 18px;font-size:16px;line-height:1.65;color:#8A9CB8;">
                 The format is simple. One call over Zoom or Google Meet, around 15 minutes. No prep needed on your side. They come with specific questions about the work itself.
@@ -110,7 +121,7 @@ export async function POST(req: NextRequest) {
       await resend.emails.send({
         from: FROM,
         to: ADMIN,
-        subject: `Schedule a call: ${mentor.name} → ${mentee.name}`,
+        subject: `Schedule a call: ${mentor.name} -> ${mentee.name}`,
         html: `
           <div style="font-family:Arial,sans-serif;max-width:500px;padding:32px;background:#f9fafb;border-radius:12px;">
             <p style="margin:0 0 4px;font-size:20px;font-weight:700;color:#111827;">New mentor match</p>
@@ -119,24 +130,28 @@ export async function POST(req: NextRequest) {
             <table style="width:100%;border-collapse:collapse;">
               <tr>
                 <td style="padding:10px 0;border-bottom:1px solid #e5e7eb;font-size:13px;color:#6b7280;width:90px;">Mentor</td>
-                <td style="padding:10px 0;border-bottom:1px solid #e5e7eb;font-size:13px;font-weight:600;color:#111827;">${mentor.name} &middot; ${mentor.role} at ${mentor.company}<br><a href="mailto:${mentor.email}" style="color:#4B6FA5;font-weight:500;">${mentor.email}</a></td>
+                <td style="padding:10px 0;border-bottom:1px solid #e5e7eb;font-size:13px;font-weight:600;color:#111827;">${esc(mentor.name)} &middot; ${esc(mentor.role)} at ${esc(mentor.company)}<br><a href="mailto:${esc(mentor.email)}" style="color:#4B6FA5;font-weight:500;">${esc(mentor.email)}</a></td>
               </tr>
               <tr>
                 <td style="padding:10px 0;border-bottom:1px solid #e5e7eb;font-size:13px;color:#6b7280;">Mentee</td>
-                <td style="padding:10px 0;border-bottom:1px solid #e5e7eb;font-size:13px;font-weight:600;color:#111827;">${mentee.name} &middot; ${mentee.college}</td>
+                <td style="padding:10px 0;border-bottom:1px solid #e5e7eb;font-size:13px;font-weight:600;color:#111827;">${esc(mentee.name)} &middot; ${esc(mentee.college)}</td>
               </tr>
               <tr>
                 <td style="padding:10px 0;font-size:13px;color:#6b7280;">Target role</td>
-                <td style="padding:10px 0;font-size:13px;font-weight:600;color:#111827;">${mentee.role}</td>
+                <td style="padding:10px 0;font-size:13px;font-weight:600;color:#111827;">${esc(mentee.role)}</td>
               </tr>
             </table>
           </div>
         `,
       });
+    } catch (e: unknown) {
+      // The match is already committed; a mail hiccup must not report failure.
+      if (e) console.error("[assign] email send failed:", e);
     }
 
     return NextResponse.json({ success: true });
   } catch (e: unknown) {
-    return NextResponse.json({ error: (e as { message?: string }).message ?? "Unexpected error" }, { status: 500 });
+    console.error("[assign] error:", e);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }

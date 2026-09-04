@@ -40,9 +40,9 @@ export async function POST(req: NextRequest) {
       const otp = generateOTP();
       const expires = new Date(Date.now() + 10 * 60 * 1000).toISOString();
       if (role === "mentor") {
-        await sql`UPDATE mentors SET otp = ${otp}, otp_expires_at = ${expires} WHERE id = ${rows[0].id}`;
+        await sql`UPDATE mentors SET otp = ${otp}, otp_expires_at = ${expires}, otp_attempts = 0 WHERE id = ${rows[0].id}`;
       } else {
-        await sql`UPDATE mentees SET otp = ${otp}, otp_expires_at = ${expires} WHERE id = ${rows[0].id}`;
+        await sql`UPDATE mentees SET otp = ${otp}, otp_expires_at = ${expires}, otp_attempts = 0 WHERE id = ${rows[0].id}`;
       }
       await sendOtpEmail(email, rows[0].name, otp, "reset");
     }
@@ -51,6 +51,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ tempToken });
   } catch (e: unknown) {
-    return NextResponse.json({ error: (e as { message?: string }).message ?? "Unexpected error" }, { status: 500 });
+    console.error("[api] error:", e);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }
