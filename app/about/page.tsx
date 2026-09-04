@@ -43,7 +43,8 @@ export default function AboutPage() {
               not cold DMs. No pedigree filter. No algorithm deciding who you should know. Just people who want to talk and people who want to listen.
             </p>
             <p style={{ color: "#EAF0F8" }}>
-              We&apos;re just getting started. But if you&apos;ve ever felt locked out of the
+              Today theconnek is live: a practice library of 400+ guesstimates and cases, and mentors who
+              choose their mentees for real conversations. If you&apos;ve ever felt locked out of the
               conversation, this is for you.
             </p>
           </div>

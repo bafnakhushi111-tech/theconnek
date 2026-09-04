@@ -8,6 +8,7 @@ import Logo from "./Logo";
 const NAV_LINKS: { label: string; href: string; external?: boolean; sub?: string }[] = [
   { label: "Home", href: "/" },
   { label: "Join", href: "/#waitlist" },
+  { label: "Practice", href: "/practice", sub: "Guesstimates and cases" },
   { label: "About", href: "/about" },
   { label: "FAQ", href: "/faq" },
   { label: "Instagram", href: "https://instagram.com/_the_connek", external: true },

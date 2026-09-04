@@ -30,18 +30,18 @@ export async function proxy(req: NextRequest) {
 
   // Protect dashboards - wrong/no role bounces to that role's login.
   if (pathname.startsWith("/mentee/dashboard") && role !== "mentee") {
-    return NextResponse.redirect(new URL("/mentee/login", req.url));
+    return NextResponse.redirect(new URL("/mentee/login", req.nextUrl.origin));
   }
   if (pathname.startsWith("/mentor/dashboard") && role !== "mentor") {
-    return NextResponse.redirect(new URL("/mentor/login", req.url));
+    return NextResponse.redirect(new URL("/mentor/login", req.nextUrl.origin));
   }
 
   // Already signed in? Skip the login/signup screens.
   if (role === "mentee" && (pathname === "/mentee/login" || pathname === "/mentee/signup")) {
-    return NextResponse.redirect(new URL("/mentee/dashboard", req.url));
+    return NextResponse.redirect(new URL("/mentee/dashboard", req.nextUrl.origin));
   }
   if (role === "mentor" && (pathname === "/mentor/login" || pathname === "/mentor/signup")) {
-    return NextResponse.redirect(new URL("/mentor/dashboard", req.url));
+    return NextResponse.redirect(new URL("/mentor/dashboard", req.nextUrl.origin));
   }
 
   return NextResponse.next();

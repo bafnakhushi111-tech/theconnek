@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, useInView, AnimatePresence, type Variants } from "framer-motion";
 import Logo from "./components/Logo";
@@ -104,105 +103,12 @@ const content = {
 // Searchable list for the candidate "College" field. MBA/B-school leaning (Khushi's
 // audience) plus the major engineering schools. Not exhaustive by design - anyone whose
 // college isn't listed can just type their own; whatever they type is saved as-is.
-const COLLEGES = [
-  "IIM Ahmedabad", "IIM Bangalore", "IIM Calcutta", "IIM Lucknow", "IIM Kozhikode",
-  "IIM Indore", "IIM Shillong", "IIM Rohtak", "IIM Udaipur", "IIM Trichy", "IIM Raipur",
-  "IIM Ranchi", "IIM Kashipur", "IIM Nagpur", "IIM Amritsar", "IIM Bodh Gaya",
-  "IIM Sambalpur", "IIM Sirmaur", "IIM Jammu", "IIM Visakhapatnam", "IIM Mumbai (NITIE)",
-  "ISB Hyderabad", "XLRI Jamshedpur", "FMS Delhi", "SPJIMR Mumbai", "MDI Gurgaon",
-  "JBIMS Mumbai", "IIFT Delhi", "NMIMS Mumbai", "SIBM Pune", "IMT Ghaziabad",
-  "TISS Mumbai", "Great Lakes Chennai", "IMI New Delhi", "XIM Bhubaneswar",
-  "SCMHRD Pune", "K J Somaiya Mumbai", "Welingkar Mumbai", "DMS IIT Delhi",
-  "Christ University", "Symbiosis (SIU) Pune",
-  "IIT Bombay", "IIT Delhi", "IIT Madras", "IIT Kanpur", "IIT Kharagpur", "IIT Roorkee",
-  "IIT Guwahati", "IIT Hyderabad", "IIT (BHU) Varanasi", "IIT Indore", "IIT Jodhpur",
-  "IIT Gandhinagar", "IIT Ropar", "IIT Patna", "IIT Mandi", "IIT Bhubaneswar",
-  "IIT (ISM) Dhanbad", "NIT Trichy", "NIT Surathkal", "NIT Warangal", "NIT Rourkela",
-  "BITS Pilani", "Delhi University (DU)", "SRCC Delhi", "Delhi Technological University (DTU)",
-  "VIT Vellore", "Anna University", "Jadavpur University", "Manipal (MAHE)",
-  "Ashoka University", "Shiv Nadar University", "Amity University",
-  "Jamia Millia Islamia", "Jawaharlal Nehru University (JNU)",
-];
-
-// College field with type-ahead suggestions and a free-text fallback: users can pick from
-// the list or type anything. The typed value is always what gets submitted.
-function CollegeCombobox({
-  value, onChange, label, placeholder, accent, accentLight, fieldBg, fieldBorder, heroBg,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-  label: string;
-  placeholder: string;
-  accent: string;
-  accentLight: string;
-  fieldBg: string;
-  fieldBorder: string;
-  heroBg: string;
-}) {
-  const [open, setOpen] = useState(false);
-  const q = value.trim().toLowerCase();
-  const matches = (q ? COLLEGES.filter((col) => col.toLowerCase().includes(q)) : COLLEGES).slice(0, 8);
-
-  return (
-    <div className="relative">
-      <label htmlFor="college" className="block text-sm font-medium mb-1" style={{ color: accentLight }}>{label}</label>
-      <input
-        id="college"
-        type="text"
-        required
-        autoComplete="off"
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => { onChange(e.target.value); setOpen(true); }}
-        onFocus={(e) => { setOpen(true); e.target.style.border = `1px solid ${accent}`; }}
-        onBlur={(e) => { window.setTimeout(() => setOpen(false), 120); e.target.style.border = `1px solid ${fieldBorder}`; }}
-        className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none"
-        style={{ background: fieldBg, border: `1px solid ${fieldBorder}` }}
-      />
-      {open && matches.length > 0 && (
-        <ul
-          className="absolute z-20 mt-1 w-full rounded-xl py-1 max-h-60 overflow-y-auto"
-          style={{ background: heroBg, border: `1px solid ${fieldBorder}`, boxShadow: "0 12px 32px rgba(0,0,0,0.45)" }}
-        >
-          {matches.map((col) => (
-            <li key={col}>
-              <button
-                type="button"
-                onMouseDown={(e) => { e.preventDefault(); onChange(col); setOpen(false); }}
-                className="w-full text-left px-4 py-2.5 text-sm"
-                style={{ color: "#CBD5E1", background: "transparent" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = fieldBg)}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-              >
-                {col}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-      {q.length > 1 && matches.length === 0 && (
-        <p className="mt-1 text-xs" style={{ color: accentLight }}>
-          Not in the list? No problem - we&apos;ll save exactly what you typed.
-        </p>
-      )}
-    </div>
-  );
-}
-
 export default function Home() {
-  const router = useRouter();
   const [userType, setUserType] = useState<UserType>("candidate");
-  const [form, setForm] = useState({ name: "", email: "", college: "", role: "", location: "", experience: "", linkedin: "" });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [panelOpen, setPanelOpen] = useState(false);
 
   function handleToggle(type: UserType) {
     setUserType(type);
-    setForm({ name: "", email: "", college: "", role: "", location: "", experience: "", linkedin: "" });
-    setSubmitted(false);
-    setError("");
   }
 
   // Deep-link: theconnek.com/?role=give-back opens the give-back view and scrolls to the form.
@@ -214,30 +120,6 @@ export default function Home() {
     }
   }, []);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    try {
-      const res = await fetch("/api/waitlist", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, user_type: userType, location: form.location }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error || "Something went wrong. Please try again.");
-      } else {
-        setSubmitted(true);
-        router.push("/thank-you");
-      }
-    } catch (err: unknown) {
-      const e = err as { message?: string };
-      setError(e.message || "Network error. Please check your connection.");
-    } finally {
-      setLoading(false);
-    }
-  }
 
   const c = content[userType];
 
@@ -403,176 +285,47 @@ export default function Home() {
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.3 }}
             >
-              {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4 }}
-                  className="rounded-2xl p-8 text-center"
-                  style={{ background: ab(0.12), border: `1px solid ${ab(0.3)}` }}
-                >
-                  <div className="text-4xl mb-4">🎉</div>
-                  <h3 className="text-xl font-bold mb-2 text-white">You&apos;re in.</h3>
-                  <p className="text-base mb-6" style={{ color: "#D5DEEC" }}>
-                    We&apos;ll be in touch at <span className="text-white font-medium">{form.email}</span>.
-                  </p>
-                  <p className="text-sm font-semibold text-white mb-3">Know someone who should be here?</p>
-                  <div className="flex flex-col sm:flex-row gap-2 justify-center">
-                    <a
-                      href={`https://wa.me/?text=${encodeURIComponent("I just joined theconnek, real career conversations with people who've been there. No cold DMs, no algorithm. Join me: https://theconnek.com/?ref=share")}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-bold px-5 py-2.5 rounded-full text-xs text-white"
-                      style={{ background: accent }}
-                    >
-                      Share on WhatsApp
-                    </a>
-                    <button
-                      onClick={() => navigator.clipboard.writeText("https://theconnek.com/?ref=share")}
-                      className="font-bold px-5 py-2.5 rounded-full text-xs"
-                      style={{ border: `1px solid ${ab(0.3)}`, color: accentLight }}
-                    >
-                      Copy link
-                    </button>
-                  </div>
+              <div
+                className="rounded-2xl p-8 sm:p-10 text-center"
+                style={{ background: ab(0.1), border: `1px solid ${ab(0.28)}` }}
+              >
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">{c.formTitle}</h2>
+                <p className="text-base mb-8" style={{ color: "#D5DEEC" }}>{c.formSub}</p>
+                <ul className="text-left max-w-md mx-auto mb-9 space-y-3">
+                  {(userType === "candidate"
+                    ? [
+                        "400+ guesstimates and cases across Strategy, Product, Finance and Marketing",
+                        "A mentor matched to you by hand, then a real 30-minute call",
+                        "One 6-digit code to verify your email, then it's just email and password",
+                      ]
+                    : [
+                        "Pick who you mentor from real profiles, up to 3 mentees",
+                        "We handle the introduction and scheduling over email",
+                        "No cold DMs and no contact details shared without you",
+                      ]
+                  ).map((line) => (
+                    <li key={line} className="flex items-start gap-3 text-sm sm:text-base" style={{ color: "#D5DEEC" }}>
+                      <span className="mt-1.5 block w-1.5 h-1.5 rounded-full shrink-0" style={{ background: accent }} />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="inline-block">
+                  <Link
+                    href={userType === "professional" ? "/mentor/signup" : "/mentee/signup"}
+                    className="inline-block font-bold px-8 py-4 rounded-full text-sm md:text-base text-white"
+                    style={{ background: accent, boxShadow: `0 20px 40px ${ab(0.3)}` }}
+                  >
+                    Create your account →
+                  </Link>
                 </motion.div>
-              ) : (
-                <>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-3">{c.formTitle}</h2>
-                  <p className="text-center text-base sm:text-base mb-10" style={{ color: "#D5DEEC" }}>{c.formSub}</p>
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    {[
-                      { label: "Full name", key: "name", type: "text", placeholder: "Priya Sharma" },
-                      { label: "Email", key: "email", type: "email", placeholder: "priya@example.com" },
-                      { label: "Location", key: "location", type: "text", placeholder: "e.g. Mumbai, Bangalore" },
-                    ].map(({ label, key, type, placeholder }) => (
-                      <div key={key}>
-                        <label htmlFor={key} className="block text-sm font-medium mb-1" style={{ color: accentLight }}>{label}</label>
-                        <input
-                          id={key}
-                          type={type}
-                          required
-                          placeholder={placeholder}
-                          value={form[key as keyof typeof form]}
-                          onChange={(e) => setForm({ ...form, [key]: e.target.value })}
-                          className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none"
-                          style={{ background: ab(0.1), border: `1px solid ${ab(0.25)}` }}
-                          onFocus={(e) => (e.target.style.border = `1px solid ${accent}`)}
-                          onBlur={(e) => (e.target.style.border = `1px solid ${ab(0.25)}`)}
-                        />
-                      </div>
-                    ))}
-                    {userType === "candidate" ? (
-                      <CollegeCombobox
-                        value={form.college}
-                        onChange={(v) => setForm({ ...form, college: v })}
-                        label={c.institutionLabel}
-                        placeholder={c.institutionPlaceholder}
-                        accent={accent}
-                        accentLight={accentLight}
-                        fieldBg={ab(0.1)}
-                        fieldBorder={ab(0.25)}
-                        heroBg={heroBg}
-                      />
-                    ) : (
-                      <div>
-                        <label htmlFor="college" className="block text-sm font-medium mb-1" style={{ color: accentLight }}>{c.institutionLabel}</label>
-                        <input
-                          id="college"
-                          type="text"
-                          required
-                          placeholder={c.institutionPlaceholder}
-                          value={form.college}
-                          onChange={(e) => setForm({ ...form, college: e.target.value })}
-                          className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none"
-                          style={{ background: ab(0.1), border: `1px solid ${ab(0.25)}` }}
-                          onFocus={(e) => (e.target.style.border = `1px solid ${accent}`)}
-                          onBlur={(e) => (e.target.style.border = `1px solid ${ab(0.25)}`)}
-                        />
-                      </div>
-                    )}
-                    <div>
-                      <label htmlFor="role" className="block text-sm font-medium mb-1" style={{ color: accentLight }}>{c.roleLabel}</label>
-                      {userType === "professional" ? (
-                        <input
-                          id="role"
-                          type="text"
-                          required
-                          placeholder="e.g. Associate, VP Strategy, Founder"
-                          value={form.role}
-                          onChange={(e) => setForm({ ...form, role: e.target.value })}
-                          className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none"
-                          style={{ background: ab(0.1), border: `1px solid ${ab(0.25)}` }}
-                          onFocus={(e) => (e.target.style.border = `1px solid ${accent}`)}
-                          onBlur={(e) => (e.target.style.border = `1px solid ${ab(0.25)}`)}
-                        />
-                      ) : (
-                        <select
-                          id="role"
-                          required
-                          value={form.role}
-                          onChange={(e) => setForm({ ...form, role: e.target.value })}
-                          className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none appearance-none"
-                          style={{ background: ab(0.1), border: `1px solid ${ab(0.25)}` }}
-                          onFocus={(e) => (e.target.style.border = `1px solid ${accent}`)}
-                          onBlur={(e) => (e.target.style.border = `1px solid ${ab(0.25)}`)}
-                        >
-                          <option value="" style={{ background: heroBg }}>Select a role</option>
-                          {c.roleOptions.map((r) => (
-                            <option key={r} value={r} style={{ background: heroBg }}>{r}</option>
-                          ))}
-                        </select>
-                      )}
-                    </div>
-                    <div>
-                      <label htmlFor="experience" className="block text-sm font-medium mb-1" style={{ color: accentLight }}>Years of experience</label>
-                      <select
-                        id="experience"
-                        required
-                        value={form.experience}
-                        onChange={(e) => setForm({ ...form, experience: e.target.value })}
-                        className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none appearance-none"
-                        style={{ background: ab(0.1), border: `1px solid ${ab(0.25)}` }}
-                        onFocus={(e) => (e.target.style.border = `1px solid ${accent}`)}
-                        onBlur={(e) => (e.target.style.border = `1px solid ${ab(0.25)}`)}
-                      >
-                        <option value="" style={{ background: heroBg }}>Select experience</option>
-                        {["0-2 years", "2-5 years", "5-10 years", "10+ years"].map((opt) => (
-                          <option key={opt} value={opt} style={{ background: heroBg }}>{opt}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div>
-                      <label htmlFor="linkedin" className="block text-sm font-medium mb-1" style={{ color: accentLight }}>
-                        LinkedIn <span style={{ color: "#95A3BB", fontWeight: 400 }}>(optional)</span>
-                      </label>
-                      <input
-                        id="linkedin"
-                        type="text"
-                        inputMode="url"
-                        placeholder="linkedin.com/in/yourname"
-                        value={form.linkedin}
-                        onChange={(e) => setForm({ ...form, linkedin: e.target.value })}
-                        className="w-full rounded-xl px-4 py-3 text-sm text-white focus:outline-none"
-                        style={{ background: ab(0.1), border: `1px solid ${ab(0.25)}` }}
-                        onFocus={(e) => (e.target.style.border = `1px solid ${accent}`)}
-                        onBlur={(e) => (e.target.style.border = `1px solid ${ab(0.25)}`)}
-                      />
-                    </div>
-                    {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-                    <motion.button
-                      type="submit"
-                      disabled={loading}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.97 }}
-                      className="w-full font-bold py-3 rounded-xl transition-colors disabled:opacity-50 mt-2 text-white"
-                      style={{ background: accent }}
-                    >
-                      {loading ? "Joining..." : "Join →"}
-                    </motion.button>
-                  </form>
-                </>
-              )}
+                <p className="text-sm mt-5" style={{ color: "#95A3BB" }}>
+                  Already a member?{" "}
+                  <Link href={userType === "professional" ? "/mentor/login" : "/mentee/login"} className="font-semibold" style={{ color: accentLight }}>
+                    Log in
+                  </Link>
+                </p>
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>

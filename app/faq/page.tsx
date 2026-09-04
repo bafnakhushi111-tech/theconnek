@@ -5,19 +5,19 @@ import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
   title: "FAQ",
-  description: "Common questions about theconnek, the free networking and mentorship community for students and professionals in India.",
+  description: "Common questions about theconnek: accounts, mentor matching, and guesstimate and case practice for students and professionals in India.",
   alternates: { canonical: "/faq" },
 };
 
 const FAQS = [
   { q: "Is theconnek free?", a: "Yes, completely. No subscription, no premium tier, no catch. theconnek is free for both students and professionals." },
   { q: "Who is this for?", a: "Any student, undergraduate, postgraduate, or otherwise, who wants real career conversations. And professionals who are open to sharing their journey. No pedigree filter, no college cutoff." },
-  { q: "How does matching work?", a: "We match based on your background, target role, and what you're looking for, then make the introduction. You're always in control of who you talk to." },
+  { q: "What happens after I sign up?", a: "You verify your email with a 6-digit code, set a password, and land on your dashboard. From there you can start practising immediately while we match you with a mentor." },
+  { q: "How does matching work?", a: "Mentors browse real mentee profiles and choose who they take on, and we match by hand too. When it happens, your dashboard shows your mentor and we set up the call over email. You're always in control of who you talk to." },
+  { q: "What's in the practice section?", a: "Over 400 guesstimates and case questions across four tracks: Strategy and Consulting, Product, Finance, and Marketing. Each one has a timer, a scratchpad to write your answer, and a full approach with a final answer that unlocks the moment you submit." },
   { q: "Do I need to be from a top college?", a: "No. There's no pedigree filter. If you're serious about your career and willing to have real conversations, you belong here." },
-  { q: "How soon will I hear back after joining?", a: "We review every signup personally and onboard in small batches. You'll get an email the moment a conversation is ready for you." },
-  { q: "I'm a professional - how much time does this take?", a: "As much or as little as you want. No quota, no schedule. One conversation a month is enough to make a real difference for someone." },
-  { q: "What is a study circle?", a: "A small group of students targeting the same roles, think shared resources, honest feedback, and accountability without the LinkedIn performativity." },
-  { q: "What's guesstimate practice?", a: "A dedicated group to work through guesstimates together. The kind of repetition that actually builds confidence under pressure, with real people, not just recordings." },
+  { q: "I'm a professional - how much time does this take?", a: "As much or as little as you want. You choose who you mentor, up to three mentees at a time, and one conversation a month is enough to make a real difference for someone." },
+  { q: "I forgot my password. What do I do?", a: "Use the Forgot password link on the login page. We email you a 6-digit code, you choose a new password, and you're back in." },
 ];
 
 const faqJsonLd = {

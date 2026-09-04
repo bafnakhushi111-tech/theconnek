@@ -26,7 +26,7 @@ function getBadge(count: number): { label: string; icon: string; next: number | 
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p style={{ margin: "0 0 4px", fontSize: "10px", fontWeight: 700, color: C.text, textTransform: "uppercase", letterSpacing: "2px" }}>
+    <p style={{ margin: "0 0 4px", fontSize: "13px", fontWeight: 700, color: C.text, textTransform: "uppercase", letterSpacing: "2px" }}>
       {children}
     </p>
   );
@@ -59,68 +59,76 @@ export default async function MentorDashboard() {
   return (
     <div className="min-h-screen" style={{ background: theme.bg }}>
       <header className="flex items-center justify-between px-6 py-4" style={{ borderBottom: `1px solid ${theme.border}` }}>
-        <Link href="/"><span style={{ fontSize: "16px", fontWeight: 800, color: theme.heading, letterSpacing: "-0.5px" }}>theconnek</span></Link>
+        <Link href="/"><span style={{ fontSize: "18px", fontWeight: 800, color: theme.heading, letterSpacing: "-0.5px" }}>theconnek</span></Link>
         <LogoutButton role="mentor" />
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-10 flex flex-col gap-11">
-        <div>
-          <h1 style={{ margin: 0, fontSize: "32px", fontWeight: 800, color: theme.heading, letterSpacing: "-0.5px" }}>Hi, {firstName}</h1>
-          <p style={{ margin: "6px 0 0", fontSize: "14px", color: theme.muted }}>
-            {mentor.role} at {mentor.company}{mentor.location ? ` · ${mentor.location}` : ""}
-          </p>
-        </div>
+      <main className="w-full px-6 lg:px-10 py-10">
+        <div className="mx-auto grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8 max-w-[1400px]">
+          {/* Sidebar: identity + gamification, stays put while the mentee list scrolls */}
+          <aside className="flex flex-col gap-4 lg:sticky lg:top-10 lg:self-start">
+            <div className="rounded-2xl p-5" style={{ background: C.softer, border: `1px solid ${C.border}` }}>
+              <h1 style={{ margin: 0, fontSize: "26px", fontWeight: 800, color: theme.heading, letterSpacing: "-0.5px" }}>Hi, {firstName}</h1>
+              <p style={{ margin: "6px 0 0", fontSize: "15px", color: theme.muted, lineHeight: 1.5 }}>
+                {mentor.role} at {mentor.company}{mentor.location ? ` · ${mentor.location}` : ""}
+              </p>
+            </div>
 
-        <div className="grid grid-cols-3 gap-4">
-          <div className="rounded-2xl p-5" style={{ background: C.softer, border: `1px solid ${C.border}` }}>
-            <p style={{ margin: 0, fontSize: "30px", fontWeight: 800, color: theme.heading, lineHeight: 1 }}>{count}</p>
-            <p style={{ margin: "8px 0 0", fontSize: "12px", color: theme.muted }}>{count === 1 ? "mentee" : "mentees"} in your corner</p>
-          </div>
-          <div className="rounded-2xl p-5 flex flex-col justify-between" style={{ background: C.softer, border: `1px solid ${C.border}` }}>
-            <span style={{ fontSize: "26px", lineHeight: 1 }}>{badge.icon}</span>
-            <p style={{ margin: "8px 0 0", fontSize: "13px", fontWeight: 700, color: C.text }}>{badge.label}</p>
-          </div>
-          <div className="rounded-2xl p-5 flex flex-col justify-center" style={{ background: C.softer, border: `1px solid ${C.border}` }}>
-            {badge.next ? (
-              <>
-                <p style={{ margin: 0, fontSize: "13px", fontWeight: 700, color: theme.body }}>{remaining} more {remaining === 1 ? "mentee" : "mentees"}</p>
-                <p style={{ margin: "4px 0 0", fontSize: "12px", color: theme.muted }}>to level up</p>
-                <div className="mt-3" style={{ background: "rgba(168,151,232,0.12)", borderRadius: "99px", height: "4px", width: "100%" }}>
-                  <div style={{ height: "100%", borderRadius: "99px", background: C.accent, width: `${Math.min((count / badge.next) * 100, 100)}%` }} />
+            <div className="rounded-2xl p-5" style={{ background: C.softer, border: `1px solid ${C.border}` }}>
+              <p style={{ margin: 0, fontSize: "30px", fontWeight: 800, color: theme.heading, lineHeight: 1 }}>{count}</p>
+              <p style={{ margin: "8px 0 0", fontSize: "13px", color: theme.muted }}>{count === 1 ? "mentee" : "mentees"} in your corner</p>
+            </div>
+
+            <div className="rounded-2xl p-5 flex items-center gap-3" style={{ background: C.softer, border: `1px solid ${C.border}` }}>
+              <span style={{ fontSize: "22px", lineHeight: 1 }}>{badge.icon}</span>
+              <p style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: C.text }}>{badge.label}</p>
+            </div>
+
+            <div className="rounded-2xl p-5" style={{ background: C.softer, border: `1px solid ${C.border}` }}>
+              {badge.next ? (
+                <>
+                  <p style={{ margin: 0, fontSize: "15px", fontWeight: 700, color: theme.body }}>{remaining} more {remaining === 1 ? "mentee" : "mentees"}</p>
+                  <p style={{ margin: "4px 0 0", fontSize: "13px", color: theme.muted }}>to level up</p>
+                  <div className="mt-3" style={{ background: "rgba(168,151,232,0.12)", borderRadius: "99px", height: "4px", width: "100%" }}>
+                    <div style={{ height: "100%", borderRadius: "99px", background: C.accent, width: `${Math.min((count / badge.next) * 100, 100)}%` }} />
+                  </div>
+                </>
+              ) : (
+                <p style={{ margin: 0, fontSize: "15px", fontWeight: 700, color: C.text }}>You&apos;re a Top Mentor 🎉</p>
+              )}
+            </div>
+          </aside>
+
+          {/* Main: mentee lists, given the width the sidebar freed up */}
+          <div className="flex flex-col gap-11 min-w-0">
+            {assignedMentees.length > 0 && (
+              <section>
+                <SectionLabel>Your Mentees ({count})</SectionLabel>
+                <p style={{ margin: "0 0 16px", fontSize: "15px", color: theme.muted }}>The people you&apos;re mentoring. Call scheduling lands here next.</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {assignedMentees.map((m) => <MenteeCard key={m.id} mentee={m} assigned />)}
                 </div>
-              </>
-            ) : (
-              <p style={{ margin: 0, fontSize: "13px", fontWeight: 700, color: C.text }}>You&apos;re a Top Mentor 🎉</p>
+              </section>
             )}
+
+            <section>
+              <SectionLabel>Discover Mentees</SectionLabel>
+              <p style={{ margin: "0 0 16px", fontSize: "15px", color: theme.muted }}>
+                Review profiles and choose who you&apos;d like to mentor. We handle the introduction — no contact details shared.
+              </p>
+              {availableMentees.length === 0 ? (
+                <div className="rounded-2xl p-6 text-center" style={{ background: "rgba(255,255,255,0.02)", border: `1px dashed ${theme.border}` }}>
+                  <p style={{ margin: 0, fontSize: "17px", color: theme.body, fontWeight: 600 }}>No unmatched mentees right now</p>
+                  <p style={{ margin: "6px 0 0", fontSize: "15px", color: C.text }}>Check back soon as more people join.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {availableMentees.map((m) => <MenteeCard key={m.id} mentee={m} assigned={false} />)}
+                </div>
+              )}
+            </section>
           </div>
         </div>
-
-        {assignedMentees.length > 0 && (
-          <section>
-            <SectionLabel>Your Mentees ({count})</SectionLabel>
-            <p style={{ margin: "0 0 16px", fontSize: "13px", color: theme.muted }}>The people you&apos;re mentoring. Call scheduling lands here next.</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {assignedMentees.map((m) => <MenteeCard key={m.id} mentee={m} assigned />)}
-            </div>
-          </section>
-        )}
-
-        <section>
-          <SectionLabel>Discover Mentees</SectionLabel>
-          <p style={{ margin: "0 0 16px", fontSize: "13px", color: theme.muted }}>
-            Review profiles and choose who you&apos;d like to mentor. We handle the introduction — no contact details shared.
-          </p>
-          {availableMentees.length === 0 ? (
-            <div className="rounded-2xl p-6 text-center" style={{ background: "rgba(255,255,255,0.02)", border: `1px dashed ${theme.border}` }}>
-              <p style={{ margin: 0, fontSize: "15px", color: theme.body, fontWeight: 600 }}>No unmatched mentees right now</p>
-              <p style={{ margin: "6px 0 0", fontSize: "13px", color: C.text }}>Check back soon as more people join.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {availableMentees.map((m) => <MenteeCard key={m.id} mentee={m} assigned={false} />)}
-            </div>
-          )}
-        </section>
       </main>
     </div>
   );
@@ -132,30 +140,30 @@ function MenteeCard({ mentee, assigned }: { mentee: MenteeRow; assigned: boolean
   return (
     <div className="flex flex-col gap-3 rounded-2xl p-5" style={{ background: C.softer, border: `1px solid ${theme.border}` }}>
       <div className="flex items-center gap-3">
-        <div className="flex-shrink-0 flex items-center justify-center rounded-full text-sm font-bold"
+        <div className="flex-shrink-0 flex items-center justify-center rounded-full text-[15px] font-bold"
           style={{ width: 40, height: 40, background: C.soft, color: C.text }}>{initials}</div>
         <div>
-          <p style={{ margin: 0, fontSize: "15px", fontWeight: 700, color: "#E8EEF7" }}>{mentee.name}</p>
-          <p style={{ margin: "2px 0 0", fontSize: "12px", color: theme.muted }}>{mentee.college}</p>
+          <p style={{ margin: 0, fontSize: "17px", fontWeight: 700, color: "#E8EEF7" }}>{mentee.name}</p>
+          <p style={{ margin: "2px 0 0", fontSize: "13px", color: theme.muted }}>{mentee.college}</p>
         </div>
       </div>
 
       <div className="flex flex-wrap gap-2">
-        <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: C.soft, color: C.text }}>{mentee.role}</span>
+        <span className="text-[14px] px-2.5 py-1 rounded-full" style={{ background: C.soft, color: C.text }}>{mentee.role}</span>
         {mentee.experience && (
-          <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.04)", color: theme.muted }}>{mentee.experience}</span>
+          <span className="text-[14px] px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.04)", color: theme.muted }}>{mentee.experience}</span>
         )}
         {mentee.location && (
-          <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.04)", color: theme.muted }}>{mentee.location}</span>
+          <span className="text-[14px] px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.04)", color: theme.muted }}>{mentee.location}</span>
         )}
       </div>
 
-      {!assigned && <AssignButton menteeId={mentee.id} />}
+      {!assigned && <AssignButton menteeId={mentee.id} menteeName={mentee.name} />}
       {assigned && (
         <div className="mt-1 flex items-center justify-between rounded-xl px-3 py-2.5"
           style={{ background: "rgba(255,255,255,0.02)", border: `1px dashed ${theme.border}` }}>
-          <span className="text-xs font-semibold" style={{ color: theme.success }}>✓ Mentoring</span>
-          <span className="text-xs font-medium" style={{ color: theme.faint }}>Schedule call · soon</span>
+          <span className="text-[14px] font-semibold" style={{ color: theme.success }}>✓ Mentoring</span>
+          <span className="text-[14px] font-medium" style={{ color: theme.faint }}>Schedule call · soon</span>
         </div>
       )}
     </div>

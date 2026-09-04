@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { sql } from "@/app/lib/db";
-import { encrypt } from "@/app/lib/session";
-import { generateOTP, sendOtpEmail } from "@/app/lib/otp";
+import { createSession } from "@/app/lib/session";
 import { clientIp, rateLimited } from "@/app/lib/ratelimit";
 
+// Email is verified once, at signup (via OTP). Login itself is just
+// email + password - no per-login OTP round trip.
 export async function POST(req: NextRequest) {
   try {
     if (rateLimited(`login:${clientIp(req)}`, 8, 10 * 60 * 1000)) {
@@ -33,22 +34,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
     }
 
-    const otp = generateOTP();
-    const expires = new Date(Date.now() + 10 * 60 * 1000);
+    await createSession(String(user.id), role, user.name);
 
-    if (role === "mentor") {
-      await sql`UPDATE mentors SET otp = ${otp}, otp_expires_at = ${expires.toISOString()} WHERE id = ${user.id}`;
-    } else {
-      await sql`UPDATE mentees SET otp = ${otp}, otp_expires_at = ${expires.toISOString()} WHERE id = ${user.id}`;
-    }
-
-    await sendOtpEmail(user.email, user.name, otp);
-
-    // Short-lived token that only authorizes the OTP step - it cannot be used
-    // as a real session (verify-otp checks purpose === "otp").
-    const tempToken = await encrypt({ sub: String(user.id), role, name: user.name, purpose: "otp" }, "10m");
-
-    return NextResponse.json({ tempToken });
+    return NextResponse.json({ success: true, role });
   } catch (e: unknown) {
     return NextResponse.json({ error: (e as { message?: string }).message ?? "Unexpected error" }, { status: 500 });
   }

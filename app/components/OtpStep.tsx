@@ -1,24 +1,24 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { useRouter } from "next/navigation";
 import { theme } from "@/app/lib/theme";
 
-// Shared "enter the 6-digit code" step used by both login and signup.
-// It owns the OTP inputs, calls verify-otp, and on success sends the user
-// to their dashboard.
+// Step 2 of signup: enter the 6-digit code emailed in step 1. On success,
+// hands the caller a new tempToken for the password step - it does not
+// create a session or navigate anywhere itself.
 export default function OtpStep({
   role,
   email,
   tempToken,
+  onVerified,
   onBack,
 }: {
   role: "mentee" | "mentor";
   email: string;
   tempToken: string;
+  onVerified: (nextTempToken: string) => void;
   onBack: () => void;
 }) {
-  const router = useRouter();
   const C = theme[role];
   const btnText = role === "mentor" ? "#1A1330" : "#ffffff";
 
@@ -39,14 +39,15 @@ export default function OtpStep({
       });
       const data = await res.json();
       if (res.ok) {
-        router.push(`/${role}/dashboard`);
+        onVerified(data.tempToken);
       } else {
         setError(data.error ?? "Verification failed.");
+        setLoading(false);
       }
     } catch {
       setError("Something went wrong. Try again.");
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   function handleInput(i: number, value: string) {

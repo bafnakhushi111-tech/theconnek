@@ -4,17 +4,10 @@ import Link from "next/link";
 import { getSession } from "@/app/lib/session";
 import { sql } from "@/app/lib/db";
 import { theme } from "@/app/lib/theme";
+import { TRACKS, countByShape } from "@/app/lib/practice";
 import LogoutButton from "@/app/components/LogoutButton";
 
 export const metadata: Metadata = { title: "Your dashboard", robots: { index: false } };
-
-const C = theme.mentee;
-
-const COMMUNITY_SPACES = [
-  { id: "guesstimate", icon: "📐", title: "Guesstimate Group", desc: "Work through guesstimates with real people, not just recordings.", link: "#", label: "Join group" },
-  { id: "casecomp", icon: "🏆", title: "Case Competition", desc: "Prep together with people who are as serious about it as you are.", link: "#", label: "Join group" },
-  { id: "study", icon: "📚", title: "Study Material", desc: "Shared resources, honest feedback, no LinkedIn performance.", link: "#", label: "Access resources" },
-];
 
 type MenteeRow = {
   id: number; name: string; email: string; college: string; role: string;
@@ -23,11 +16,38 @@ type MenteeRow = {
 
 type MentorRow = { id: number; name: string; company: string; role: string; location: string | null };
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function MatchCard({ mentor }: { mentor: MentorRow | null }) {
+  const tone = mentor ? theme.success : "#D9A87C";
   return (
-    <p style={{ margin: "0 0 16px", fontSize: "10px", fontWeight: 700, color: C.text, textTransform: "uppercase", letterSpacing: "2px" }}>
-      {children}
-    </p>
+    <div
+      className="rounded-2xl p-6 sm:p-7 flex flex-col gap-3"
+      style={{ background: `${tone}14`, border: `1px solid ${tone}40` }}
+    >
+      <span className="flex items-center gap-2.5">
+        <span className="block w-2 h-2 rounded-full" style={{ background: tone }} />
+        <span className="text-[13px] font-bold tracking-[0.1em] uppercase" style={{ color: tone }}>
+          {mentor ? "Matched" : "Finding your mentor"}
+        </span>
+      </span>
+
+      <p className="text-[19px] sm:text-[21px] font-bold leading-snug" style={{ color: theme.heading }}>
+        {mentor ? `You're matched with ${mentor.name}` : "We're still matching you"}
+      </p>
+
+      <p className="text-[15.5px] leading-relaxed" style={{ color: theme.muted }}>
+        {mentor
+          ? `${mentor.role} at ${mentor.company}${mentor.location ? ` · ${mentor.location}` : ""}. Your call gets scheduled over email.`
+          : "We pair by hand, so it takes a few days. Practising is the useful thing to do meanwhile."}
+      </p>
+
+      <Link
+        href="/practice"
+        className="mt-1 self-start text-[15.5px] font-bold rounded-full px-5 py-2.5"
+        style={{ border: `1px solid ${tone}66`, color: tone }}
+      >
+        {mentor ? "Practice for the call" : "Start practising"} &rarr;
+      </Link>
+    </div>
   );
 }
 
@@ -56,87 +76,99 @@ export default async function MenteeDashboard() {
   }
 
   const firstName = mentee.name.split(" ")[0];
-  const matched = Boolean(mentor);
 
   return (
     <div className="min-h-screen" style={{ background: theme.bg }}>
-      <header className="flex items-center justify-between px-6 py-4" style={{ borderBottom: `1px solid ${theme.border}` }}>
-        <Link href="/"><span style={{ fontSize: "16px", fontWeight: 800, color: theme.heading, letterSpacing: "-0.5px" }}>theconnek</span></Link>
+      <header
+        className="flex items-center justify-between px-5 sm:px-8 py-4"
+        style={{ borderBottom: `1px solid ${theme.border}` }}
+      >
+        <Link href="/">
+          <span style={{ fontSize: "18px", fontWeight: 800, color: theme.heading, letterSpacing: "-0.5px" }}>
+            theconnek
+          </span>
+        </Link>
         <LogoutButton role="mentee" />
       </header>
 
-      <main className="max-w-3xl mx-auto px-6 py-10 flex flex-col gap-11">
-        <div className="flex flex-wrap items-start justify-between gap-3">
+      {/* 1. Greeting and match status share one balanced hero. */}
+      <section className="px-5 sm:px-8 pt-14 sm:pt-20 pb-14 sm:pb-16">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-14 items-center">
           <div>
-            <h1 style={{ margin: 0, fontSize: "32px", fontWeight: 800, color: theme.heading, letterSpacing: "-0.5px" }}>Hi, {firstName}</h1>
-            <p style={{ margin: "6px 0 0", fontSize: "14px", color: theme.muted }}>
-              {mentee.college} &middot; {mentee.role}{mentee.location ? ` · ${mentee.location}` : ""}
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase" style={{ color: theme.faint }}>
+              Your dashboard
+            </p>
+            <h1
+              className="mt-4 text-[38px] sm:text-[50px] font-extrabold tracking-tight leading-[1.04]"
+              style={{ color: theme.heading }}
+            >
+              Hi, {firstName}
+            </h1>
+            <p className="mt-4 text-[17px] leading-relaxed" style={{ color: theme.muted }}>
+              {mentee.college} &middot; {mentee.role}
+              {mentee.location ? ` · ${mentee.location}` : ""}
             </p>
           </div>
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full"
-            style={{
-              fontSize: "12px", fontWeight: 600,
-              background: matched ? "rgba(126,207,184,0.10)" : C.soft,
-              color: matched ? theme.success : C.text,
-              border: `1px solid ${matched ? "rgba(126,207,184,0.25)" : C.border}`,
-            }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: matched ? theme.success : C.text }} />
-            {matched ? "Matched" : "Finding your mentor"}
-          </span>
-        </div>
 
-        <section>
-          <SectionLabel>Your Mentor</SectionLabel>
-          {mentor ? (
-            <div className="rounded-2xl p-5" style={{ background: C.softer, border: `1px solid ${C.border}` }}>
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 flex items-center justify-center rounded-full text-sm font-bold"
-                  style={{ width: 46, height: 46, background: C.soft, color: C.text }}>
-                  {mentor.name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
-                </div>
+          <MatchCard mentor={mentor} />
+        </div>
+      </section>
+
+      {/* 2. Pick a track, then a question. */}
+      <section className="px-5 sm:px-8 py-14" style={{ borderTop: `1px solid ${theme.border}` }}>
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-[24px] sm:text-[28px] font-extrabold tracking-tight" style={{ color: theme.heading }}>
+            What are you preparing for?
+          </h2>
+          <p className="mt-3 max-w-2xl text-[17px] leading-relaxed" style={{ color: theme.muted }}>
+            Pick a track, choose a question, and write your answer against the clock. The approach is revealed
+            the moment you submit.
+          </p>
+
+          <div className="mt-9 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {TRACKS.map((track) => (
+              <Link
+                key={track.slug}
+                href={`/practice/${track.slug}`}
+                className="flex flex-col gap-4 rounded-2xl p-6 sm:p-7"
+                style={{ background: track.hueSoft, border: `1px solid ${track.hueBorder}` }}
+              >
+                <span className="block h-[2px] w-10 rounded-full" style={{ background: track.hue }} />
                 <div>
-                  <p style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: "#E8EEF7" }}>{mentor.name}</p>
-                  <p style={{ margin: "3px 0 0", fontSize: "13px", color: theme.muted }}>
-                    {mentor.role} at {mentor.company}{mentor.location ? ` · ${mentor.location}` : ""}
+                  <h3 className="text-[21px] font-bold tracking-tight" style={{ color: theme.heading }}>
+                    {track.name}
+                  </h3>
+                  <p className="mt-2 text-[16px] leading-relaxed" style={{ color: theme.muted }}>
+                    {track.blurb}
                   </p>
                 </div>
-              </div>
-              <div className="mt-4 rounded-xl px-4 py-3.5 flex items-center justify-between gap-3"
-                style={{ background: "rgba(255,255,255,0.02)", border: `1px dashed ${theme.border}` }}>
-                <div className="flex items-center gap-2.5">
-                  <span style={{ fontSize: "16px" }}>📅</span>
-                  <p style={{ margin: 0, fontSize: "13px", color: theme.body }}>Your call gets scheduled here — no emails or numbers exchanged.</p>
+                <div className="mt-auto flex items-end gap-7 pt-2">
+                  <span className="block">
+                    <span className="block text-[26px] font-extrabold leading-none" style={{ color: track.hue }}>
+                      {countByShape(track, "guesstimate")}
+                    </span>
+                    <span className="block mt-1.5 text-[14px]" style={{ color: theme.faint }}>
+                      guesstimates
+                    </span>
+                  </span>
+                  <span className="block">
+                    <span className="block text-[26px] font-extrabold leading-none" style={{ color: track.hue }}>
+                      {countByShape(track, "case")}
+                    </span>
+                    <span className="block mt-1.5 text-[14px]" style={{ color: theme.faint }}>
+                      cases
+                    </span>
+                  </span>
+                  <span className="ml-auto text-[16px] font-bold" style={{ color: track.hue }}>
+                    Open &rarr;
+                  </span>
                 </div>
-                <span style={{ fontSize: "11px", fontWeight: 600, color: theme.faint, whiteSpace: "nowrap" }}>Coming soon</span>
-              </div>
-            </div>
-          ) : (
-            <div className="rounded-2xl p-6 text-center" style={{ background: "rgba(255,255,255,0.02)", border: `1px dashed ${theme.border}` }}>
-              <p style={{ margin: 0, fontSize: "15px", color: theme.body, fontWeight: 600 }}>Your mentor match is on the way</p>
-              <p style={{ margin: "6px auto 0", maxWidth: 360, fontSize: "13px", color: C.text, lineHeight: 1.6 }}>
-                We review profiles by hand and pair you with someone who has walked your path. You&apos;ll hear from us the moment it&apos;s confirmed.
-              </p>
-            </div>
-          )}
-        </section>
-
-        <section>
-          <SectionLabel>Community Spaces</SectionLabel>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {COMMUNITY_SPACES.map((g) => (
-              <div key={g.id} className="flex flex-col gap-3 rounded-2xl p-5" style={{ background: C.softer, border: `1px solid ${theme.border}` }}>
-                <span style={{ fontSize: "28px" }}>{g.icon}</span>
-                <div>
-                  <p style={{ margin: 0, fontSize: "15px", fontWeight: 700, color: "#E8EEF7" }}>{g.title}</p>
-                  <p style={{ margin: "4px 0 0", fontSize: "13px", color: theme.muted, lineHeight: 1.5 }}>{g.desc}</p>
-                </div>
-                <span className="mt-auto inline-block text-xs font-bold py-2 px-4 rounded-xl text-center"
-                  style={{ background: C.soft, color: C.text }}>{g.label} · soon</span>
-              </div>
+              </Link>
             ))}
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
+
     </div>
   );
 }

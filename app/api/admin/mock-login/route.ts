@@ -34,7 +34,14 @@ export async function GET(req: NextRequest) {
   }
 
   const token = await encrypt({ sub: String(user.id), role, name: user.name });
-  const res = NextResponse.redirect(new URL(`/${role}/dashboard`, req.url));
+  // ?next=/practice lets the practice pages be checked as a signed-in user of
+  // either role. Relative paths only, so this cannot be used as an open redirect.
+  const nextParam = params.get("next");
+  const dest = nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//")
+    ? nextParam
+    : `/${role}/dashboard`;
+
+  const res = NextResponse.redirect(new URL(dest, req.nextUrl.origin));
   res.cookies.set(SESSION_COOKIE, token, {
     httpOnly: true,
     secure: false,

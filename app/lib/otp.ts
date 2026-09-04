@@ -9,8 +9,15 @@ export function generateOTP(): string {
   return String(randomInt(100000, 1000000));
 }
 
-export function otpEmail(name: string, otp: string): string {
+export function otpEmail(
+  name: string,
+  otp: string,
+  heading = "Verify your email",
+  intro?: string
+): string {
   const firstName = (name || "there").split(" ")[0];
+  const introLine =
+    intro ?? `Hi ${firstName}, use the code below to confirm this is your email. It expires in 10 minutes.`;
   return `
     <!DOCTYPE html>
     <html>
@@ -22,10 +29,10 @@ export function otpEmail(name: string, otp: string): string {
               <p style="margin:0;font-size:17px;font-weight:800;color:#ffffff;letter-spacing:-0.5px;">theconnek</p>
             </td></tr>
             <tr><td style="padding-bottom:12px;">
-              <h1 style="margin:0;font-size:28px;font-weight:800;color:#ffffff;letter-spacing:-0.5px;line-height:1.2;">Your login code</h1>
+              <h1 style="margin:0;font-size:28px;font-weight:800;color:#ffffff;letter-spacing:-0.5px;line-height:1.2;">${heading}</h1>
             </td></tr>
             <tr><td style="padding-bottom:28px;">
-              <p style="margin:0;font-size:15px;color:#8A9CB8;line-height:1.65;">Hi ${firstName}, use the code below to sign in. It expires in 10 minutes.</p>
+              <p style="margin:0;font-size:15px;color:#8A9CB8;line-height:1.65;">${introLine}</p>
             </td></tr>
             <tr><td style="padding-bottom:32px;">
               <div style="background:rgba(75,111,165,0.1);border:1px solid rgba(75,111,165,0.3);border-radius:12px;padding:28px;text-align:center;">
@@ -48,16 +55,31 @@ export function otpEmail(name: string, otp: string): string {
 
 // Sends the OTP email if Resend is configured. In local dev without a key,
 // it no-ops and logs the code so you can still test the flow.
-export async function sendOtpEmail(to: string, name: string, otp: string) {
+export async function sendOtpEmail(to: string, name: string, otp: string, kind: "verify" | "reset" = "verify") {
   if (!process.env.RESEND_API_KEY) {
-    console.log(`[otp] RESEND_API_KEY not set - login code for ${to} is ${otp}`);
+    console.log(`[otp] RESEND_API_KEY not set - ${kind} code for ${to} is ${otp}`);
     return;
   }
   const resend = new Resend(process.env.RESEND_API_KEY);
+  const firstName = (name || "there").split(" ")[0];
+  if (kind === "reset") {
+    await resend.emails.send({
+      from: FROM,
+      to,
+      subject: "Your theconnek password reset code",
+      html: otpEmail(
+        name,
+        otp,
+        "Reset your password",
+        `Hi ${firstName}, use the code below to set a new password. It expires in 10 minutes.`
+      ),
+    });
+    return;
+  }
   await resend.emails.send({
     from: FROM,
     to,
-    subject: "Your theconnek login code",
+    subject: "Your theconnek verification code",
     html: otpEmail(name, otp),
   });
 }
