@@ -43,7 +43,7 @@ export default function AboutPage() {
               not cold DMs. Open to every college. No algorithm deciding who you should know. Just people who want to talk and people who want to listen.
             </p>
             <p style={{ color: "#EAF0F8" }}>
-              Today theconnek is live: a practice library of 400+ guesstimates and cases, and mentors who
+              Today theconnek is live: a practice library of 600+ guesstimates and cases, and mentors who
               choose their mentees for real conversations. If you&apos;ve ever felt locked out of the
               conversation, this is for you.
             </p>

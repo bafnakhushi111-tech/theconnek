@@ -10,6 +10,10 @@ import { FINANCE_GUESSTIMATES } from "./finance-guesstimates";
 import { FINANCE_CASES } from "./finance-cases";
 import { MARKETING_GUESSTIMATES } from "./marketing-guesstimates";
 import { MARKETING_CASES } from "./marketing-cases";
+import { OPERATIONS_GUESSTIMATES } from "./operations-guesstimates";
+import { OPERATIONS_CASES } from "./operations-cases";
+import { HR_GUESSTIMATES } from "./hr-guesstimates";
+import { HR_CASES } from "./hr-cases";
 
 export type { Question, Track, Shape, Difficulty } from "./types";
 export { DIFFICULTY_LABEL } from "./types";
@@ -58,6 +62,28 @@ export const TRACKS: Track[] = [
     hueSoft: "rgba(217,168,124,0.10)",
     hueBorder: "rgba(217,168,124,0.28)",
     questions: [...MARKETING_GUESSTIMATES, ...MARKETING_CASES],
+  },
+  {
+    slug: "operations",
+    name: "Operations & Supply Chain",
+    short: "Operations",
+    blurb: "Throughput, fleets and capacity estimation. Bottleneck, network, quality and cost cases.",
+    lede: "Where the physical world meets a spreadsheet: size a system's flow, then find the one constraint the whole operation hangs on.",
+    hue: "#D9908C",
+    hueSoft: "rgba(217,144,140,0.10)",
+    hueBorder: "rgba(217,144,140,0.28)",
+    questions: [...OPERATIONS_GUESSTIMATES, ...OPERATIONS_CASES],
+  },
+  {
+    slug: "hr",
+    name: "HR & People",
+    short: "HR",
+    blurb: "Workforce, hiring and attrition estimation. Talent, culture, comp and labour cases.",
+    lede: "People decisions with numbers behind them: size a workforce or a funnel, then handle the situations HR careers are actually made of.",
+    hue: "#9CCF8F",
+    hueSoft: "rgba(156,207,143,0.10)",
+    hueBorder: "rgba(156,207,143,0.28)",
+    questions: [...HR_GUESSTIMATES, ...HR_CASES],
   },
 ];
 

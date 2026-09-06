@@ -291,7 +291,7 @@ export default function Home() {
                 <ul className="text-left max-w-md mx-auto mb-9 space-y-3">
                   {(userType === "candidate"
                     ? [
-                        "400+ guesstimates and cases across Strategy, Product, Finance and Marketing",
+                        "600+ guesstimates and cases across Strategy, Product, Finance, Marketing, Operations and HR",
                         "A mentor matched to you by hand, then a real 30-minute call",
                         "One 6-digit code to verify your email, then it's just email and password",
                       ]

@@ -35,7 +35,7 @@ function activationEmail(name, role) {
   const inside =
     role === "mentor"
       ? "Inside you'll find your mentor dashboard: the mentees waiting for a match, and the practice questions they are working through."
-      : "Inside you'll find 400+ guesstimates and cases across Strategy, Product, Finance and Marketing, plus your mentor match status.";
+      : "Inside you'll find 600+ guesstimates and cases across Strategy, Product, Finance, Marketing, Operations and HR, plus your mentor match status.";
   return `
     <!DOCTYPE html>
     <html>
