@@ -7,7 +7,9 @@ import AuthStrip from "../../components/AuthStrip";
 import { TRACKS, getTrack, countByShape, DIFFICULTY_LABEL, type Shape, type Difficulty } from "../../lib/practice";
 
 type Params = { track: string };
-type Search = { type?: string; level?: string };
+type Search = { type?: string; level?: string; page?: string };
+
+const PER_PAGE = 10;
 
 export function generateStaticParams(): Params[] {
   return TRACKS.map((t) => ({ track: t.slug }));
@@ -47,7 +49,7 @@ export default async function TrackPage({
   searchParams: Promise<Search>;
 }) {
   const { track: slug } = await params;
-  const { type, level } = await searchParams;
+  const { type, level, page } = await searchParams;
   const track = getTrack(slug);
   if (!track) notFound();
 
@@ -55,16 +57,27 @@ export default async function TrackPage({
   const activeLevel = level === "1" || level === "2" || level === "3" ? Number(level) : null;
 
   const inShape = track.questions.filter((q) => q.shape === shape);
-  const questions = activeLevel ? inShape.filter((q) => q.difficulty === activeLevel) : inShape;
+  const filtered = activeLevel ? inShape.filter((q) => q.difficulty === activeLevel) : inShape;
+
+  // 10 questions per page. Changing shape or level resets to page 1, since
+  // those links never carry a page param.
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+  const rawPage = Number(page);
+  const currentPage = Number.isInteger(rawPage) && rawPage >= 1 && rawPage <= totalPages ? rawPage : 1;
+  const questions = filtered.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE);
+  const offset = (currentPage - 1) * PER_PAGE;
 
   const base = `/practice/${track.slug}`;
-  const levelHref = (l: number | null) => {
+  const buildHref = (l: number | null, pg: number | null) => {
     const p = new URLSearchParams();
     if (shape === "case") p.set("type", "case");
     if (l) p.set("level", String(l));
+    if (pg && pg > 1) p.set("page", String(pg));
     const qs = p.toString();
     return qs ? `${base}?${qs}` : base;
   };
+  const levelHref = (l: number | null) => buildHref(l, null);
+  const pageHref = (pg: number) => buildHref(activeLevel, pg);
 
   return (
     <main className="min-h-screen text-white" style={{ background: "#0F1219" }}>
@@ -149,7 +162,7 @@ export default async function TrackPage({
                     style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
                   >
                     <span className="hidden sm:block text-[15px] tabular-nums" style={{ color: "#97A7BF" }}>
-                      {String(i + 1).padStart(2, "0")}
+                      {String(offset + i + 1).padStart(2, "0")}
                     </span>
 
                     <span className="block min-w-0">
@@ -191,6 +204,63 @@ export default async function TrackPage({
                 </li>
               ))}
             </ul>
+          )}
+
+          {/* Page bar: plain links so it works without JavaScript and search
+              engines can walk every page. */}
+          {totalPages > 1 && (
+            <nav className="mt-9 flex flex-wrap items-center justify-center gap-2" aria-label="Pages">
+              {currentPage > 1 ? (
+                <Link
+                  href={pageHref(currentPage - 1)}
+                  className="px-4 py-2 rounded-xl text-[15.5px] font-semibold"
+                  style={{ border: "1px solid #1a2a45", color: "#B9C7DC" }}
+                >
+                  &larr; Prev
+                </Link>
+              ) : (
+                <span className="px-4 py-2 rounded-xl text-[15.5px] font-semibold" style={{ border: "1px solid #131f33", color: "#3A4A60" }}>
+                  &larr; Prev
+                </span>
+              )}
+
+              {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((pg) => {
+                const on = pg === currentPage;
+                return (
+                  <Link
+                    key={pg}
+                    href={pageHref(pg)}
+                    className="min-w-[42px] px-3 py-2 rounded-xl text-center text-[15.5px] font-bold tabular-nums"
+                    style={{
+                      background: on ? track.hueSoft : "transparent",
+                      border: `1px solid ${on ? track.hueBorder : "#1a2a45"}`,
+                      color: on ? "#FFFFFF" : "#B9C7DC",
+                    }}
+                    aria-current={on ? "page" : undefined}
+                  >
+                    {pg}
+                  </Link>
+                );
+              })}
+
+              {currentPage < totalPages ? (
+                <Link
+                  href={pageHref(currentPage + 1)}
+                  className="px-4 py-2 rounded-xl text-[15.5px] font-semibold"
+                  style={{ border: "1px solid #1a2a45", color: "#B9C7DC" }}
+                >
+                  Next &rarr;
+                </Link>
+              ) : (
+                <span className="px-4 py-2 rounded-xl text-[15.5px] font-semibold" style={{ border: "1px solid #131f33", color: "#3A4A60" }}>
+                  Next &rarr;
+                </span>
+              )}
+
+              <span className="basis-full text-center mt-2 text-[14px]" style={{ color: "#97A7BF" }}>
+                Page {currentPage} of {totalPages} &middot; {filtered.length} questions
+              </span>
+            </nav>
           )}
         </div>
       </section>

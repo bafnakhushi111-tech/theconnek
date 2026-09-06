@@ -34,14 +34,17 @@ export async function decrypt(token: string | undefined): Promise<JWTPayload | n
 }
 
 export async function createSession(id: string, role: string, name: string) {
-  const token = await encrypt({ sub: id, role, name });
+  // 12-hour token, and no maxAge on the cookie: a browser-session cookie dies
+  // when the browser closes, so every new session asks for email and password
+  // again (Khushi's call, 2026-09-06). The JWT expiry is the backstop for
+  // browsers that are never closed.
+  const token = await encrypt({ sub: id, role, name }, "12h");
   const store = await cookies();
   store.set(SESSION_COOKIE, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 60 * 24 * 7,
   });
 }
 
